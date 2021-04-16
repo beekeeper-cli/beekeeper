@@ -5,6 +5,7 @@ const deployDLQ = require('../aws/deploy/deployDLQ');
 const deploySQS = require("../aws/deploy/deploySQS");
 const deployDynamo = require("../aws/deploy/deployDynamo");
 const deployApiGateway = require("../aws/deploy/deployApiGateway");
+const deployPostLambda = require("../aws/deploy/deployPostLambda");
 // const deployPreLambda = require('../aws/deploy/deployPreLambda');
 
 const REGION = "us-east-2";
@@ -14,6 +15,7 @@ const DLQ_NAME = "wr-teamsix-dlq"
 const SQS_NAME = "wr-teamsix-sqs"
 const DYNAMO_NAME = "wr-teamsix-ddb"
 const API_GATEWAY_NAME = "wr-teamsix-ddb"
+const POST_LAMBDA_NAME = 'wr-teamsix-postlambda'
 
 module.exports = async () => {
   logger.highlight('Deploying waiting room infrastructure');
@@ -21,8 +23,9 @@ module.exports = async () => {
   // process.exit(1);
 
   // await deployS3(REGION, S3_NAME, DIRECTORY_TO_UPLOAD); // works
-  // const deadLetterQueueARN = await deployDLQ(REGION, DLQ_NAME); // works
-  // const sqsURL = await deploySQS(REGION, SQS_NAME, deadLetterQueueARN); // works
+  const deadLetterQueueARN = await deployDLQ(REGION, DLQ_NAME); // works
+  const sqsURL = await deploySQS(REGION, SQS_NAME, deadLetterQueueARN); // works
+  await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsURL);
   // await deployDynamo(REGION, DYNAMO_NAME); // works
-  await deployApiGateway(REGION, API_GATEWAY_NAME);
+  // await deployApiGateway(REGION, API_GATEWAY_NAME);
 }

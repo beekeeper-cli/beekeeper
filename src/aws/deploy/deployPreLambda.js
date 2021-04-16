@@ -3,7 +3,7 @@ const { LambdaClient, CreateFunctionCommand } = require("@aws-sdk/client-lambda"
 const createPreLambda = (lambda) => {
   const params = {
     FunctionName: "my-name",
-    Role:,
+    Role: '',
     Code: {
       
     }
