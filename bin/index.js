@@ -3,6 +3,7 @@ const arg = require("arg");
 const chalk = require("chalk");
 const logger = require("../src/utils/logger")("bin");
 const deploy = require("../src/commands/deploy");
+const destroy = require("../src/commands/destroy");
 
 try {
   const args = arg({
@@ -19,6 +20,7 @@ try {
       deploy();
       break;
     case "destroy":
+      destroy();
       break;
     default:
       throw new Error("Please enter a valid command.")

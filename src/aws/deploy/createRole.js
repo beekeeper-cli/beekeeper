@@ -58,7 +58,6 @@ const createRole = async (iam, policyDoc, name) => {
   try {
     let data = await iam.send(command);
     logger.log(`Successfully created IAM role: ${data.Role.Arn}`);
-    console.log(data.Role.Arn);
     return data.Role.Arn;
   } catch (err) {
     logger.log("Error", err);

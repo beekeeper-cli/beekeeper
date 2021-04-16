@@ -27,12 +27,12 @@ const createPostLambda = async (lambda, lambdaName, sqsURL, code, role) => {
   }
 }
 
-module.exports = async (region, lambdaName, sqsURL, asset, role) => {
+module.exports = async (region, lambdaName, sqsURL, asset, role) => {  
   // Create a Lambda client service object
   let code = fs.readFileSync(asset);
   const lambda = new LambdaClient({ region });
 
-  // Create pre lambda
+  // Create post lambda
   await createPostLambda(lambda, lambdaName, sqsURL, code, role);
 };
 
