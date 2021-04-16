@@ -27,9 +27,9 @@ module.exports = async () => {
 
   const roleArn = await createRole(REGION, ROLE_NAME);
   // await deployS3(REGION, S3_NAME, DIRECTORY_TO_UPLOAD); // works
-  // const deadLetterQueueARN = await deployDLQ(REGION, DLQ_NAME); // works
-  // const sqsURL = await deploySQS(REGION, SQS_NAME, deadLetterQueueARN); // works
-  // await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsURL, POST_LAMBDA_ASSET);
+  const deadLetterQueueARN = await deployDLQ(REGION, DLQ_NAME); // works
+  const sqsURL = await deploySQS(REGION, SQS_NAME, deadLetterQueueARN); // works
+  await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsURL, POST_LAMBDA_ASSET, roleArn);
   // await deployDynamo(REGION, DYNAMO_NAME); // works
   // await deployApiGateway(REGION, API_GATEWAY_NAME);
 }

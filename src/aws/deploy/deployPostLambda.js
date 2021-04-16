@@ -2,10 +2,10 @@ const { LambdaClient, CreateFunctionCommand } = require("@aws-sdk/client-lambda"
 const fs = require('fs');
 const path = require("path");
 
-const createPostLambda = async (lambda, lambdaName, sqsURL, code) => {
+const createPostLambda = async (lambda, lambdaName, sqsURL, code, role) => {
   const params = {
     FunctionName: lambdaName,
-    Role: '',
+    Role: role,
     Handler: "index.handler",
     Runtime: "nodejs12.x",
     Description: "consumerLambda",
@@ -27,15 +27,17 @@ const createPostLambda = async (lambda, lambdaName, sqsURL, code) => {
   }
 }
 
-module.exports = async (region, lambdaName, sqsURL, asset) => {
+module.exports = async (region, lambdaName, sqsURL, asset, role) => {
   // Create a Lambda client service object
   let code = fs.readFileSync(asset);
   const lambda = new LambdaClient({ region });
 
   // Create pre lambda
-  await createPostLambda(lambda, lambdaName, sqsURL, code);
+  await createPostLambda(lambda, lambdaName, sqsURL, code, role);
 };
 
 // provisions
 // cloud events
 // let sqsUrl = process.env.SQS_URL - put this in the function code
+
+// InvalidParameterValueException: The role defined for the function cannot be assumed by Lambda.
