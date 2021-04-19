@@ -35,9 +35,6 @@ module.exports = async () => {
   // await delay(10000);
   // Resume @ deployPostLambda
   // Set reserved concurrency
-  // Set up CRON trigger (Event), 
-  // Upload actual lambda code
-    // replace the env variable
   // const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
   // await delay(7000);
 
