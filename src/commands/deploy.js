@@ -25,20 +25,20 @@ module.exports = async () => {
   // exit our process since we don't want to continue with invalid configuration.
   // process.exit(1);
 
-  const roleArn = await createRole(REGION, ROLE_NAME); // works
+  // const roleArn = await createRole(REGION, ROLE_NAME); // works
   // await deployS3(REGION, S3_NAME, DIRECTORY_TO_UPLOAD); // works
-  const deadLetterQueueARN = await deployDLQ(REGION, DLQ_NAME); // works
-  const sqsURL = await deploySQS(REGION, SQS_NAME, deadLetterQueueARN); // works
+  // const deadLetterQueueARN = await deployDLQ(REGION, DLQ_NAME); // works
+  // const sqsURL = await deploySQS(REGION, SQS_NAME, deadLetterQueueARN); // works
   
-
+  logger.process(10, '%s sealing buzz...');
   // Resume @ deployPostLambda
   // Set reserved concurrency
   // Set up CRON trigger (Event), 
   // Upload actual lambda code
     // replace the env variable
-  const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
-  await delay(10000);
-  await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsURL, POST_LAMBDA_ASSET, roleArn);
+  // const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  // await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsURL, POST_LAMBDA_ASSET, roleArn);
 
   // await deployDynamo(REGION, DYNAMO_NAME); // works
   
