@@ -71,7 +71,7 @@ module.exports = async (region, name) => {
   const iam = new IAMClient({ region });
 
   // Create Role
-  const newRoleArn = await createRole(iam, policy, name); // arn?
+  const newRoleArn = await createRole(iam, policy, name);
   await addPermissions(iam, name);
   return newRoleArn;
 };

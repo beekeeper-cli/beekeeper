@@ -27,7 +27,7 @@ const createEvent = async (cloudwatchEvent) => {
   const command = new PutRuleCommand(params);
 
   try {
-    const result = await cloudwatchEvent.send(command);
+    await cloudwatchEvent.send(command);
     logger.log(`Successfully created Cloudwatch Event Rule: ${"CronJob"}`);
   } catch (err) {
     logger.log("Error", err);
@@ -39,5 +39,4 @@ module.exports = async (region) => {
 
   await createEvent(cloudwatchEvent);
   await createTarget(cloudwatchEvent);
-  // return QueueUrl;
 };
