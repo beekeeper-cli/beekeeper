@@ -7,6 +7,8 @@ const deployDynamo = require("../aws/deploy/deployDynamo");
 const deployApiGateway = require("../aws/deploy/deployApiGateway");
 const deployPostLambda = require("../aws/deploy/deployPostLambda");
 const createRole = require("../aws/deploy/createRole");
+const deployCloudwatchEvent = require("../aws/deploy/deployCloudwatchEvent");
+// const delay = require('delay');
 // const deployPreLambda = require('../aws/deploy/deployPreLambda');
 
 const REGION = "us-east-2";
@@ -22,25 +24,31 @@ const ROLE_NAME = 'wr-teamsix-master-role'
 
 module.exports = async () => {
   logger.highlight('Deploying waiting room infrastructure');
-  // exit our process since we don't want to continue with invalid configuration.
-  // process.exit(1);
 
   // const roleArn = await createRole(REGION, ROLE_NAME); // works
   // await deployS3(REGION, S3_NAME, DIRECTORY_TO_UPLOAD); // works
   // const deadLetterQueueARN = await deployDLQ(REGION, DLQ_NAME); // works
   // const sqsURL = await deploySQS(REGION, SQS_NAME, deadLetterQueueARN); // works
+  // await deployDynamo(REGION, DYNAMO_NAME); // works
   
-  logger.process(10, '%s sealing buzz...');
+  // logger.process(10, '%s sealing buzz...');
+  // await delay(10000);
   // Resume @ deployPostLambda
   // Set reserved concurrency
   // Set up CRON trigger (Event), 
   // Upload actual lambda code
     // replace the env variable
   // const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+  // await delay(7000);
 
-  // await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsURL, POST_LAMBDA_ASSET, roleArn);
+  // await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsURL, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME);
+  // InvalidParameterValueException: The role defined for the function cannot be assumed by Lambda.
 
-  // await deployDynamo(REGION, DYNAMO_NAME); // works
+  await deployCloudwatchEvent(REGION);
   
   // await deployApiGateway(REGION, API_GATEWAY_NAME);
 }
+
+
+  // 2. test creation/destruction of lambda
+  // 3. add event trigger to post sqs
