@@ -2,7 +2,10 @@ const { LambdaClient, CreateFunctionCommand } = require("@aws-sdk/client-lambda"
 const fs = require('fs');
 const path = require("path");
 
-const createPostLambda = async (lambda, lambdaName, sqsURL, code, role) => {
+const createPostLambda = async (lambda, lambdaName, sqsURL, code, role, region, dynamoName) => {
+  console.log(sqsURL);
+  console.log(region);
+  console.log(dynamoName);
   const params = {
     FunctionName: lambdaName,
     Role: role,
@@ -12,6 +15,8 @@ const createPostLambda = async (lambda, lambdaName, sqsURL, code, role) => {
     Environment: {
       Variables: {
         "SQS_URL": sqsURL,
+        "REGION": region, 
+        "TABLE_NAME": dynamoName,
       }
     },
     Code: { ZipFile: code }
@@ -27,13 +32,13 @@ const createPostLambda = async (lambda, lambdaName, sqsURL, code, role) => {
   }
 }
 
-module.exports = async (region, lambdaName, sqsURL, asset, role) => {  
+module.exports = async (region, lambdaName, sqsURL, asset, role, dynamoName) => {  
   // Create a Lambda client service object
   let code = fs.readFileSync(asset);
   const lambda = new LambdaClient({ region });
 
   // Create post lambda
-  await createPostLambda(lambda, lambdaName, sqsURL, code, role);
+  await createPostLambda(lambda, lambdaName, sqsURL, code, role, region, dynamoName);
 };
 
 // provisions
@@ -41,3 +46,4 @@ module.exports = async (region, lambdaName, sqsURL, asset, role) => {
 // let sqsUrl = process.env.SQS_URL - put this in the function code
 
 // InvalidParameterValueException: The role defined for the function cannot be assumed by Lambda.
+
