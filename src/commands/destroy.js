@@ -19,10 +19,10 @@ const CLOUDWATCH_EVENT_NAME = 'cronJobby';
 
 module.exports = async () => {
   logger.highlight('Destroying waiting room infrastructure');
-  // await destroyRole(REGION, ROLE_NAME);
-  // await destroyPostLambda(REGION, POST_LAMBDA_NAME);
-  // await destroySQS(REGION, DLQ_NAME);
-  // await destroySQS(REGION, SQS_NAME);
+  await destroyRole(REGION, ROLE_NAME);
+  await destroyPostLambda(REGION, POST_LAMBDA_NAME);
+  await destroySQS(REGION, DLQ_NAME);
+  await destroySQS(REGION, SQS_NAME);
   // await destroyDynamo(REGION, DYNAMO_NAME);
-  await destroyCloudwatchEvent(REGION, CLOUDWATCH_EVENT_NAME);
+  // await destroyCloudwatchEvent(REGION, CLOUDWATCH_EVENT_NAME);
 }

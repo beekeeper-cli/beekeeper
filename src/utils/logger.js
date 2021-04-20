@@ -7,7 +7,7 @@ spinner.setDefaultSpinnerString(18);
 module.exports = (name) => {
   return {
     log: (...args) => console.log(chalk.yellow.dim("✔️  ") + chalk.yellow.dim(...args)),
-    warning: (...args) => console.log("  " + chalk.bgYellowBright.black(...args)),
+    warning: (...args) => console.log("💀  " + chalk.bgYellowBright.black(...args)),
     highlight: (...args) => console.log("🐝  " + chalk.yellow.bold(...args)),
     process: async (secs, message) => {
       const spinObj = new spinner(chalk.yellow.bold(message));

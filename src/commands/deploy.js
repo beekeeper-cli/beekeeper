@@ -21,27 +21,30 @@ const DYNAMO_NAME = "wr-teamsix-ddb"
 const API_GATEWAY_NAME = "wr-teamsix-ddb"
 const POST_LAMBDA_NAME = 'wr-teamsix-postlambda'
 const ROLE_NAME = 'wr-teamsix-master-role'
+const RATE = 100
 
 module.exports = async () => {
   logger.highlight('Deploying waiting room infrastructure');
 
-  // const roleArn = await createRole(REGION, ROLE_NAME); // works
+  const roleArn = await createRole(REGION, ROLE_NAME); // works
+   const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+  await delay(9000);
+
   // await deployS3(REGION, S3_NAME, DIRECTORY_TO_UPLOAD); // works
-  // const deadLetterQueueARN = await deployDLQ(REGION, DLQ_NAME); // works
-  // const sqsURL = await deploySQS(REGION, SQS_NAME, deadLetterQueueARN); // works
+  const deadLetterQueueARN = await deployDLQ(REGION, DLQ_NAME); // works
+  const sqsURL = await deploySQS(REGION, SQS_NAME, deadLetterQueueARN); // works
   // await deployDynamo(REGION, DYNAMO_NAME); // works
   
   // logger.process(10, '%s sealing buzz...');
   // await delay(10000);
   // Resume @ deployPostLambda
   // Set reserved concurrency
-  // const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
-  // await delay(7000);
+ 
 
-  // await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsURL, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME);
+  await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsURL, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME, RATE);
   // InvalidParameterValueException: The role defined for the function cannot be assumed by Lambda.
 
-  await deployCloudwatchEvent(REGION);
+  // await deployCloudwatchEvent(REGION);
   
   // await deployApiGateway(REGION, API_GATEWAY_NAME);
 }
