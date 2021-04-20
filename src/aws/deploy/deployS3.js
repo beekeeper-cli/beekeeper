@@ -20,23 +20,23 @@ const createBucket = async (s3, bucketName) => {
   }
 }
 
-const enableVersioning = async (s3, bucketName) => {
-  const params = {
-    Bucket: bucketName, 
-    VersioningConfiguration: {
-      MFADelete: "Disabled",
-      Status: "Enabled"
-    }
-  };
-  const command = new PutBucketVersioningCommand(params);
+// const enableVersioning = async (s3, bucketName) => {
+//   const params = {
+//     Bucket: bucketName, 
+//     VersioningConfiguration: {
+//       MFADelete: "Disabled",
+//       Status: "Enabled"
+//     }
+//   };
+//   const command = new PutBucketVersioningCommand(params);
 
-  try {
-    await s3.send(command);
-    logger.log("Successfully enabled S3 Bucket versioning to: " + bucketName);
-  } catch (err) {
-    logger.warning("Error", err);
-  }
-}
+//   try {
+//     await s3.send(command);
+//     logger.log("Successfully enabled S3 Bucket versioning to: " + bucketName);
+//   } catch (err) {
+//     logger.warning("Error", err);
+//   }
+// }
 
 const uploadToS3 = async (s3, bucketName, dir, path) => {
   const keyName = path.split(`${dir}/`)[1];
@@ -65,7 +65,7 @@ module.exports = async (region, bucketName, directoryPath) => {
 
   // Create S3 bucket
   await createBucket(s3, bucketName);
-  await enableVersioning(s3, bucketName);
+  // await enableVersioning(s3, bucketName);
 
   // Get all file paths
   const filePaths = getFilePaths(directoryPath);
