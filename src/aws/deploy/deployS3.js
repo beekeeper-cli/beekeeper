@@ -1,8 +1,7 @@
 const {
   S3Client,
   PutObjectCommand,
-  CreateBucketCommand,
-  PutBucketVersioningCommand
+  CreateBucketCommand
 } = require("@aws-sdk/client-s3");
 const logger = require('../../utils/logger')('commands:deployS3');
 const { getFilePaths, getContentType } = require('../../utils/utilities');
@@ -13,30 +12,13 @@ const createBucket = async (s3, bucketName) => {
   const command = new CreateBucketCommand(params);
 
   try {
-    await s3.send(command);
+    const {Location} = await s3.send(command);
     logger.log(`Successfully created S3 Bucket: ${bucketName}`);
+    return Location;
   } catch (err) {
     logger.warning("Error", err);
   }
 }
-
-// const enableVersioning = async (s3, bucketName) => {
-//   const params = {
-//     Bucket: bucketName, 
-//     VersioningConfiguration: {
-//       MFADelete: "Disabled",
-//       Status: "Enabled"
-//     }
-//   };
-//   const command = new PutBucketVersioningCommand(params);
-
-//   try {
-//     await s3.send(command);
-//     logger.log("Successfully enabled S3 Bucket versioning to: " + bucketName);
-//   } catch (err) {
-//     logger.warning("Error", err);
-//   }
-// }
 
 const uploadToS3 = async (s3, bucketName, dir, path) => {
   const keyName = path.split(`${dir}/`)[1];
@@ -64,8 +46,7 @@ module.exports = async (region, bucketName, directoryPath) => {
   const s3 = new S3Client({ region });
 
   // Create S3 bucket
-  await createBucket(s3, bucketName);
-  // await enableVersioning(s3, bucketName);
+  const bucketUrl = await createBucket(s3, bucketName);
 
   // Get all file paths
   const filePaths = getFilePaths(directoryPath);
@@ -74,4 +55,6 @@ module.exports = async (region, bucketName, directoryPath) => {
   for (const path of filePaths) {
     await uploadToS3(s3, bucketName, directoryPath, path)
   }
+
+  return bucketUrl;
 };

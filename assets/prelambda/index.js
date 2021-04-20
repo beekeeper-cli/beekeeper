@@ -1,35 +1,33 @@
-const { SQSClient, SendMessageBatchCommand } = require("@aws-sdk/client-sqs");
-var QUEUE_URL = 'https://sqs.us-east-2.amazonaws.com/212700019935/v1-wait-room.fifo';
-var sqs = new SQSClient({region : 'us-east-2'});
+const AWS = require('aws-sdk');
+AWS.config.update({region: process.env.REGION});
+const sqsClient = new AWS.SQS({apiVersion: '2012-11-05'});
+const SQS_URL = process.env.SQS_URL;
+const BUCKET_URL = process.env.BUCKET_URL;
 
-const cookieCheck = async (response, event) => {
+const cookieCheck = (response, event) => {
     if (event.headers && !event.headers.cookie) {
         const token = Math.random().toString(16).substring(2);
         response.headers['Set-Cookie'] = 'authToken=' + token + '; SameSite=None; Secure;';
-        try {
-          await sendMessageToSQS(token)
-        } catch (err) {
-          console.log("Error", err)
-        }
+        sendMessageToSQS(token)
     } 
     response.statusCode = '302';
 }
 
-async function sendMessageToSQS(cookieValue) {
+function sendMessageToSQS(cookieValue) {
   var params = {
     MessageBody: cookieValue,
-    QueueUrl: QUEUE_URL,
-    MessageDeduplicationId: `${Math.random()}`,  // Required for FIFO queues
-    MessageGroupId: `${Math.random()}`, 
+    QueueUrl: SQS_URL,
+    // MessageDeduplicationId: `${Math.random()}`,  // Required for FIFO queues
+    // MessageGroupId: `${Math.random()}`, 
   };
-  const command = new SendMessageBatchCommand(params);
 
-  try {
-    await sqs.sendMessage(command);
-    console.log("Successfully sent message to SQS");
-  } catch (err) {
-    console.log("Error", err);
-  }
+  sqsClient.sendMessage(params, function(err, data) {
+    if (err) {
+      console.log("Error: ", err);
+    } else {
+      console.log("Success: ", data)
+    }
+  });
 }
 
 exports.handler = async (event, context, callback) => {
@@ -37,9 +35,9 @@ exports.handler = async (event, context, callback) => {
     let statusCode = '200';
     const headers = {
         'Content-Type': 'application/json',
-        'Location': 'https://v1-waiting-room.s3.us-east-2.amazonaws.com/index.html',
+        'Location': `${BUCKET_URL}/index.html`,
         'Access-Control-Allow-Credentials': true,
-        'Access-Control-Allow-Origin': 'https://v1-waiting-room.s3.us-east-2.amazonaws.com',
+        'Access-Control-Allow-Origin': BUCKET_URL,
         'Access-Control-Allow-Headers': '*',
         'Access-Control-Allow-Methods': '*'
     };
@@ -49,10 +47,7 @@ exports.handler = async (event, context, callback) => {
     try {
         switch (event.httpMethod) {
             case 'GET':
-                // statusCode = '302';
-                console.log('before cookiecheck')
-                await cookieCheck(response, event);
-                console.log('after cookiecheck')
+                cookieCheck(response, event);
                 break;
             default:
                 throw new Error(`Unsupported method "${event.httpMethod}"`);
@@ -63,7 +58,6 @@ exports.handler = async (event, context, callback) => {
     } finally {
         response.body = JSON.stringify(response.body);
       }
-      console.log('end')
 
-      callback(null, response);
+    callback(null, response);
 };

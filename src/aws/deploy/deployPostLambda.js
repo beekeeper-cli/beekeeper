@@ -2,16 +2,16 @@ const { LambdaClient, CreateFunctionCommand, PutFunctionConcurrencyCommand } = r
 const logger = require('../../utils/logger')('commands:deployPostLambda');
 const fs = require('fs');
 
-const createPostLambda = async (lambda, lambdaName, sqsURL, code, role, region, dynamoName) => {
+const createPostLambda = async (lambda, lambdaName, sqsUrl, code, roleArn, region, dynamoName) => {
   const params = {
     FunctionName: lambdaName,
-    Role: role,
+    Role: roleArn,
     Handler: "index.handler",
     Runtime: "nodejs12.x",
     Description: "consumerLambda",
     Environment: {
       Variables: {
-        "SQS_URL": sqsURL,
+        "SQS_URL": sqsUrl,
         "REGION": region, 
         "TABLE_NAME": dynamoName,
       }
@@ -49,13 +49,15 @@ const setLambdaConcurrency = async (lambda, lambdaName, rate) => {
   }
 }
 
-module.exports = async (region, lambdaName, sqsURL, asset, role, dynamoName, rate) => {  
-  // Create a Lambda client service object
+module.exports = async (region, lambdaName, sqsUrl, asset, roleArn, dynamoName, rate) => {  
+  
   let code = fs.readFileSync(asset);
+
+  // Create a Lambda client service object
   const lambda = new LambdaClient({ region });
 
   // Create post lambda
-  const lambdaArn = await createPostLambda(lambda, lambdaName, sqsURL, code, role, region, dynamoName);
+  const lambdaArn = await createPostLambda(lambda, lambdaName, sqsUrl, code, roleArn, region, dynamoName);
   await setLambdaConcurrency(lambda, lambdaName, rate);
   return lambdaArn;
 };
