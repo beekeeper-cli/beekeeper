@@ -1,6 +1,6 @@
 const logger = require('../utils/logger')('commands:destroy');
 const destroyRole = require('../aws/destroy/destroyRole');
-const destroyPostLambda = require('../aws/destroy/destroyPostLambda');
+const destroyLambda = require('../aws/destroy/destroyLambda');
 const destroySQS = require('../aws/destroy/destroySQS');
 const destroyDynamo = require('../aws/destroy/destroyDynamo');
 const destroyCloudwatchEvent = require('../aws/destroy/destroyCloudwatchEvent');
@@ -15,13 +15,15 @@ const SQS_NAME = "wr-teamsix-sqs"
 const DYNAMO_NAME = "wr-teamsix-ddb"
 // const API_GATEWAY_NAME = "wr-teamsix-ddb"
 const POST_LAMBDA_NAME = 'wr-teamsix-postlambda'
+const PRE_LAMBDA_NAME = 'wr-teamsix-prelambda'
 const ROLE_NAME = 'wr-teamsix-master-role'
 const CRON_JOB_NAME = 'wr-cronjob-cloudwatchevent';
 
 module.exports = async () => {
   logger.highlight('Destroying waiting room infrastructure');
   await destroyRole(REGION, ROLE_NAME);
-  // await destroyPostLambda(REGION, POST_LAMBDA_NAME);
+  await destroyLambda(REGION, POST_LAMBDA_NAME);
+  await destroyLambda(REGION, PRE_LAMBDA_NAME);
   await destroySQS(REGION, DLQ_NAME);
   await destroySQS(REGION, SQS_NAME);
   // await destroyDynamo(REGION, DYNAMO_NAME);
