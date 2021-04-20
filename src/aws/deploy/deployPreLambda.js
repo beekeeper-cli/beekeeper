@@ -1,6 +1,4 @@
-// We might need to reset permissions? - per Iron Man
-
-const { LambdaClient, CreateFunctionCommand } = require("@aws-sdk/client-lambda");
+const { LambdaClient, CreateFunctionCommand, AddPermissionCommand } = require("@aws-sdk/client-lambda");
 const logger = require('../../utils/logger')('commands:deployPreLambda');
 const fs = require('fs');
 
@@ -32,6 +30,22 @@ const createPreLambda = async (lambda, lambdaName, sqsUrl, code, roleArn, region
   }
 }
 
+const addLambdaPermission = async (lambda, lambdaName) => {
+  let params = {
+    Action: "lambda:InvokeFunction",
+    FunctionName: lambdaName,
+    Principal: "apigateway.amazonaws.com",
+    StatementId: `${Math.random().toString(16).substring(2)}`,
+  }
+  const command = new AddPermissionCommand(params);
+
+  try {
+    await lambda.send(command);
+    logger.log(`Successfully added API Gateway permission to Lambda.`);
+  } catch (err) {
+    logger.warning("Error", err);
+  }
+}
 
 module.exports = async (region, lambdaName, sqsUrl, asset, roleArn, bucketUrl) => {
   let code = fs.readFileSync(asset);
@@ -41,5 +55,9 @@ module.exports = async (region, lambdaName, sqsUrl, asset, roleArn, bucketUrl) =
 
   // Create pre lambda
   const lambdaArn = await createPreLambda(lambda, lambdaName, sqsUrl, code, roleArn, region, bucketUrl);
+  
+  // Add API Gateway Permission (Solution to AWS Bug)
+  await addLambdaPermission(lambda, lambdaName);
+
   return lambdaArn;
 };
