@@ -1,11 +1,9 @@
-const { LambdaClient, CreateFunctionCommand } = require("@aws-sdk/client-lambda");
+const { LambdaClient, CreateFunctionCommand, PutFunctionConcurrencyCommand } = require("@aws-sdk/client-lambda");
+const logger = require('../../utils/logger')('commands:deployPostLambda');
 const fs = require('fs');
 const path = require("path");
 
 const createPostLambda = async (lambda, lambdaName, sqsURL, code, role, region, dynamoName) => {
-  console.log(sqsURL);
-  console.log(region);
-  console.log(dynamoName);
   const params = {
     FunctionName: lambdaName,
     Role: role,
@@ -25,20 +23,40 @@ const createPostLambda = async (lambda, lambdaName, sqsURL, code, role, region, 
   const command = new CreateFunctionCommand(params);
 
   try {
-    const data = await lambda.send(command);
-    console.log(data);
-  } catch (error) {
-    console.log(error);
+    await lambda.send(command);
+    logger.log(`Successfully created PostLambda: ${lambdaName}`);
+  } catch (err) {
+    logger.warning("Error", err);
   }
 }
 
-module.exports = async (region, lambdaName, sqsURL, asset, role, dynamoName) => {  
+const setLambdaConcurrency = async (lambda, lambdaName, rate) => {
+  // Assumption for now is rate is requests per minute, and one lambda does 10 messages per minute pursuant to CloudFront cronjob
+  const reserveAmount = rate / 10;
+
+  const params = {
+    FunctionName: lambdaName,
+    ReservedConcurrentExecutions: reserveAmount
+  }
+
+  const command = new PutFunctionConcurrencyCommand(params);
+
+  try {
+    await lambda.send(command);
+    logger.log(`Successfully set LambdaReserveConcurrency: ${rate}`);
+  } catch (err) {
+    logger.warning("Error", err);
+  }
+}
+
+module.exports = async (region, lambdaName, sqsURL, asset, role, dynamoName, rate) => {  
   // Create a Lambda client service object
   let code = fs.readFileSync(asset);
   const lambda = new LambdaClient({ region });
 
   // Create post lambda
   await createPostLambda(lambda, lambdaName, sqsURL, code, role, region, dynamoName);
+  await setLambdaConcurrency(lambda, lambdaName, rate);
 };
 
 // provisions
