@@ -19,6 +19,7 @@ const SQS_NAME = "wr-teamsix-sqs"
 const DYNAMO_NAME = "wr-teamsix-ddb"
 const API_GATEWAY_NAME = "wr-teamsix-ddb"
 const POST_LAMBDA_NAME = 'wr-teamsix-postlambda'
+const PRE_LAMBDA_NAME = 'wr-teamsix-prelambda'
 const ROLE_NAME = 'wr-teamsix-master-role'
 const RATE = 100
 const CRON_JOB_NAME = 'wr-cronjob-cloudwatchevent'
@@ -26,18 +27,24 @@ const CRON_JOB_NAME = 'wr-cronjob-cloudwatchevent'
 module.exports = async () => {
   logger.highlight('Deploying waiting room infrastructure');
 
-  const roleArn = await createRole(REGION, ROLE_NAME); // works
-  await logger.process(10000, '%s sealing buzz...');
-  console.log('\n');
+  // const roleArn = await createRole(REGION, ROLE_NAME); // works
+  // await logger.process(10000, '%s sealing buzz...');
+  // console.log('\n');
 
-  // await deployS3(REGION, S3_NAME, DIRECTORY_TO_UPLOAD); // works
-  const deadLetterQueueArn = await deployDLQ(REGION, DLQ_NAME); // works
-  const sqsUrl = await deploySQS(REGION, SQS_NAME, deadLetterQueueArn); // works
+  await deployS3(REGION, S3_NAME, DIRECTORY_TO_UPLOAD); // works
+  // const deadLetterQueueArn = await deployDLQ(REGION, DLQ_NAME); // works
+  // const sqsUrl = await deploySQS(REGION, SQS_NAME, deadLetterQueueArn); // works
   // await deployDynamo(REGION, DYNAMO_NAME); // works
-  
-  const postLambdaArn = await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsUrl, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME, RATE);
+  // const postLambdaArn = await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsUrl, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME, RATE);
 
-  await deployCloudwatchEvent(REGION, postLambdaArn, CRON_JOB_NAME);
+  // await deployCloudwatchEvent(REGION, postLambdaArn, CRON_JOB_NAME);
+
+  // const preLambdaArn = await deployPreLambda(REGION, PRE_LAMBDA_NAME, sqsUrl, )
   
   // await deployApiGateway(REGION, API_GATEWAY_NAME);
 }
+
+// TODO 
+  // Make destroy S3 function
+  // Modify deploy S3 function to return an S3 url 
+  // Use that S3 URL to pass to the preLamdda deploy
