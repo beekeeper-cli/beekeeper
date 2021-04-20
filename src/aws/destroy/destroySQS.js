@@ -33,7 +33,7 @@ const destroyQueue = async (queue, queueName) => {
     await queue.send(command);
     logger.log(`Successfully deleted queue: ${queueName}`);
   } catch (err) {
-    logger.log("Error", err);
+    logger.warning("Error", err);
   }
 }
 

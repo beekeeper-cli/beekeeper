@@ -12,7 +12,7 @@ const createApiGateway = async (apiGateway, apiGatewayName) => {
     await apiGateway.send(command);
     logger.log(`Successfully created API Gateway: ${apiGatewayName}`);
   } catch (err) {
-    logger.log("Error", err);
+    logger.warning("Error", err);
   };
 }
 

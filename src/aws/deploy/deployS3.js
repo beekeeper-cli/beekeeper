@@ -16,7 +16,7 @@ const createBucket = async (s3, bucketName) => {
     await s3.send(command);
     logger.log(`Successfully created S3 Bucket: ${bucketName}`);
   } catch (err) {
-    logger.log("Error", err);
+    logger.warning("Error", err);
   }
 }
 
@@ -34,7 +34,7 @@ const enableVersioning = async (s3, bucketName) => {
     await s3.send(command);
     logger.log("Successfully enabled S3 Bucket versioning to: " + bucketName);
   } catch (err) {
-    logger.log("Error", err);
+    logger.warning("Error", err);
   }
 }
 
@@ -55,7 +55,7 @@ const uploadToS3 = async (s3, bucketName, dir, path) => {
     await s3.send(command);
     logger.log("Successfully uploaded waiting room files to: " + bucketName + "/" + keyName);
   } catch (err) {
-    logger.log("Error", err);
+    logger.warning("Error", err);
   }
 };
 

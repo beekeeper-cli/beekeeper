@@ -8,7 +8,6 @@ const deployApiGateway = require("../aws/deploy/deployApiGateway");
 const deployPostLambda = require("../aws/deploy/deployPostLambda");
 const createRole = require("../aws/deploy/createRole");
 const deployCloudwatchEvent = require("../aws/deploy/deployCloudwatchEvent");
-// const delay = require('delay');
 // const deployPreLambda = require('../aws/deploy/deployPreLambda');
 
 const REGION = "us-east-2";
@@ -27,28 +26,17 @@ module.exports = async () => {
   logger.highlight('Deploying waiting room infrastructure');
 
   const roleArn = await createRole(REGION, ROLE_NAME); // works
-   const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
-  await delay(9000);
+  await logger.process(10000, '%s sealing buzz...');
+  console.log('\n');
 
   // await deployS3(REGION, S3_NAME, DIRECTORY_TO_UPLOAD); // works
   const deadLetterQueueARN = await deployDLQ(REGION, DLQ_NAME); // works
   const sqsURL = await deploySQS(REGION, SQS_NAME, deadLetterQueueARN); // works
   // await deployDynamo(REGION, DYNAMO_NAME); // works
   
-  // logger.process(10, '%s sealing buzz...');
-  // await delay(10000);
-  // Resume @ deployPostLambda
-  // Set reserved concurrency
- 
-
   await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsURL, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME, RATE);
-  // InvalidParameterValueException: The role defined for the function cannot be assumed by Lambda.
 
   // await deployCloudwatchEvent(REGION);
   
   // await deployApiGateway(REGION, API_GATEWAY_NAME);
 }
-
-
-  // 2. test creation/destruction of lambda
-  // 3. add event trigger to post sqs

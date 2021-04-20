@@ -4,7 +4,6 @@ const {
   AttachRolePolicyCommand,
 } = require("@aws-sdk/client-iam");
 const logger = require("../../utils/logger")("commands:createRole");
-// const delay = require('delay');
 
 const policy = {
   Version: "2012-10-17",
@@ -41,11 +40,10 @@ const addPermissions = async (iam, name) => {
     });
 
     try {
-      // await delay(1500) 
       await iam.send(command);
       logger.log(`Successfully added permission: ${perm}`);
     } catch (err) {
-      logger.log("Error", err);
+      logger.warning("Error", err);
     }
   }
 };
@@ -62,7 +60,7 @@ const createRole = async (iam, policyDoc, name) => {
     logger.log(`Successfully created IAM role: ${data.Role.Arn}`);
     return data.Role.Arn;
   } catch (err) {
-    logger.log("Error", err);
+    logger.warning("Error", err);
   }
 };
 
