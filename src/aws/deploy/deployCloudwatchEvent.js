@@ -1,24 +1,32 @@
 const {CloudWatchEventsClient, PutRuleCommand, PutTargetsCommand} = require("@aws-sdk/client-cloudwatch-events");
 const logger = require('../../utils/logger')('commands:deployCloudwatchEvent');
 
-const createTarget = async (cloudwatchEvent) => {
-  let params = {
-    Rule: "cronJobby",
+const createTarget = async (cloudwatchEvent, cronJobName, postLambdaArn) => {
+  // const base64String = Buffer.from(cronJobName).toString('base64');
+
+  const params = {
+    Rule: cronJobName,
     Targets: [
       {
-        Arn: "arn:aws:lambda:us-east-2:212700019935:function:post-sqs",
-        Id: "some-random-id"
+        Arn: postLambdaArn,
+        Id: cronJobName
       }
     ]
   }
-  let command = new PutTargetsCommand(params);
-  let result = await cloudwatchEvent.send(command);
-  console.log(result);
+
+  const command = new PutTargetsCommand(params);
+
+  try {
+    await cloudwatchEvent.send(command);
+    logger.log('Successfully created Target for CloudWatchEvent');
+  } catch (err) {
+    logger.warning("Error", err);
+  }
 }
 
-const createEvent = async (cloudwatchEvent) => {
+const createEvent = async (cloudwatchEvent, cronJobName) => {
   const params = { 
-    Name: "cronJobby",
+    Name: cronJobName,
     State: "ENABLED",
     Description: "Executes the lambdas once every minute",
     ScheduleExpression: "rate(1 minute)",
@@ -28,15 +36,15 @@ const createEvent = async (cloudwatchEvent) => {
 
   try {
     await cloudwatchEvent.send(command);
-    logger.log(`Successfully created Cloudwatch Event Rule: ${"CronJob"}`);
+    logger.log(`Successfully created Cloudwatch Event Rule: ${cronJobName}`);
   } catch (err) {
     logger.warning("Error", err);
   }
 }
 
-module.exports = async (region) => {
-  let cloudwatchEvent = new CloudWatchEventsClient({region});
+module.exports = async (region, postLambdaArn, cronJobName) => {
+  const cloudwatchEvent = new CloudWatchEventsClient({region});
 
-  await createEvent(cloudwatchEvent);
-  await createTarget(cloudwatchEvent);
+  await createEvent(cloudwatchEvent, cronJobName);
+  await createTarget(cloudwatchEvent, cronJobName, postLambdaArn);
 };
