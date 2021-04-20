@@ -22,8 +22,9 @@ const createPostLambda = async (lambda, lambdaName, sqsURL, code, role, region, 
   const command = new CreateFunctionCommand(params);
 
   try {
-    await lambda.send(command);
-    logger.log(`Successfully created PostLambda: ${lambdaName}`);
+    const {FunctionArn} = await lambda.send(command);
+    logger.log(`Successfully created PostLambda: ${FunctionArn}`);
+    return FunctionArn;
   } catch (err) {
     logger.warning("Error", err);
   }
@@ -54,13 +55,7 @@ module.exports = async (region, lambdaName, sqsURL, asset, role, dynamoName, rat
   const lambda = new LambdaClient({ region });
 
   // Create post lambda
-  await createPostLambda(lambda, lambdaName, sqsURL, code, role, region, dynamoName);
+  const lambdaArn = await createPostLambda(lambda, lambdaName, sqsURL, code, role, region, dynamoName);
   await setLambdaConcurrency(lambda, lambdaName, rate);
+  return lambdaArn;
 };
-
-// provisions
-// cloud events
-// let sqsUrl = process.env.SQS_URL - put this in the function code
-
-// InvalidParameterValueException: The role defined for the function cannot be assumed by Lambda.
-

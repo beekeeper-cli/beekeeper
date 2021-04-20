@@ -1,13 +1,14 @@
 const {CloudWatchEventsClient, DeleteRuleCommand, RemoveTargetsCommand} = require("@aws-sdk/client-cloudwatch-events");
 const logger = require('../../utils/logger')('commands:destroyCloudwatchEvent');
 
-
 const destroyCloudwatchTarget = async (cloudwatchEvent, name) => {
-  let params = {
+  // const base64String = Buffer.from(name).toString('base64');
+
+  const params = {
     Rule: name,
-    Ids: ["some-random-id"]
+    Ids: [name]
   }
-  let command = new RemoveTargetsCommand(params);
+  const command = new RemoveTargetsCommand(params);
 
   try { 
     await cloudwatchEvent.send(command);
@@ -16,7 +17,6 @@ const destroyCloudwatchTarget = async (cloudwatchEvent, name) => {
     logger.warning("Error", err);
   }
 }
-
 
 const destroyCloudwatchEvent = async (cloudwatchEvent, eventName) => {
   const params = {
@@ -33,12 +33,8 @@ const destroyCloudwatchEvent = async (cloudwatchEvent, eventName) => {
   }
 }
 
-
-
-
 module.exports = async (region, name) => {
-  let cloudwatchEvent = new CloudWatchEventsClient({region});
+  const cloudwatchEvent = new CloudWatchEventsClient({region});
   await destroyCloudwatchTarget(cloudwatchEvent, name);
   await destroyCloudwatchEvent(cloudwatchEvent, name);
-  // return QueueUrl;
 };

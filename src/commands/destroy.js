@@ -15,7 +15,7 @@ const DYNAMO_NAME = "wr-teamsix-ddb"
 // const API_GATEWAY_NAME = "wr-teamsix-ddb"
 const POST_LAMBDA_NAME = 'wr-teamsix-postlambda'
 const ROLE_NAME = 'wr-teamsix-master-role'
-const CLOUDWATCH_EVENT_NAME = 'cronJobby';
+const CRON_JOB_NAME = 'wr-cronjob-cloudwatchevent';
 
 module.exports = async () => {
   logger.highlight('Destroying waiting room infrastructure');
@@ -24,5 +24,5 @@ module.exports = async () => {
   await destroySQS(REGION, DLQ_NAME);
   await destroySQS(REGION, SQS_NAME);
   // await destroyDynamo(REGION, DYNAMO_NAME);
-  // await destroyCloudwatchEvent(REGION, CLOUDWATCH_EVENT_NAME);
+  await destroyCloudwatchEvent(REGION, CRON_JOB_NAME);
 }

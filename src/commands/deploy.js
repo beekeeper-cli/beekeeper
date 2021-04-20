@@ -21,6 +21,7 @@ const API_GATEWAY_NAME = "wr-teamsix-ddb"
 const POST_LAMBDA_NAME = 'wr-teamsix-postlambda'
 const ROLE_NAME = 'wr-teamsix-master-role'
 const RATE = 100
+const CRON_JOB_NAME = 'wr-cronjob-cloudwatchevent'
 
 module.exports = async () => {
   logger.highlight('Deploying waiting room infrastructure');
@@ -30,13 +31,13 @@ module.exports = async () => {
   console.log('\n');
 
   // await deployS3(REGION, S3_NAME, DIRECTORY_TO_UPLOAD); // works
-  const deadLetterQueueARN = await deployDLQ(REGION, DLQ_NAME); // works
-  const sqsURL = await deploySQS(REGION, SQS_NAME, deadLetterQueueARN); // works
+  const deadLetterQueueArn = await deployDLQ(REGION, DLQ_NAME); // works
+  const sqsUrl = await deploySQS(REGION, SQS_NAME, deadLetterQueueArn); // works
   // await deployDynamo(REGION, DYNAMO_NAME); // works
   
-  await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsURL, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME, RATE);
+  const postLambdaArn = await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsUrl, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME, RATE);
 
-  // await deployCloudwatchEvent(REGION);
+  await deployCloudwatchEvent(REGION, postLambdaArn, CRON_JOB_NAME);
   
   // await deployApiGateway(REGION, API_GATEWAY_NAME);
 }
