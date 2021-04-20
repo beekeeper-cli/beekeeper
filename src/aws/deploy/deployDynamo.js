@@ -23,7 +23,7 @@ const createDynamo = async (dynamodb, dynamoName) => {
     await dynamodb.send(command);
     logger.log(`Successfully created DynamoDB table: ${dynamoName}`);
   } catch (err) {
-    logger.log("Error", err);
+    logger.warning("Error", err);
   };
 }
 

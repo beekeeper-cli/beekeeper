@@ -30,7 +30,7 @@ const createEvent = async (cloudwatchEvent) => {
     await cloudwatchEvent.send(command);
     logger.log(`Successfully created Cloudwatch Event Rule: ${"CronJob"}`);
   } catch (err) {
-    logger.log("Error", err);
+    logger.warning("Error", err);
   }
 }
 

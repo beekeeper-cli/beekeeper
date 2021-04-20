@@ -11,7 +11,7 @@ const destroyPostLambda = async (lambda, lambdaName) => {
     await lambda.send(command);
     logger.log(`Successfully deleted Post Lambda: ${lambdaName}`);
   } catch (err) {
-    logger.log("Error", err);
+    logger.warning("Error", err);
   }
 }
 

@@ -13,7 +13,7 @@ const destroyCloudwatchTarget = async (cloudwatchEvent, name) => {
     await cloudwatchEvent.send(command);
     logger.log(`Successfully deleted Cloudwatch Event Target: ${name}`);
   } catch (err) {
-    logger.log("Error", err);
+    logger.warning("Error", err);
   }
 }
 
@@ -29,7 +29,7 @@ const destroyCloudwatchEvent = async (cloudwatchEvent, eventName) => {
     await cloudwatchEvent.send(command);
     logger.log(`Successfully deleted Cloudwatch Event Rule: ${eventName}`);
   } catch (err) {
-    logger.log("Error", err);
+    logger.warning("Error", err);
   }
 }
 

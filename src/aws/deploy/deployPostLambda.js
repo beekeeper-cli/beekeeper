@@ -1,7 +1,6 @@
 const { LambdaClient, CreateFunctionCommand, PutFunctionConcurrencyCommand } = require("@aws-sdk/client-lambda");
 const logger = require('../../utils/logger')('commands:deployPostLambda');
 const fs = require('fs');
-const path = require("path");
 
 const createPostLambda = async (lambda, lambdaName, sqsURL, code, role, region, dynamoName) => {
   const params = {
