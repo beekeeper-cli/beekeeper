@@ -1,7 +1,7 @@
 const { LambdaClient, DeleteFunctionCommand } = require("@aws-sdk/client-lambda");
-const logger = require("../../utils/logger")("commands:destroyPostLambda");
+const logger = require("../../utils/logger")("commands:destroyLambda");
 
-const destroyPostLambda = async (lambda, lambdaName) => {
+const destroyLambda = async (lambda, lambdaName) => {
   const params = {
     FunctionName: lambdaName,
   };
@@ -9,16 +9,16 @@ const destroyPostLambda = async (lambda, lambdaName) => {
 
   try {
     await lambda.send(command);
-    logger.log(`Successfully deleted Post Lambda: ${lambdaName}`);
+    logger.log(`Successfully deleted Lambda: ${lambdaName}`);
   } catch (err) {
     logger.warning("Error", err);
   }
 }
 
 module.exports = async (region, lambdaName) => {
-  // Create an Lambda client service object
+  // Create a Lambda client service object
   const lambda = new LambdaClient({ region });
 
-  // Destroy Post Lambda
-  await destroyPostLambda(lambda, lambdaName);
+  // Destroy Lambda
+  await destroyLambda(lambda, lambdaName);
 };
