@@ -7,12 +7,12 @@ const deployDynamo = require("../aws/deploy/deployDynamo");
 const deployApiGateway = require("../aws/deploy/deployApiGateway");
 const deployPostLambda = require("../aws/deploy/deployPostLambda");
 const createRole = require("../aws/deploy/createRole");
-const deployCloudwatchEvent = require("../aws/deploy/deployCloudwatchEvent");
-// const deployPreLambda = require('../aws/deploy/deployPreLambda');
+const deployPreLambda = require('../aws/deploy/deployPreLambda');
 
 const REGION = "us-east-2";
 const DIRECTORY_TO_UPLOAD = path.join(__dirname, "..", "..", "assets", "s3");
 const POST_LAMBDA_ASSET = path.join(__dirname, "..", "..", "assets", "postlambda", 'index.js.zip');
+const PRE_LAMBDA_ASSET = path.join(__dirname, "..", "..", "assets", "prelambda", 'index.js.zip');
 const S3_NAME = "wr-teamsix-s3"
 const DLQ_NAME = "wr-teamsix-dlq"
 const SQS_NAME = "wr-teamsix-sqs"
@@ -27,24 +27,19 @@ const CRON_JOB_NAME = 'wr-cronjob-cloudwatchevent'
 module.exports = async () => {
   logger.highlight('Deploying waiting room infrastructure');
 
-  // const roleArn = await createRole(REGION, ROLE_NAME); // works
-  // await logger.process(10000, '%s sealing buzz...');
-  // console.log('\n');
+  const roleArn = await createRole(REGION, ROLE_NAME); // works
+  await logger.process(10000, '%s sealing buzz...');
+  console.log('\n');
 
-  await deployS3(REGION, S3_NAME, DIRECTORY_TO_UPLOAD); // works
-  // const deadLetterQueueArn = await deployDLQ(REGION, DLQ_NAME); // works
-  // const sqsUrl = await deploySQS(REGION, SQS_NAME, deadLetterQueueArn); // works
+  const bucketUrl = await deployS3(REGION, S3_NAME, DIRECTORY_TO_UPLOAD); // works
+  const deadLetterQueueArn = await deployDLQ(REGION, DLQ_NAME); // works
+  const sqsUrl = await deploySQS(REGION, SQS_NAME, deadLetterQueueArn); // works
   // await deployDynamo(REGION, DYNAMO_NAME); // works
   // const postLambdaArn = await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsUrl, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME, RATE);
 
   // await deployCloudwatchEvent(REGION, postLambdaArn, CRON_JOB_NAME);
 
-  // const preLambdaArn = await deployPreLambda(REGION, PRE_LAMBDA_NAME, sqsUrl, )
+  const preLambdaArn = await deployPreLambda(REGION, PRE_LAMBDA_NAME, sqsUrl, PRE_LAMBDA_ASSET, roleArn, bucketUrl);
   
   // await deployApiGateway(REGION, API_GATEWAY_NAME);
 }
-
-// TODO 
-  // Make destroy S3 function
-  // Modify deploy S3 function to return an S3 url 
-  // Use that S3 URL to pass to the preLamdda deploy
