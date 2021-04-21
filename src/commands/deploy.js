@@ -29,22 +29,22 @@ const RATE = 100
 module.exports = async () => {
   logger.highlight('Deploying waiting room infrastructure');
 
-  // const roleArn = await createRole(REGION, ROLE_NAME); // works
-  // await logger.process(10000, '%s sealing buzz...');
-  // console.log('\n');
+  const roleArn = await createRole(REGION, ROLE_NAME); // works
+  await logger.process(10000, '%s sealing buzz...');
+  console.log('\n');
 
-  // const bucketUrl = await deployS3(REGION, S3_NAME, DIRECTORY_TO_UPLOAD); // works
-  // const deadLetterQueueArn = await deployDLQ(REGION, DLQ_NAME); // works
-  // const sqsUrl = await deploySQS(REGION, SQS_NAME, deadLetterQueueArn); // works
+  const bucketUrl = await deployS3(REGION, S3_NAME, DIRECTORY_TO_UPLOAD); // works
+  const deadLetterQueueArn = await deployDLQ(REGION, DLQ_NAME); // works
+  const sqsUrl = await deploySQS(REGION, SQS_NAME, deadLetterQueueArn); // works
   // set up deployDynamo to return arn
   const dbArn = await deployDynamo(REGION, DYNAMO_NAME); // works
-  // const postLambdaArn = await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsUrl, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME, RATE);
+  const postLambdaArn = await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsUrl, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME, RATE);
 
-  // await deployCloudwatchEvent(REGION, postLambdaArn, CRON_JOB_NAME);
+  await deployCloudwatchEvent(REGION, postLambdaArn, CRON_JOB_NAME);
 
-  // const preLambdaArn = await deployPreLambda(REGION, PRE_LAMBDA_NAME, sqsUrl, PRE_LAMBDA_ASSET, roleArn, bucketUrl);
+  const preLambdaArn = await deployPreLambda(REGION, PRE_LAMBDA_NAME, sqsUrl, PRE_LAMBDA_ASSET, roleArn, bucketUrl);
   
-  // // set up to return rest ApiId
-  // const restApiId = await deployApiGateway(REGION, API_GATEWAY_NAME, preLambdaArn);
-  // await deployPollingRoute(restApiId, REGION, API_GATEWAY_NAME, dbArn, roleArn, bucketUrl);
+  // set up to return rest ApiId
+  const restApiId = await deployApiGateway(REGION, API_GATEWAY_NAME, preLambdaArn);
+  await deployPollingRoute(restApiId, REGION, API_GATEWAY_NAME, dbArn, roleArn, bucketUrl);
 }

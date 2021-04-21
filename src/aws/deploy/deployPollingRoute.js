@@ -73,19 +73,20 @@ const putMethodRequest = async (apiGateway, restApiId, pollingResourceId, pollin
   }
 }
 
-const setIntegrationRequest = async (apiGateway, pollingResourceId, restApiId, dynamoDbArn, pollingResourceName, roleArn) => {
+const setIntegrationRequest = async (apiGateway, pollingResourceId, restApiId, dynamoDbUri, pollingResourceName, roleArn) => {
   const params = {
-    httpMethod: 'POST',
+    httpMethod: "GET",
     resourceId: pollingResourceId,
     restApiId,
     type: "AWS",
+    integrationHttpMethod: "POST",
     contentHandling: 'CONVERT_TO_TEXT',
     passthroughBehavior: 'WHEN_NO_TEMPLATES',
     credentials: roleArn,
     timeoutInMillis: 29000,
-    uri: dynamoDbArn,
+    uri: dynamoDbUri,
     requestTemplates: {
-      "application/json": "#set ($string = \"$input.params('cookie')\")\n#set ($s = $string.split(\"=\"))\n{\n  \"TableName\": \"waiting_room\",\n  \"KeyConditionExpression\": \"usertoken = :v1\",\n  \"ExpressionAttributeValues\": {\n      \":v1\": {\n          \"S\": \"$s.get(1)\"\n      }\n  }\n}"
+      "application/json": `#set ($string = \"$input.params('cookie')\")\n#set ($s = $string.split(\"=\"))\n{\n  \"TableName\": \"waiting_room\",\n  \"KeyConditionExpression\": \"usertoken = :v1\",\n  \"ExpressionAttributeValues\": {\n      \":v1\": {\n          \"S\": \"$s.get(1)\"\n      }\n  }\n}`
     }
   };
 
@@ -101,15 +102,15 @@ const setIntegrationRequest = async (apiGateway, pollingResourceId, restApiId, d
 
 const setIntegrationResponse = async (apiGateway, pollingResourceId, restApiId, pollingResourceName, bucketUrl) => {
   const params = { 
-    httpMethod: 'GET', 
+    httpMethod: "GET",
     resourceId: pollingResourceId, 
     restApiId, 
-    statusCode: '200',
+    statusCode: "200",
     responseParameters: {
       "method.response.header.Access-Control-Allow-Credentials": "'true'",
       "method.response.header.Access-Control-Allow-Headers": "'*'",
       "method.response.header.Access-Control-Allow-Methods": "'*'",
-      "method.response.header.Access-Control-Allow-Origin": bucketUrl
+      "method.response.header.Access-Control-Allow-Origin": `'${bucketUrl}'`
     },
     responseTemplates: {
       "application/json": "#set($inputRoot = $input.path('$'))\n#if($inputRoot.Count == 0)\n{\n\"allow\": false\n}\n#else\n{\n  \"allow\": true,\n  \"origin\": \"https://www.launchschool.com/capstone\"\n}\n#end"
@@ -195,13 +196,14 @@ module.exports = async (restApiId, region, apiGatewayName, dynamoDbArn, roleArn,
   await putMethodRequest(apiGateway, restApiId, pollingResourceId, pollingResourceName)
 
   // Setup Integration Request
-  await setIntegrationRequest(apiGateway, pollingResourceId, restApiId, dynamoDbArn, pollingResourceName, roleArn)
-
-  // Setup Integration Response
-  await setIntegrationResponse(apiGateway, pollingResourceId, restApiId, pollingResourceName, bucketUrl);
+  const dynamoDbUri = `arn:aws:apigateway:${region}:dynamodb:action/Query/${dynamoDbArn}`;
+  await setIntegrationRequest(apiGateway, pollingResourceId, restApiId, dynamoDbUri, pollingResourceName, roleArn)
 
   // Setup Method Response
   await setMethodResponse(apiGateway, pollingResourceId, restApiId, pollingResourceName);
+
+  // Setup Integration Response
+  await setIntegrationResponse(apiGateway, pollingResourceId, restApiId, pollingResourceName, bucketUrl);
 
   // stage resource and deploy
   await deployResource(apiGateway, restApiId);
