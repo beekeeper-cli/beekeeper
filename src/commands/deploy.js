@@ -8,6 +8,7 @@ const deployApiGateway = require("../aws/deploy/deployApiGateway");
 const deployPostLambda = require("../aws/deploy/deployPostLambda");
 const createRole = require("../aws/deploy/createRole");
 const deployPreLambda = require('../aws/deploy/deployPreLambda');
+const deployCloudwatchEvent = require('../aws/deploy/deployCloudwatchEvent');
 
 const REGION = "us-east-2";
 const DIRECTORY_TO_UPLOAD = path.join(__dirname, "..", "..", "assets", "s3");
@@ -34,10 +35,10 @@ module.exports = async () => {
   const bucketUrl = await deployS3(REGION, S3_NAME, DIRECTORY_TO_UPLOAD); // works
   const deadLetterQueueArn = await deployDLQ(REGION, DLQ_NAME); // works
   const sqsUrl = await deploySQS(REGION, SQS_NAME, deadLetterQueueArn); // works
-  // await deployDynamo(REGION, DYNAMO_NAME); // works
-  // const postLambdaArn = await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsUrl, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME, RATE);
+  await deployDynamo(REGION, DYNAMO_NAME); // works
+  const postLambdaArn = await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsUrl, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME, RATE);
 
-  // await deployCloudwatchEvent(REGION, postLambdaArn, CRON_JOB_NAME);
+  await deployCloudwatchEvent(REGION, postLambdaArn, CRON_JOB_NAME);
 
   const preLambdaArn = await deployPreLambda(REGION, PRE_LAMBDA_NAME, sqsUrl, PRE_LAMBDA_ASSET, roleArn, bucketUrl);
   

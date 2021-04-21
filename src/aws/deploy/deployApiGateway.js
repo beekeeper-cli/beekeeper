@@ -183,13 +183,13 @@ module.exports = async (region, apiGatewayName, preLambdaArn) => {
   // Finishing pollingRoute
 
   // Resource validates user against DB
-  // const pollingResourceName = "polling";
-  // const pollingResourceId = await createResource(
-  //   apiGateway,
-  //   restApiId,
-  //   resourceParentId,
-  //   pollingResourceName
-  // );
+  const pollingResourceName = "polling";
+  const pollingResourceId = await createResource(
+    apiGateway,
+    restApiId,
+    resourceParentId,
+    pollingResourceName
+  );
 
-  // await putMethod(apiGateway, restApiId, pollingResourceId)
+  await putMethod(apiGateway, restApiId, pollingResourceId)
 };
