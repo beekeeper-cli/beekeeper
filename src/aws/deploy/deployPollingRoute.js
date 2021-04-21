@@ -1,6 +1,5 @@
 const {
   APIGatewayClient,
-  CreateRestApiCommand,
   GetResourcesCommand,
   CreateResourceCommand,
   PutMethodCommand,
@@ -9,28 +8,7 @@ const {
   PutMethodResponseCommand,
   CreateDeploymentCommand,
 } = require("@aws-sdk/client-api-gateway");
-const { CreateSAMLProviderResponse } = require("@aws-sdk/client-iam");
 const logger = require("../../utils/logger")("commands:deployPollingRoute");
-
-// const createApiGateway = async (apiGateway, apiGatewayName) => {
-//   const params = {
-//     name: apiGatewayName,
-//     description: "SealBuzz API",
-//     endpointConfiguration: { types: ["REGIONAL"] },
-//   };
-
-//   const command = new CreateRestApiCommand(params);
-
-//   try {
-//     const { id: restApiId } = await apiGateway.send(command);
-//     logger.log(
-//       `Successfully created API Gateway: ${apiGatewayName}, id:${restApiId}`
-//     );
-//     return restApiId;
-//   } catch (err) {
-//     logger.warning("Error", err);
-//   }
-// };
 
 const getResources = async (apiGateway, restApiId, apiGatewayName) => {
   const params = {
@@ -95,10 +73,10 @@ const putMethodRequest = async (apiGateway, restApiId, pollingResourceId, pollin
   }
 }
 
-const setIntegrationRequest = async (apiGateway, mainResourceId, restApiId, dynamoDbArn, mainResourceName, roleArn) => {
+const setIntegrationRequest = async (apiGateway, pollingResourceId, restApiId, dynamoDbArn, pollingResourceName, roleArn) => {
   const params = {
     httpMethod: 'POST',
-    resourceId: mainResourceId,
+    resourceId: pollingResourceId,
     restApiId,
     type: "AWS",
     contentHandling: 'CONVERT_TO_TEXT',
@@ -115,29 +93,43 @@ const setIntegrationRequest = async (apiGateway, mainResourceId, restApiId, dyna
 
   try {
     await apiGateway.send(command);
-    logger.log(`Successfully set integration request for resource: ${mainResourceName}`);
+    logger.log(`Successfully set integration request for resource: ${pollingResourceName}`);
   } catch (err) {
     logger.warning("Error", err);
   }
 }
 
-const setIntegrationResponse = async (apiGateway, mainResourceId, restApiId, mainResourceName) => {
-  const params = { httpMethod: 'GET', resourceId: mainResourceId, restApiId, statusCode: '200' }
+const setIntegrationResponse = async (apiGateway, pollingResourceId, restApiId, pollingResourceName, bucketUrl) => {
+  const params = { 
+    httpMethod: 'GET', 
+    resourceId: pollingResourceId, 
+    restApiId, 
+    statusCode: '200',
+    responseParameters: {
+      "method.response.header.Access-Control-Allow-Credentials": "'true'",
+      "method.response.header.Access-Control-Allow-Headers": "'*'",
+      "method.response.header.Access-Control-Allow-Methods": "'*'",
+      "method.response.header.Access-Control-Allow-Origin": bucketUrl
+    },
+    responseTemplates: {
+      "application/json": "#set($inputRoot = $input.path('$'))\n#if($inputRoot.Count == 0)\n{\n\"allow\": false\n}\n#else\n{\n  \"allow\": true,\n  \"origin\": \"https://www.launchschool.com/capstone\"\n}\n#end"
+    }
+  }
 
   const command = new PutIntegrationResponseCommand(params);
 
   try {
     await apiGateway.send(command);
-    logger.log(`Successfully set integration response for resource: ${mainResourceName}`);
+    logger.log(`Successfully set integration response for resource: ${pollingResourceName}`);
   } catch (err) {
     logger.warning("Error", err);
   }
 }
 
-const setMethodResponse = async (apiGateway, mainResourceId, restApiId, mainResourceName) => {
+const setMethodResponse = async (apiGateway, pollingResourceId, restApiId, pollingResourceName) => {
   const params = {
     httpMethod: "GET",
-    resourceId: mainResourceId,
+    resourceId: pollingResourceId,
     restApiId,
     statusCode: "200",
     responseParameters: {
@@ -157,13 +149,30 @@ const setMethodResponse = async (apiGateway, mainResourceId, restApiId, mainReso
 
   try {
     await apiGateway.send(command);
-    logger.log(`Successfully set method response for resource: ${mainResourceName}`);
+    logger.log(`Successfully set method response for resource: ${pollingResourceName}`);
   } catch (err) {
     logger.warning("Error", err);
   }
 }
 
-module.exports = async (restApiId, region, apiGatewayName, dynamoDbArn) => {
+const deployResource = async (apiGateway, restApiId) => {
+  const params = { 
+    restApiId,
+    stageDescription: 'production sealbuzz waitroom',
+    stageName: 'sealbuzz-production'
+  };
+
+  const command = new CreateDeploymentCommand(params);
+
+  try {
+    await apiGateway.send(command);
+    logger.log(`Successfully deployed resource: ${restApiId}`);
+  } catch (err) {
+    logger.warning("Error", err);
+  }
+};
+
+module.exports = async (restApiId, region, apiGatewayName, dynamoDbArn, roleArn, bucketUrl) => {
   // // Create an API Gateway client service object
   const apiGateway = new APIGatewayClient({ region });
 
@@ -186,20 +195,14 @@ module.exports = async (restApiId, region, apiGatewayName, dynamoDbArn) => {
   await putMethodRequest(apiGateway, restApiId, pollingResourceId, pollingResourceName)
 
   // Setup Integration Request
-  let preLambdaUri = `arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/${preLambdaArn}/invocations`;
-
   await setIntegrationRequest(apiGateway, pollingResourceId, restApiId, dynamoDbArn, pollingResourceName, roleArn)
 
   // Setup Integration Response
-  await setIntegrationResponse(apiGateway, pollingResourceId, restApiId, pollingResourceName);
+  await setIntegrationResponse(apiGateway, pollingResourceId, restApiId, pollingResourceName, bucketUrl);
 
   // Setup Method Response
   await setMethodResponse(apiGateway, pollingResourceId, restApiId, pollingResourceName);
 
-  
- 
-
-  // Resource validates user against DB
-
-
+  // stage resource and deploy
+  await deployResource(apiGateway, restApiId);
 };
