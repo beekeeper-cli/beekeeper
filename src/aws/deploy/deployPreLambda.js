@@ -2,7 +2,7 @@ const { LambdaClient, CreateFunctionCommand, AddPermissionCommand } = require("@
 const logger = require('../../utils/logger')('commands:deployPreLambda');
 const fs = require('fs');
 
-const createPreLambda = async (lambda, lambdaName, sqsUrl, code, roleArn, region, bucketUrl) => {
+const createPreLambda = async (lambda, lambdaName, sqsUrl, code, roleArn, region, bucketObjectTld) => {
   const params = {
     FunctionName: lambdaName,
     Role: roleArn,
@@ -13,7 +13,7 @@ const createPreLambda = async (lambda, lambdaName, sqsUrl, code, roleArn, region
       Variables: {
         "SQS_URL": sqsUrl,
         "REGION": region, 
-        "BUCKET_URL": bucketUrl,
+        "BUCKET_OBJECT_TLD": bucketObjectTld,
       }
     },
     Code: { ZipFile: code }
@@ -47,14 +47,14 @@ const addLambdaPermission = async (lambda, lambdaName) => {
   }
 }
 
-module.exports = async (region, lambdaName, sqsUrl, asset, roleArn, bucketUrl) => {
+module.exports = async (region, lambdaName, sqsUrl, asset, roleArn, bucketObjectTld) => {
   let code = fs.readFileSync(asset);
 
   // Create a Lambda client service object
   const lambda = new LambdaClient({ region });
 
   // Create pre lambda
-  const lambdaArn = await createPreLambda(lambda, lambdaName, sqsUrl, code, roleArn, region, bucketUrl);
+  const lambdaArn = await createPreLambda(lambda, lambdaName, sqsUrl, code, roleArn, region, bucketObjectTld);
   
   // Add API Gateway Permission (Solution to AWS Bug)
   await addLambdaPermission(lambda, lambdaName);

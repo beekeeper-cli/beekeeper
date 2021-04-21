@@ -20,41 +20,43 @@ const createBucket = async (s3, bucketName) => {
   }
 }
 
-// const uploadToS3 = async (s3, bucketName, dir, path) => {
-//   const keyName = path.split(`${dir}/`)[1];
-//   const extension = keyName.split('.').slice(-1)[0];
+const uploadToS3 = async (s3, bucketName, dir, path) => {
+  const keyName = path.split(`${dir}/`)[1];
+  const extension = keyName.split('.').slice(-1)[0];
 
-//   const params = {
-//     Bucket: bucketName,
-//     Key: keyName,
-//     Body: fs.readFileSync(path),
-//     ACL: "public-read",
-//     ContentType: getContentType(extension)
-//   };
-//   const command = new PutObjectCommand(params);
+  const params = {
+    Bucket: bucketName,
+    Key: keyName,
+    Body: fs.readFileSync(path),
+    ACL: "public-read",
+    ContentType: getContentType(extension)
+  };
+  const command = new PutObjectCommand(params);
 
-//   try {
-//     await s3.send(command);
-//     logger.log("Successfully uploaded waiting room files to: " + bucketName + "/" + keyName);
-//   } catch (err) {
-//     logger.warning("Error", err);
-//   }
-// };
+  try {
+    await s3.send(command);
+    logger.log("Successfully uploaded waiting room files to: " + bucketName + "/" + keyName);
+  } catch (err) {
+    logger.warning("Error", err);
+  }
+};
 
 module.exports = async (region, bucketName, directoryPath) => {
   // Create an S3 client service object
   const s3 = new S3Client({ region });
 
   // Create S3 bucket
-  const bucketUrl = await createBucket(s3, bucketName);
+  await createBucket(s3, bucketName);
 
   // Get all file paths
-  // const filePaths = getFilePaths(directoryPath);
+  const filePaths = getFilePaths(directoryPath);
 
   // // Upload every file to S3
-  // for (const path of filePaths) {
-  //   await uploadToS3(s3, bucketName, directoryPath, path)
-  // }
+  for (const path of filePaths) {
+    await uploadToS3(s3, bucketName, directoryPath, path)
+  }
 
-  return bucketUrl;
+  // 'http://wr-teamsix-s3.s3.amazonaws.com/'	
+  // https://bucketName.s3.region.amazonaws.com/
+  return `https://${bucketName}.s3.${region}.amazonaws.com/`
 };

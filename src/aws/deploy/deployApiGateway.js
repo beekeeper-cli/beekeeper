@@ -146,7 +146,7 @@ const setMethodResponse = async (apiGateway, mainResourceId, restApiId, mainReso
   }
 }
 
-module.exports = async (region, apiGatewayName, preLambdaArn) => {
+module.exports = async (region, apiGatewayName, preLambdaArn, stageName) => {
   // Create an API Gateway client service object
   const apiGateway = new APIGatewayClient({ region });
 
@@ -179,5 +179,8 @@ module.exports = async (region, apiGatewayName, preLambdaArn) => {
   // Setup Method Response
   await setMethodResponse(apiGateway, mainResourceId, restApiId, mainResourceName);
 
-  return restApiId;
+  return {
+    restApiId,
+    stageSealBuzzUrl: `https://${restApiId}.execute-api.${region}.amazonaws.com/${stageName}/${mainResourceName}`
+  };
 };
