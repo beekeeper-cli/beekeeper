@@ -20,8 +20,9 @@ const createDynamo = async (dynamodb, dynamoName) => {
   const command = new CreateTableCommand(params);
 
   try {
-    await dynamodb.send(command);
+    const { TableDescription } = await dynamodb.send(command);
     logger.log(`Successfully created DynamoDB table: ${dynamoName}`);
+    return TableDescription.TableArn;
   } catch (err) {
     logger.warning("Error", err);
   };
@@ -32,5 +33,7 @@ module.exports = async (region, dynamoName) => {
   const dynamodb = new DynamoDBClient({ region });
 
   // Create DynamoDB
-  await createDynamo(dynamodb, dynamoName);
+  const tableArn = await createDynamo(dynamodb, dynamoName);
+  // need to find the arn from this object
+  return tableArn
 };

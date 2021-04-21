@@ -16,7 +16,7 @@ const getQueueUrl = async (queue, name) => {
     logger.log("Successfully found queue URL:", queueUrl)
     return queueUrl;
   } catch (error) {
-    logger.log("Error", error);
+    logger.warning("Error", error);
   }
 }
 

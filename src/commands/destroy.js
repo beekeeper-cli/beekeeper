@@ -5,7 +5,6 @@ const destroySQS = require('../aws/destroy/destroySQS');
 const destroyDynamo = require('../aws/destroy/destroyDynamo');
 const destroyCloudwatchEvent = require('../aws/destroy/destroyCloudwatchEvent');
 const destroyS3 = require('../aws/destroy/destroyS3');
-const destroyApi = require('../aws/destroy/destroyApiGateway');
 const destroyApiGateway = require('../aws/destroy/destroyApiGateway');
 
 const REGION = "us-east-2";
@@ -21,14 +20,13 @@ const CRON_JOB_NAME = 'wr-cronjob-cloudwatchevent';
 
 module.exports = async () => {
   logger.highlight('Destroying waiting room infrastructure');
-  // await destroyRole(REGION, ROLE_NAME);
-  // await destroyLambda(REGION, POST_LAMBDA_NAME);
-  // await destroyLambda(REGION, PRE_LAMBDA_NAME);
-  // await destroySQS(REGION, DLQ_NAME);
-  // await destroySQS(REGION, SQS_NAME);
-  // await destroyDynamo(REGION, DYNAMO_NAME);
-  // await destroyCloudwatchEvent(REGION, CRON_JOB_NAME);
-  // await destroyS3(REGION, S3_NAME);
+  await destroyRole(REGION, ROLE_NAME);
+  await destroyLambda(REGION, POST_LAMBDA_NAME);
+  await destroyLambda(REGION, PRE_LAMBDA_NAME);
+  await destroySQS(REGION, DLQ_NAME);
+  await destroySQS(REGION, SQS_NAME);
+  await destroyDynamo(REGION, DYNAMO_NAME);
+  await destroyCloudwatchEvent(REGION, CRON_JOB_NAME);
+  await destroyS3(REGION, S3_NAME);
   await destroyApiGateway(REGION, API_GATEWAY_NAME);
-  // Add destroy api gateway
 }

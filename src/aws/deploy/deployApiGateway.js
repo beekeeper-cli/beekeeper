@@ -74,7 +74,7 @@ const createResource = async (
   }
 };
 
-const putMethodRequest = async (apiGateway, restApiId, mainResourceId, mainResourceName) => {
+const mainPutMethodRequest = async (apiGateway, restApiId, mainResourceId, mainResourceName) => {
   const params = {
     restApiId,
     httpMethod: "GET",
@@ -166,7 +166,7 @@ module.exports = async (region, apiGatewayName, preLambdaArn) => {
   );
 
   // Setup Method Request
-  await putMethodRequest(apiGateway, restApiId, mainResourceId, mainResourceName)
+  await mainPutMethodRequest(apiGateway, restApiId, mainResourceId, mainResourceName)
 
   // Setup Integration Request
   let preLambdaUri = `arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/${preLambdaArn}/invocations`;
@@ -179,17 +179,5 @@ module.exports = async (region, apiGatewayName, preLambdaArn) => {
   // Setup Method Response
   await setMethodResponse(apiGateway, mainResourceId, restApiId, mainResourceName);
 
-  
-  // Finishing pollingRoute
-
-  // Resource validates user against DB
-  const pollingResourceName = "polling";
-  const pollingResourceId = await createResource(
-    apiGateway,
-    restApiId,
-    resourceParentId,
-    pollingResourceName
-  );
-
-  await putMethod(apiGateway, restApiId, pollingResourceId)
+  return restApiId;
 };
