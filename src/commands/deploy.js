@@ -10,6 +10,7 @@ const createRole = require("../aws/deploy/createRole");
 const deployPreLambda = require('../aws/deploy/deployPreLambda');
 const deployCloudwatchEvent = require('../aws/deploy/deployCloudwatchEvent');
 const deployPollingRoute = require("../aws/deploy/deployPollingRoute"); 
+const deployS3Objects = require("../aws/deploy/deployS3Objects");
 
 const REGION = "us-east-2";
 const DIRECTORY_TO_UPLOAD = path.join(__dirname, "..", "..", "assets", "s3");
@@ -46,5 +47,6 @@ module.exports = async () => {
   
   // set up to return rest ApiId
   const restApiId = await deployApiGateway(REGION, API_GATEWAY_NAME, preLambdaArn);
-  await deployPollingRoute(restApiId, REGION, API_GATEWAY_NAME, dbArn, roleArn, bucketUrl);
+  const pollingEndpoint = await deployPollingRoute(restApiId, REGION, API_GATEWAY_NAME, dbArn, roleArn, bucketUrl);
+  await deployS3Objects(REGION, DIRECTORY_TO_UPLOAD, S3_NAME, pollingEndpoint);
 }

@@ -207,4 +207,6 @@ module.exports = async (restApiId, region, apiGatewayName, dynamoDbArn, roleArn,
 
   // stage resource and deploy
   await deployResource(apiGateway, restApiId);
+
+  // need to return the url from our gateway
 };
