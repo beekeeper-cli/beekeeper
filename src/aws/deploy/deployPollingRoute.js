@@ -10,27 +10,27 @@ const {
   CreateDeploymentCommand,
 } = require("@aws-sdk/client-api-gateway");
 const { CreateSAMLProviderResponse } = require("@aws-sdk/client-iam");
-const logger = require("../../utils/logger")("commands:deployApiGateway");
+const logger = require("../../utils/logger")("commands:deployPollingRoute");
 
-const createApiGateway = async (apiGateway, apiGatewayName) => {
-  const params = {
-    name: apiGatewayName,
-    description: "SealBuzz API",
-    endpointConfiguration: { types: ["REGIONAL"] },
-  };
+// const createApiGateway = async (apiGateway, apiGatewayName) => {
+//   const params = {
+//     name: apiGatewayName,
+//     description: "SealBuzz API",
+//     endpointConfiguration: { types: ["REGIONAL"] },
+//   };
 
-  const command = new CreateRestApiCommand(params);
+//   const command = new CreateRestApiCommand(params);
 
-  try {
-    const { id: restApiId } = await apiGateway.send(command);
-    logger.log(
-      `Successfully created API Gateway: ${apiGatewayName}, id:${restApiId}`
-    );
-    return restApiId;
-  } catch (err) {
-    logger.warning("Error", err);
-  }
-};
+//   try {
+//     const { id: restApiId } = await apiGateway.send(command);
+//     logger.log(
+//       `Successfully created API Gateway: ${apiGatewayName}, id:${restApiId}`
+//     );
+//     return restApiId;
+//   } catch (err) {
+//     logger.warning("Error", err);
+//   }
+// };
 
 const getResources = async (apiGateway, restApiId, apiGatewayName) => {
   const params = {
@@ -74,35 +74,41 @@ const createResource = async (
   }
 };
 
-const mainPutMethodRequest = async (apiGateway, restApiId, mainResourceId, mainResourceName) => {
+const putMethodRequest = async (apiGateway, restApiId, pollingResourceId, pollingResourceName) => {
   const params = {
     restApiId,
     httpMethod: "GET",
-    resourceId: mainResourceId,
-    authorizationType: "NONE"
+    resourceId: pollingResourceId,
+    authorizationType: "NONE",
+    requestParameters: {
+      "method.request.header.cookie": false
+    }
   };
 
   const command = new PutMethodCommand(params);
 
   try {
     await apiGateway.send(command);
-    logger.log(`Successfully set request method for resource: ${mainResourceName}`);
+    logger.log(`Successfully set request method for resource: ${pollingResourceName}`);
   } catch (err) {
     logger.warning("Error", err);
   }
 }
 
-const setIntegrationRequest = async (apiGateway, mainResourceId, restApiId, lambdaUri, mainResourceName) => {
+const setIntegrationRequest = async (apiGateway, mainResourceId, restApiId, dynamoDbArn, mainResourceName, roleArn) => {
   const params = {
-    httpMethod: 'GET',
+    httpMethod: 'POST',
     resourceId: mainResourceId,
     restApiId,
-    type: "AWS_PROXY",
+    type: "AWS",
     contentHandling: 'CONVERT_TO_TEXT',
-    passthroughBehavior: 'WHEN_NO_MATCH',
+    passthroughBehavior: 'WHEN_NO_TEMPLATES',
+    credentials: roleArn,
     timeoutInMillis: 29000,
-    integrationHttpMethod: 'POST',
-    uri: lambdaUri,
+    uri: dynamoDbArn,
+    requestTemplates: {
+      "application/json": "#set ($string = \"$input.params('cookie')\")\n#set ($s = $string.split(\"=\"))\n{\n  \"TableName\": \"waiting_room\",\n  \"KeyConditionExpression\": \"usertoken = :v1\",\n  \"ExpressionAttributeValues\": {\n      \":v1\": {\n          \"S\": \"$s.get(1)\"\n      }\n  }\n}"
+    }
   };
 
   const command = new PutIntegrationCommand(params);
@@ -133,8 +139,19 @@ const setMethodResponse = async (apiGateway, mainResourceId, restApiId, mainReso
     httpMethod: "GET",
     resourceId: mainResourceId,
     restApiId,
-    statusCode: "200"
+    statusCode: "200",
+    responseParameters: {
+      "method.response.header.Access-Control-Allow-Credentials": false,
+      "method.response.header.Access-Control-Allow-Headers": false,
+      "method.response.header.Access-Control-Allow-Methods": false,
+      "method.response.header.Access-Control-Allow-Origin": false
+    },
   }
+
+  // might need a model 
+  // responseModels: {
+  //   "application/json": "Empty"
+  // }
 
   const command = new PutMethodResponseCommand(params);
 
@@ -146,38 +163,43 @@ const setMethodResponse = async (apiGateway, mainResourceId, restApiId, mainReso
   }
 }
 
-module.exports = async (region, apiGatewayName, preLambdaArn) => {
-  // Create an API Gateway client service object
+module.exports = async (restApiId, region, apiGatewayName, dynamoDbArn) => {
+  // // Create an API Gateway client service object
   const apiGateway = new APIGatewayClient({ region });
 
-  // Create API Gateway
-  const restApiId = await createApiGateway(apiGateway, apiGatewayName);
+  // // Create API Gateway
+  // const restApiId = await createApiGateway(apiGateway, apiGatewayName);
 
   // Get root resource ('/')
   const resourceParentId = await getResources(apiGateway, restApiId, apiGatewayName);
 
-  // Resource triggers lambda
-  const mainResourceName = "sealbuzz";
-  const mainResourceId = await createResource(
+  // Finishing pollingRoute
+  const pollingResourceName = "polling";
+  const pollingResourceId = await createResource(
     apiGateway,
     restApiId,
     resourceParentId,
-    mainResourceName
+    pollingResourceName
   );
 
   // Setup Method Request
-  await mainPutMethodRequest(apiGateway, restApiId, mainResourceId, mainResourceName)
+  await putMethodRequest(apiGateway, restApiId, pollingResourceId, pollingResourceName)
 
   // Setup Integration Request
   let preLambdaUri = `arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/${preLambdaArn}/invocations`;
 
-  await setIntegrationRequest(apiGateway, mainResourceId, restApiId, preLambdaUri, mainResourceName)
+  await setIntegrationRequest(apiGateway, pollingResourceId, restApiId, dynamoDbArn, pollingResourceName, roleArn)
 
   // Setup Integration Response
-  await setIntegrationResponse(apiGateway, mainResourceId, restApiId, mainResourceName);
+  await setIntegrationResponse(apiGateway, pollingResourceId, restApiId, pollingResourceName);
 
   // Setup Method Response
-  await setMethodResponse(apiGateway, mainResourceId, restApiId, mainResourceName);
+  await setMethodResponse(apiGateway, pollingResourceId, restApiId, pollingResourceName);
 
-  return restApiId;
+  
+ 
+
+  // Resource validates user against DB
+
+
 };

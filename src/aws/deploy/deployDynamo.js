@@ -32,5 +32,7 @@ module.exports = async (region, dynamoName) => {
   const dynamodb = new DynamoDBClient({ region });
 
   // Create DynamoDB
-  await createDynamo(dynamodb, dynamoName);
+  const { TableDescription } = await createDynamo(dynamodb, dynamoName);
+  // need to find the arn from this object
+  console.log(TableDescription)
 };
