@@ -10,6 +10,7 @@ const createRole = require("../aws/deploy/createRole");
 const deployPreLambda = require('../aws/deploy/deployPreLambda');
 const deployCloudwatchEvent = require('../aws/deploy/deployCloudwatchEvent');
 const deployPollingRoute = require("../aws/deploy/deployPollingRoute"); 
+// const deployS3Objects = require("../aws/deploy/deployS3Objects");
 
 const REGION = "us-east-2";
 const DIRECTORY_TO_UPLOAD = path.join(__dirname, "..", "..", "assets", "s3");
@@ -24,6 +25,7 @@ const POST_LAMBDA_NAME = 'wr-teamsix-postlambda'
 const PRE_LAMBDA_NAME = 'wr-teamsix-prelambda'
 const ROLE_NAME = 'wr-teamsix-master-role'
 const CRON_JOB_NAME = 'wr-cronjob-cloudwatchevent'
+const STAGE_NAME = 'sealbuzz-production';
 const RATE = 100
 
 module.exports = async () => {
@@ -33,7 +35,8 @@ module.exports = async () => {
   await logger.process(10000, '%s sealing buzz...');
   console.log('\n');
 
-  const bucketUrl = await deployS3(REGION, S3_NAME, DIRECTORY_TO_UPLOAD); // works
+  const bucketObjectTld = await deployS3(REGION, S3_NAME, DIRECTORY_TO_UPLOAD); // works
+
   const deadLetterQueueArn = await deployDLQ(REGION, DLQ_NAME); // works
   const sqsUrl = await deploySQS(REGION, SQS_NAME, deadLetterQueueArn); // works
   // set up deployDynamo to return arn
@@ -42,9 +45,15 @@ module.exports = async () => {
 
   await deployCloudwatchEvent(REGION, postLambdaArn, CRON_JOB_NAME);
 
-  const preLambdaArn = await deployPreLambda(REGION, PRE_LAMBDA_NAME, sqsUrl, PRE_LAMBDA_ASSET, roleArn, bucketUrl);
+  const preLambdaArn = await deployPreLambda(REGION, PRE_LAMBDA_NAME, sqsUrl, PRE_LAMBDA_ASSET, roleArn, bucketObjectTld);
   
   // set up to return rest ApiId
-  const restApiId = await deployApiGateway(REGION, API_GATEWAY_NAME, preLambdaArn);
-  await deployPollingRoute(restApiId, REGION, API_GATEWAY_NAME, dbArn, roleArn, bucketUrl);
+  const {restApiId, stageSealBuzzUrl} = await deployApiGateway(REGION, API_GATEWAY_NAME, preLambdaArn, STAGE_NAME);
+  const stagePollingUrl = await deployPollingRoute(restApiId, REGION, API_GATEWAY_NAME, dbArn, roleArn, bucketObjectTld, STAGE_NAME);
+  // await deployS3Objects(REGION, DIRECTORY_TO_UPLOAD, S3_NAME, stagePollingUrl);
+
+  logger.log(stageSealBuzzUrl);
+
+  // Fix bucketObjectTld URL = remove '/'
+  // Finish generating the polling.js for waitingroom
 }

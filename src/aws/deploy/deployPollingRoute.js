@@ -19,7 +19,7 @@ const getResources = async (apiGateway, restApiId, apiGatewayName) => {
 
   try {
     const result = await apiGateway.send(command);
-    const { id: resourceParentId } = result.items[0];
+    const { id: resourceParentId } = result.items.find(item => item.path === "/");
     logger.log(
       `Successfully retrieved API root resource ('/') for: ${apiGatewayName}`
     );
@@ -100,7 +100,7 @@ const setIntegrationRequest = async (apiGateway, pollingResourceId, restApiId, d
   }
 }
 
-const setIntegrationResponse = async (apiGateway, pollingResourceId, restApiId, pollingResourceName, bucketUrl) => {
+const setIntegrationResponse = async (apiGateway, pollingResourceId, restApiId, pollingResourceName, bucketObjectTld) => {
   const params = { 
     httpMethod: "GET",
     resourceId: pollingResourceId, 
@@ -110,7 +110,7 @@ const setIntegrationResponse = async (apiGateway, pollingResourceId, restApiId, 
       "method.response.header.Access-Control-Allow-Credentials": "'true'",
       "method.response.header.Access-Control-Allow-Headers": "'*'",
       "method.response.header.Access-Control-Allow-Methods": "'*'",
-      "method.response.header.Access-Control-Allow-Origin": `'${bucketUrl}'`
+      "method.response.header.Access-Control-Allow-Origin": `'${bucketObjectTld}'`
     },
     responseTemplates: {
       "application/json": "#set($inputRoot = $input.path('$'))\n#if($inputRoot.Count == 0)\n{\n\"allow\": false\n}\n#else\n{\n  \"allow\": true,\n  \"origin\": \"https://www.launchschool.com/capstone\"\n}\n#end"
@@ -156,11 +156,11 @@ const setMethodResponse = async (apiGateway, pollingResourceId, restApiId, polli
   }
 }
 
-const deployResource = async (apiGateway, restApiId) => {
+const deployResource = async (apiGateway, restApiId, stageName) => {
   const params = { 
     restApiId,
     stageDescription: 'production sealbuzz waitroom',
-    stageName: 'sealbuzz-production'
+    stageName
   };
 
   const command = new CreateDeploymentCommand(params);
@@ -173,7 +173,7 @@ const deployResource = async (apiGateway, restApiId) => {
   }
 };
 
-module.exports = async (restApiId, region, apiGatewayName, dynamoDbArn, roleArn, bucketUrl) => {
+module.exports = async (restApiId, region, apiGatewayName, dynamoDbArn, roleArn, bucketObjectTld, stageName) => {
   // // Create an API Gateway client service object
   const apiGateway = new APIGatewayClient({ region });
 
@@ -203,8 +203,11 @@ module.exports = async (restApiId, region, apiGatewayName, dynamoDbArn, roleArn,
   await setMethodResponse(apiGateway, pollingResourceId, restApiId, pollingResourceName);
 
   // Setup Integration Response
-  await setIntegrationResponse(apiGateway, pollingResourceId, restApiId, pollingResourceName, bucketUrl);
+  await setIntegrationResponse(apiGateway, pollingResourceId, restApiId, pollingResourceName, bucketObjectTld);
 
   // stage resource and deploy
-  await deployResource(apiGateway, restApiId);
+  await deployResource(apiGateway, restApiId, stageName);
+
+  // Stage polling URL
+  return `https://${restApiId}.execute-api.${region}.amazonaws.com/${stageName}/${pollingResourceName}`
 };

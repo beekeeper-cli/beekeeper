@@ -33,6 +33,30 @@ const getContentType = (extension) => {
   }
 }
 
+// const createWaitingRoomPoller = async (stagePollingUrl) => {
+// setInterval(async () => {
+//   const URL = `https://zehv5d8rcc.execute-api.us-east-2.amazonaws.com/sealbuzz-production/polling`;
+//   let response = await fetch(URL, {
+//     credentials: "include"
+//   });
+
+//   let json = await response.json();
+
+//   if (json.allow) {
+//     let origin = json.origin;
+//     window.location.href = origin;
+//   }
+
+// }, 5000);
+
+//   try {
+
+//   } catch (err) {
+
+//   }
+// }
+
+
 module.exports = {
   getFilePaths,
   getContentType
