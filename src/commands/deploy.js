@@ -10,12 +10,13 @@ const createRole = require("../aws/deploy/createRole");
 const deployPreLambda = require('../aws/deploy/deployPreLambda');
 const deployCloudwatchEvent = require('../aws/deploy/deployCloudwatchEvent');
 const deployPollingRoute = require("../aws/deploy/deployPollingRoute"); 
-// const deployS3Objects = require("../aws/deploy/deployS3Objects");
+const deployPollingS3Object = require("../aws/deploy/deployPollingS3Object");
 
 const REGION = "us-east-2";
 const DIRECTORY_TO_UPLOAD = path.join(__dirname, "..", "..", "assets", "s3");
 const POST_LAMBDA_ASSET = path.join(__dirname, "..", "..", "assets", "postlambda", 'index.js.zip');
 const PRE_LAMBDA_ASSET = path.join(__dirname, "..", "..", "assets", "prelambda", 'index.js.zip');
+const POLL_FILE_PATH = path.join(__dirname, "..", "..", "assets", "s3", 'polling.js');
 const S3_NAME = "wr-teamsix-s3"
 const DLQ_NAME = "wr-teamsix-dlq"
 const SQS_NAME = "wr-teamsix-sqs"
@@ -40,7 +41,6 @@ module.exports = async () => {
   const deadLetterQueueArn = await deployDLQ(REGION, DLQ_NAME); // works
   const sqsUrl = await deploySQS(REGION, SQS_NAME, deadLetterQueueArn); // works
 
-  // set up deployDynamo to return arn
   const dbArn = await deployDynamo(REGION, DYNAMO_NAME); // works
   const postLambdaArn = await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsUrl, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME, RATE);
 
@@ -48,12 +48,10 @@ module.exports = async () => {
 
   const preLambdaArn = await deployPreLambda(REGION, PRE_LAMBDA_NAME, sqsUrl, PRE_LAMBDA_ASSET, roleArn, bucketObjectTld);
   
-  // set up to return rest ApiId
   const {restApiId, stageSealBuzzUrl} = await deployApiGateway(REGION, API_GATEWAY_NAME, preLambdaArn, STAGE_NAME);
   const stagePollingUrl = await deployPollingRoute(restApiId, REGION, API_GATEWAY_NAME, dbArn, roleArn, bucketObjectTld, STAGE_NAME);
-  // await deployS3Objects(REGION, DIRECTORY_TO_UPLOAD, S3_NAME, stagePollingUrl);
+  
+  await deployPollingS3Object(REGION, S3_NAME, stagePollingUrl, POLL_FILE_PATH);
 
   logger.log(stageSealBuzzUrl);
-
-  // Finish generating the polling.js for waitingroom
 }
