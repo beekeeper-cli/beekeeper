@@ -2,7 +2,7 @@ const AWS = require('aws-sdk');
 AWS.config.update({region: process.env.REGION});
 const sqsClient = new AWS.SQS({apiVersion: '2012-11-05'});
 const SQS_URL = process.env.SQS_URL;
-const BUCKET_OBJECT_TLD = process.env.BUCKET_OBJECT_TLD;
+const S3_OBJECT_ROOT_DOMAIN = process.env.S3_OBJECT_ROOT_DOMAIN;
 
 const cookieCheck = (response, event) => {
     if (event.headers && !event.headers.cookie) {
@@ -35,9 +35,9 @@ exports.handler = async (event, context, callback) => {
     let statusCode = '200';
     const headers = {
         'Content-Type': 'application/json',
-        'Location': `${BUCKET_OBJECT_TLD}/index.html`,
+        'Location': `${S3_OBJECT_ROOT_DOMAIN}/index.html`,
         'Access-Control-Allow-Credentials': true,
-        'Access-Control-Allow-Origin': BUCKET_OBJECT_TLD,
+        'Access-Control-Allow-Origin': S3_OBJECT_ROOT_DOMAIN,
         'Access-Control-Allow-Headers': '*',
         'Access-Control-Allow-Methods': '*'
     };

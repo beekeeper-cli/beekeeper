@@ -1,4 +1,4 @@
-const logger = require('../utils/logger')('commands:destroy');
+const logger = require('../utils/logger')('destroy');
 const destroyRole = require('../aws/destroy/destroyRole');
 const destroyLambda = require('../aws/destroy/destroyLambda');
 const destroySQS = require('../aws/destroy/destroySQS');

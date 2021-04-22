@@ -3,7 +3,7 @@ const {
   DeleteRestApiCommand,
   GetRestApisCommand,
 } = require("@aws-sdk/client-api-gateway");
-const logger = require("../../utils/logger")("commands:destroyRestApi");
+const logger = require("../../utils/logger")("destroyApiGateway");
 
 const getApiId = async (apiGateway, apiName) => {
   const command = new GetRestApisCommand({});

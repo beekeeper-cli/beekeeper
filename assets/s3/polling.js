@@ -1,5 +1,5 @@
 setInterval(async () => {
-    const URL = "https://7456mtvcq4.execute-api.us-east-2.amazonaws.com/sealbuzz-production/polling";
+    const URL = "https://nxwjy26q46.execute-api.us-east-2.amazonaws.com/sealbuzz-production/polling";
     let response = await fetch(URL, {
       credentials: "include",
     });

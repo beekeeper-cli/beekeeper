@@ -7,10 +7,8 @@ const {
   PutIntegrationCommand,
   PutIntegrationResponseCommand,
   PutMethodResponseCommand,
-  CreateDeploymentCommand,
 } = require("@aws-sdk/client-api-gateway");
-const { CreateSAMLProviderResponse } = require("@aws-sdk/client-iam");
-const logger = require("../../utils/logger")("commands:deployApiGateway");
+const logger = require("../../utils/logger")("deployApiGateway");
 
 const createApiGateway = async (apiGateway, apiGatewayName) => {
   const params = {
@@ -74,34 +72,47 @@ const createResource = async (
   }
 };
 
-const mainPutMethodRequest = async (apiGateway, restApiId, mainResourceId, mainResourceName) => {
+const mainPutMethodRequest = async (
+  apiGateway,
+  restApiId,
+  mainResourceId,
+  mainResourceName
+) => {
   const params = {
     restApiId,
     httpMethod: "GET",
     resourceId: mainResourceId,
-    authorizationType: "NONE"
+    authorizationType: "NONE",
   };
 
   const command = new PutMethodCommand(params);
 
   try {
     await apiGateway.send(command);
-    logger.log(`Successfully set request method for resource: ${mainResourceName}`);
+    logger.log(
+      `Successfully set request method for resource: ${mainResourceName}`
+    );
   } catch (err) {
     logger.warning("Error", err);
   }
-}
+};
 
-const setIntegrationRequest = async (apiGateway, mainResourceId, restApiId, lambdaUri, mainResourceName) => {
+const setIntegrationRequest = async (
+  apiGateway,
+  mainResourceId,
+  restApiId,
+  lambdaUri,
+  mainResourceName
+) => {
   const params = {
-    httpMethod: 'GET',
+    httpMethod: "GET",
     resourceId: mainResourceId,
     restApiId,
     type: "AWS_PROXY",
-    contentHandling: 'CONVERT_TO_TEXT',
-    passthroughBehavior: 'WHEN_NO_MATCH',
+    contentHandling: "CONVERT_TO_TEXT",
+    passthroughBehavior: "WHEN_NO_MATCH",
     timeoutInMillis: 29000,
-    integrationHttpMethod: 'POST',
+    integrationHttpMethod: "POST",
     uri: lambdaUri,
   };
 
@@ -109,42 +120,63 @@ const setIntegrationRequest = async (apiGateway, mainResourceId, restApiId, lamb
 
   try {
     await apiGateway.send(command);
-    logger.log(`Successfully set integration request for resource: ${mainResourceName}`);
+    logger.log(
+      `Successfully set integration request for resource: ${mainResourceName}`
+    );
   } catch (err) {
     logger.warning("Error", err);
   }
-}
+};
 
-const setIntegrationResponse = async (apiGateway, mainResourceId, restApiId, mainResourceName) => {
-  const params = { httpMethod: 'GET', resourceId: mainResourceId, restApiId, statusCode: '200' }
+const setIntegrationResponse = async (
+  apiGateway,
+  mainResourceId,
+  restApiId,
+  mainResourceName
+) => {
+  const params = {
+    httpMethod: "GET",
+    resourceId: mainResourceId,
+    restApiId,
+    statusCode: "200",
+  };
 
   const command = new PutIntegrationResponseCommand(params);
 
   try {
     await apiGateway.send(command);
-    logger.log(`Successfully set integration response for resource: ${mainResourceName}`);
+    logger.log(
+      `Successfully set integration response for resource: ${mainResourceName}`
+    );
   } catch (err) {
     logger.warning("Error", err);
   }
-}
+};
 
-const setMethodResponse = async (apiGateway, mainResourceId, restApiId, mainResourceName) => {
+const setMethodResponse = async (
+  apiGateway,
+  mainResourceId,
+  restApiId,
+  mainResourceName
+) => {
   const params = {
     httpMethod: "GET",
     resourceId: mainResourceId,
     restApiId,
-    statusCode: "200"
-  }
+    statusCode: "200",
+  };
 
   const command = new PutMethodResponseCommand(params);
 
   try {
     await apiGateway.send(command);
-    logger.log(`Successfully set method response for resource: ${mainResourceName}`);
+    logger.log(
+      `Successfully set method response for resource: ${mainResourceName}`
+    );
   } catch (err) {
     logger.warning("Error", err);
   }
-}
+};
 
 module.exports = async (region, apiGatewayName, preLambdaArn, stageName) => {
   // Create an API Gateway client service object
@@ -154,7 +186,11 @@ module.exports = async (region, apiGatewayName, preLambdaArn, stageName) => {
   const restApiId = await createApiGateway(apiGateway, apiGatewayName);
 
   // Get root resource ('/')
-  const resourceParentId = await getResources(apiGateway, restApiId, apiGatewayName);
+  const resourceParentId = await getResources(
+    apiGateway,
+    restApiId,
+    apiGatewayName
+  );
 
   // Resource triggers lambda
   const mainResourceName = "sealbuzz";
@@ -166,21 +202,42 @@ module.exports = async (region, apiGatewayName, preLambdaArn, stageName) => {
   );
 
   // Setup Method Request
-  await mainPutMethodRequest(apiGateway, restApiId, mainResourceId, mainResourceName)
+  await mainPutMethodRequest(
+    apiGateway,
+    restApiId,
+    mainResourceId,
+    mainResourceName
+  );
 
   // Setup Integration Request
   let preLambdaUri = `arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/${preLambdaArn}/invocations`;
 
-  await setIntegrationRequest(apiGateway, mainResourceId, restApiId, preLambdaUri, mainResourceName)
+  await setIntegrationRequest(
+    apiGateway,
+    mainResourceId,
+    restApiId,
+    preLambdaUri,
+    mainResourceName
+  );
 
   // Setup Integration Response
-  await setIntegrationResponse(apiGateway, mainResourceId, restApiId, mainResourceName);
+  await setIntegrationResponse(
+    apiGateway,
+    mainResourceId,
+    restApiId,
+    mainResourceName
+  );
 
   // Setup Method Response
-  await setMethodResponse(apiGateway, mainResourceId, restApiId, mainResourceName);
+  await setMethodResponse(
+    apiGateway,
+    mainResourceId,
+    restApiId,
+    mainResourceName
+  );
 
   return {
     restApiId,
-    stageSealBuzzUrl: `https://${restApiId}.execute-api.${region}.amazonaws.com/${stageName}/${mainResourceName}`
+    stageSealBuzzUrl: `https://${restApiId}.execute-api.${region}.amazonaws.com/${stageName}/${mainResourceName}`,
   };
 };
