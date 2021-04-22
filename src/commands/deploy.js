@@ -39,6 +39,7 @@ module.exports = async () => {
 
   const deadLetterQueueArn = await deployDLQ(REGION, DLQ_NAME); // works
   const sqsUrl = await deploySQS(REGION, SQS_NAME, deadLetterQueueArn); // works
+
   // set up deployDynamo to return arn
   const dbArn = await deployDynamo(REGION, DYNAMO_NAME); // works
   const postLambdaArn = await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsUrl, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME, RATE);
@@ -54,6 +55,5 @@ module.exports = async () => {
 
   logger.log(stageSealBuzzUrl);
 
-  // Fix bucketObjectTld URL = remove '/'
   // Finish generating the polling.js for waitingroom
 }

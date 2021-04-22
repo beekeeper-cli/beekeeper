@@ -35,7 +35,7 @@ exports.handler = async (event, context, callback) => {
     let statusCode = '200';
     const headers = {
         'Content-Type': 'application/json',
-        'Location': `${BUCKET_OBJECT_TLD}index.html`,
+        'Location': `${BUCKET_OBJECT_TLD}/index.html`,
         'Access-Control-Allow-Credentials': true,
         'Access-Control-Allow-Origin': BUCKET_OBJECT_TLD,
         'Access-Control-Allow-Headers': '*',

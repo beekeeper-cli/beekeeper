@@ -58,5 +58,5 @@ module.exports = async (region, bucketName, directoryPath) => {
 
   // 'http://wr-teamsix-s3.s3.amazonaws.com/'	
   // https://bucketName.s3.region.amazonaws.com/
-  return `https://${bucketName}.s3.${region}.amazonaws.com/`
+  return `https://${bucketName}.s3.${region}.amazonaws.com`
 };
