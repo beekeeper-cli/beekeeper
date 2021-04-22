@@ -1,21 +1,23 @@
 const path = require("path");
-const logger = require('../utils/logger')('commands:deploy');
+const logger = require('../utils/logger')('deploy');
+
+const createRole = require("../aws/deploy/createRole");
 const deployS3 = require('../aws/deploy/deployS3');
-const deployDLQ = require('../aws/deploy/deployDLQ');
-const deploySQS = require("../aws/deploy/deploySQS");
+const deployDlq = require('../aws/deploy/deployDlq');
+const deploySqs = require("../aws/deploy/deploySqs");
 const deployDynamo = require("../aws/deploy/deployDynamo");
 const deployApiGateway = require("../aws/deploy/deployApiGateway");
 const deployPostLambda = require("../aws/deploy/deployPostLambda");
-const createRole = require("../aws/deploy/createRole");
 const deployPreLambda = require('../aws/deploy/deployPreLambda');
 const deployCloudwatchEvent = require('../aws/deploy/deployCloudwatchEvent');
 const deployPollingRoute = require("../aws/deploy/deployPollingRoute"); 
-// const deployS3Objects = require("../aws/deploy/deployS3Objects");
+const deployPollingS3Object = require("../aws/deploy/deployPollingS3Object");
 
 const REGION = "us-east-2";
-const DIRECTORY_TO_UPLOAD = path.join(__dirname, "..", "..", "assets", "s3");
+const S3_ASSET_PATH = path.join(__dirname, "..", "..", "assets", "s3");
 const POST_LAMBDA_ASSET = path.join(__dirname, "..", "..", "assets", "postlambda", 'index.js.zip');
 const PRE_LAMBDA_ASSET = path.join(__dirname, "..", "..", "assets", "prelambda", 'index.js.zip');
+const POLL_FILE_PATH = path.join(__dirname, "..", "..", "assets", "s3", 'polling.js');
 const S3_NAME = "wr-teamsix-s3"
 const DLQ_NAME = "wr-teamsix-dlq"
 const SQS_NAME = "wr-teamsix-sqs"
@@ -31,29 +33,40 @@ const RATE = 100
 module.exports = async () => {
   logger.highlight('Deploying waiting room infrastructure');
 
-  const roleArn = await createRole(REGION, ROLE_NAME); // works
+  // Create Role
+  const roleArn = await createRole(REGION, ROLE_NAME);
   await logger.process(10000, '%s sealing buzz...');
   console.log('\n');
 
-  const bucketObjectTld = await deployS3(REGION, S3_NAME, DIRECTORY_TO_UPLOAD); // works
+  // Deploy S3 Bucket + S3 Objects
+  const s3ObjectRootDomain = await deployS3(REGION, S3_NAME, S3_ASSET_PATH);
 
-  const deadLetterQueueArn = await deployDLQ(REGION, DLQ_NAME); // works
-  const sqsUrl = await deploySQS(REGION, SQS_NAME, deadLetterQueueArn); // works
+  // Deploy DLQ
+  const dlqArn = await deployDlq(REGION, DLQ_NAME);
 
-  // set up deployDynamo to return arn
-  const dbArn = await deployDynamo(REGION, DYNAMO_NAME); // works
+  // Deploy SQS
+  const sqsUrl = await deploySqs(REGION, SQS_NAME, dlqArn);
+
+  // Deploy DynamoDB
+  const dbArn = await deployDynamo(REGION, DYNAMO_NAME);
+
+  // Deploy Post Lambda
   const postLambdaArn = await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsUrl, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME, RATE);
 
+  // Deploy Cloudwatch Event Rules for Post Lambda (CRON)
   await deployCloudwatchEvent(REGION, postLambdaArn, CRON_JOB_NAME);
 
-  const preLambdaArn = await deployPreLambda(REGION, PRE_LAMBDA_NAME, sqsUrl, PRE_LAMBDA_ASSET, roleArn, bucketObjectTld);
+  // Deploy Pre Lambda
+  const preLambdaArn = await deployPreLambda(REGION, PRE_LAMBDA_NAME, sqsUrl, PRE_LAMBDA_ASSET, roleArn, s3ObjectRootDomain);
   
-  // set up to return rest ApiId
+  // Deploy API Gateway + Waiting Room Route
   const {restApiId, stageSealBuzzUrl} = await deployApiGateway(REGION, API_GATEWAY_NAME, preLambdaArn, STAGE_NAME);
-  const stagePollingUrl = await deployPollingRoute(restApiId, REGION, API_GATEWAY_NAME, dbArn, roleArn, bucketObjectTld, STAGE_NAME);
-  // await deployS3Objects(REGION, DIRECTORY_TO_UPLOAD, S3_NAME, stagePollingUrl);
+
+  // Deploy Waiting Room Polling Route on API Gateway
+  const stagePollingUrl = await deployPollingRoute(restApiId, REGION, API_GATEWAY_NAME, dbArn, roleArn, s3ObjectRootDomain, STAGE_NAME);
+  
+  // Create and upload poll.js to S3 bucket
+  await deployPollingS3Object(REGION, S3_NAME, stagePollingUrl, POLL_FILE_PATH);
 
   logger.log(stageSealBuzzUrl);
-
-  // Finish generating the polling.js for waitingroom
 }

@@ -1,5 +1,6 @@
-const fs = require('fs');
+const fs = require("fs");
 const path = require("path");
+const logger = require('./logger')('utils:utilities');
 
 const getFilePaths = (dir) => {
   const filePaths = [];
@@ -16,48 +17,40 @@ const getFilePaths = (dir) => {
         getPaths(filePath);
       }
     });
-  }
+  };
 
   getPaths(dir);
   return filePaths;
 };
 
 const getContentType = (extension) => {
-  let imageExtensions = ["gif", "png", "jpeg"]
-  let textExtensions = ["css", "html"];
-  
+  let imageExtensions = ["gif", "png", "jpeg"];
+  let textExtensions = ["css", "html", "js"];
+
   if (imageExtensions.includes(extension)) {
-    return `image/${extension}`
+    return `image/${extension}`;
   } else if (textExtensions.includes(extension)) {
-    return `text/${extension}`
+    if (extension === 'js') {
+      extension = 'javascript';
+    }
+
+    return `text/${extension}`;
   }
-}
+};
 
-// const createWaitingRoomPoller = async (stagePollingUrl) => {
-// setInterval(async () => {
-//   const URL = `https://zehv5d8rcc.execute-api.us-east-2.amazonaws.com/sealbuzz-production/polling`;
-//   let response = await fetch(URL, {
-//     credentials: "include"
-//   });
+const createPollerFile = async (script, pollFilePath) => {
+  const fileName = pollFilePath.split('/').slice(-1)[0];
 
-//   let json = await response.json();
-
-//   if (json.allow) {
-//     let origin = json.origin;
-//     window.location.href = origin;
-//   }
-
-// }, 5000);
-
-//   try {
-
-//   } catch (err) {
-
-//   }
-// }
-
+  try {
+    await fs.promises.writeFile(pollFilePath, script);
+    logger.log(`Successfully created ${fileName}`);
+  } catch (err) {
+    logger.log(err);
+  }
+};
 
 module.exports = {
   getFilePaths,
-  getContentType
-}
+  getContentType,
+  createPollerFile,
+};

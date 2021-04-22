@@ -1,5 +1,5 @@
 const {CloudWatchEventsClient, DeleteRuleCommand, RemoveTargetsCommand} = require("@aws-sdk/client-cloudwatch-events");
-const logger = require('../../utils/logger')('commands:destroyCloudwatchEvent');
+const logger = require('../../utils/logger')('destroyCloudwatchEvent');
 
 const destroyCloudwatchTarget = async (cloudwatchEvent, name) => {
   // const base64String = Buffer.from(name).toString('base64');

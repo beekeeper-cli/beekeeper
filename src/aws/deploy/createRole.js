@@ -3,7 +3,7 @@ const {
   CreateRoleCommand,
   AttachRolePolicyCommand,
 } = require("@aws-sdk/client-iam");
-const logger = require("../../utils/logger")("commands:createRole");
+const logger = require("../../utils/logger")("createRole");
 
 const policy = {
   Version: "2012-10-17",
@@ -24,7 +24,7 @@ const policy = {
   ],
 };
 
-const permissions = [
+const arnPermissions = [
   "arn:aws:iam::aws:policy/AmazonSQSFullAccess",
   "arn:aws:iam::aws:policy/AmazonS3FullAccess",
   "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
@@ -32,25 +32,25 @@ const permissions = [
   "arn:aws:iam::aws:policy/AWSLambda_FullAccess",
 ];
 
-const addPermissions = async (iam, name) => {
-  for (let perm of permissions) {
+const addPermissions = async (iam, roleName) => {
+  for (let arnPermission of arnPermissions) {
     const command = new AttachRolePolicyCommand({
-      PolicyArn: perm,
-      RoleName: name,
+      PolicyArn: arnPermission,
+      RoleName: roleName,
     });
 
     try {
       await iam.send(command);
-      logger.log(`Successfully added permission: ${perm}`);
+      logger.log(`Successfully added permission: ${arnPermission}`);
     } catch (err) {
       logger.warning("Error", err);
     }
   }
 };
 
-const createRole = async (iam, policyDoc, name) => {
+const createRole = async (iam, policyDoc, roleName) => {
   const params = {
-    RoleName: name,
+    RoleName: roleName,
     AssumeRolePolicyDocument: JSON.stringify(policyDoc),
   };
   const command = new CreateRoleCommand(params);
@@ -64,12 +64,12 @@ const createRole = async (iam, policyDoc, name) => {
   }
 };
 
-module.exports = async (region, name) => {
+module.exports = async (region, roleName) => {
   // Create an IAM client service object
   const iam = new IAMClient({ region });
 
   // Create Role
-  const newRoleArn = await createRole(iam, policy, name);
-  await addPermissions(iam, name);
-  return newRoleArn;
+  const roleArn = await createRole(iam, policy, roleName);
+  await addPermissions(iam, roleName);
+  return roleArn;
 };

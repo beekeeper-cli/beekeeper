@@ -1,8 +1,8 @@
 const { SQSClient, CreateQueueCommand } = require("@aws-sdk/client-sqs");
-const logger = require('../../utils/logger')('commands:deploySQS');
+const logger = require("../../utils/logger")("deploySqs");
 
 const createSQS = async (sqs, sqsName, dlqARN) => {
-  const params = { 
+  const params = {
     QueueName: sqsName,
     Attributes: {
       VisibilityTimeout: 30,
@@ -11,9 +11,9 @@ const createSQS = async (sqs, sqsName, dlqARN) => {
       DelaySeconds: 0,
       RedrivePolicy: JSON.stringify({
         deadLetterTargetArn: dlqARN,
-        maxReceiveCount: 10
-      })
-    }
+        maxReceiveCount: 10,
+      }),
+    },
   };
   const command = new CreateQueueCommand(params);
 
@@ -24,13 +24,13 @@ const createSQS = async (sqs, sqsName, dlqARN) => {
   } catch (err) {
     logger.warning("Error", err);
   }
-}
+};
 
 module.exports = async (region, sqsName, dlqARN) => {
   // Create an SQS client service object
   const sqs = new SQSClient({ region });
 
   // Create SQS
-  const QueueUrl = await createSQS(sqs, sqsName, dlqARN);
-  return QueueUrl;
+  const sqsUrl = await createSQS(sqs, sqsName, dlqARN);
+  return sqsUrl;
 };

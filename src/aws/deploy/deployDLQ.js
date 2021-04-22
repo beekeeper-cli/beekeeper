@@ -1,15 +1,19 @@
-const { SQSClient, CreateQueueCommand, GetQueueAttributesCommand } = require("@aws-sdk/client-sqs");
-const logger = require('../../utils/logger')('commands:deployDLQ');
+const {
+  SQSClient,
+  CreateQueueCommand,
+  GetQueueAttributesCommand,
+} = require("@aws-sdk/client-sqs");
+const logger = require("../../utils/logger")("deployDlq");
 
-const createDLQ = async (sqs, sqsName) => {
+const createDLQ = async (sqs, dlqName) => {
   const params = {
-    QueueName: sqsName,
+    QueueName: dlqName,
     Attributes: {
       VisibilityTimeout: 30,
       ReceiveMessageWaitTimeSeconds: 0,
       MessageRetentionPeriod: 345600,
       DelaySeconds: 0,
-    }
+    },
   };
   const command = new CreateQueueCommand(params);
 
@@ -20,34 +24,36 @@ const createDLQ = async (sqs, sqsName) => {
   } catch (err) {
     logger.warning("Error", err);
   }
-}
+};
 
-const getArn = async (sqs, queueUrl) => {
+const getArn = async (sqs, dlqUrl) => {
   const params = {
-    QueueUrl: queueUrl,
-    AttributeNames: ["All"]
-  }
+    QueueUrl: dlqUrl,
+    AttributeNames: ["All"],
+  };
 
   const command = new GetQueueAttributesCommand(params);
 
   try {
-    const { Attributes: { QueueArn } } = await sqs.send(command);
+    const {
+      Attributes: { QueueArn },
+    } = await sqs.send(command);
     logger.log(`Successfully retrieved DLQ ARN: ${QueueArn}`);
     return QueueArn;
   } catch (err) {
     logger.warning("Error", err);
   }
-}
+};
 
-module.exports = async (region, sqsName) => {
+module.exports = async (region, dlqName) => {
   // Create an SQS client service object
   const sqs = new SQSClient({ region });
 
   // Create DLQ SQS
-  const queueUrl = await createDLQ(sqs, sqsName);
+  const dqlUrl = await createDLQ(sqs, dlqName);
 
   // Get ARN of DLQ
-  const deadLetterQueueARN = await getArn(sqs, queueUrl);
+  const dlqArn = await getArn(sqs, dqlUrl);
 
-  return deadLetterQueueARN;
+  return dlqArn;
 };

@@ -1,41 +1,43 @@
 const {
   S3Client,
   PutObjectCommand,
-  CreateBucketCommand
+  CreateBucketCommand,
 } = require("@aws-sdk/client-s3");
-const logger = require('../../utils/logger')('commands:deployS3');
-const { getFilePaths, getContentType } = require('../../utils/utilities');
-const fs = require('fs');
+const logger = require("../../utils/logger")("deployS3");
+const { getFilePaths, getContentType } = require("../../utils/utilities");
+const fs = require("fs");
 
 const createBucket = async (s3, bucketName) => {
   const params = { Bucket: bucketName };
   const command = new CreateBucketCommand(params);
 
   try {
-    const {Location} = await s3.send(command);
+    const { Location } = await s3.send(command);
     logger.log(`Successfully created S3 Bucket: ${bucketName}`);
     return Location;
   } catch (err) {
     logger.warning("Error", err);
   }
-}
+};
 
-const uploadToS3 = async (s3, bucketName, dir, path) => {
-  const keyName = path.split(`${dir}/`)[1];
-  const extension = keyName.split('.').slice(-1)[0];
+const uploadToS3 = async (s3, bucketName, directoryPath, filePath) => {
+  const keyName = filePath.split(`${directoryPath}/`)[1];
+  const extension = keyName.split(".").slice(-1)[0];
 
   const params = {
     Bucket: bucketName,
     Key: keyName,
-    Body: fs.readFileSync(path),
+    Body: fs.readFileSync(filePath),
     ACL: "public-read",
-    ContentType: getContentType(extension)
+    ContentType: getContentType(extension),
   };
   const command = new PutObjectCommand(params);
 
   try {
     await s3.send(command);
-    logger.log("Successfully uploaded waiting room files to: " + bucketName + "/" + keyName);
+    logger.log(
+      "Successfully uploaded S3 Object file: " + bucketName + "/" + keyName
+    );
   } catch (err) {
     logger.warning("Error", err);
   }
@@ -48,15 +50,14 @@ module.exports = async (region, bucketName, directoryPath) => {
   // Create S3 bucket
   await createBucket(s3, bucketName);
 
-  // Get all file paths
+  // Get all S3 object file paths
   const filePaths = getFilePaths(directoryPath);
 
-  // // Upload every file to S3
-  for (const path of filePaths) {
-    await uploadToS3(s3, bucketName, directoryPath, path)
+  // Upload every S3 object to S3 bucket
+  for (const filePath of filePaths) {
+    await uploadToS3(s3, bucketName, directoryPath, filePath);
   }
 
-  // 'http://wr-teamsix-s3.s3.amazonaws.com/'	
-  // https://bucketName.s3.region.amazonaws.com/
-  return `https://${bucketName}.s3.${region}.amazonaws.com`
+  // Return S3 Object root domain (not s3 bucket domain)
+  return `https://${bucketName}.s3.${region}.amazonaws.com`;
 };
