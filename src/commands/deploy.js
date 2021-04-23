@@ -69,7 +69,7 @@ module.exports = async () => {
     const eventArn = await deployCloudwatchEvent(REGION, postLambdaArn, CRON_JOB_NAME);
 
     // Add event permission
-    await addPostLambdaEventPermission(REGION, postLambdName, eventArn);
+    await addPostLambdaEventPermission(REGION, POST_LAMBDA_NAME, eventArn);
 
     // Deploy Pre Lambda
     const preLambdaArn = await deployPreLambda(REGION, PRE_LAMBDA_NAME, sqsUrl, PRE_LAMBDA_ASSET, roleArn, s3ObjectRootDomain);
