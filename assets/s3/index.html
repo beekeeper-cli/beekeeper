@@ -2,81 +2,58 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="./style.css" rel="stylesheet">
-  <title>Please try again</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Beekeeper Waiting Room</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="vendor/simple-line-icons/css/simple-line-icons.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/new-age.css" rel="stylesheet">
+  <script src="./polling.js" defer></script>
 </head>
 
-<body>
-  <div class="main-container">
-    <div class="main-home">
-      <p>You can close this page without losing your place in line</p>
+<body id="page-top">
 
-      <div>
-        <img src="./seal_bin.gif" width="250px">
+  <header class="masthead">
+    <div class="container h-100">
+      <div class="honeypot-message">
+        <p>Waiting room provided by Honeypot</p>
       </div>
-
-      <div style="text-align: left;">
-        <h1>You are now in line</h1>
-        <p>
-          You are in line for My Layout Test Event. When it is your turn, you will have 10 minutes to enter the website.
-        </p>
-        <a>What is this?</a>
-      </div>
-
-      <div style="padding: 20px 0;">
-        <img src="./wait-bar.png">
-      </div>
-
-      <div style="width: 50%; text-align: center; padding: 20px;">
-      <div>
-        <span>Your number in line:</span>
-        <span>594 (dynamic)</span>
-      </div>
-
-      <div>
-        <span>Number of users in line ahead of you:</span>
-        <span>31 (dynamic)</span>
-      </div>
-
-      <div>
-        <span>Expected arrival time on the website:</span>
-        <span>9:39 AM (dynamic)</span>
-      </div>
-      <div>
-        <span>Your estimated wait time is:</span>
-        <span>less than a minute (dynamic)</span>
-      </div>
-      <div>
-        <ul>
-          <li>
-            <span>Status last updated:</span>
-            <span>9:40:23 AM (dynamic)</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-      <div style="background-color: azure; padding: 25px; margin-bottom: 15px;">
-        <div>
-          <span>Message last updated:</span>
-          <span>9:40:23 AM (dynamic)</span>
+      <div class="row h-100">
+        <div class="col-lg-7 my-auto">
+          <div class="header-content mx-auto">
+            <h1 class="mb-2">You're in a waiting room for:</h1>
+            <h2 class="brand-name ml-3">Launch School</h2>
+          </div>
         </div>
-        <p>Front row seats booked (dynamic)</p>
+        <div class="col-lg-5 my-auto">
+          <div class="device-container">
+            <p class="check-status">Checking on your queue status in:</p>
+            <div id="timer"></div>
+            <div id="wait-message">
+              <h2>It's not your turn yet. We will try again.</h2>
+            </div>
+          </div>
+        </div>
       </div>
-
-      
-      <footer>
-        <p><a href="#">Leave the line</a> (You will lose your place)</p>
-        <span>Queue ID:</span>
-        <span><a href="#">342390-gdfgd-543534-gdfgs</a></span>
-      </footer>
+      <div class="safari-message">
+        <p>If you're using Safari, cool. the fuyck.</p>
+      </div>
     </div>
-  </div>
-  </div>
-  <script src='./polling.js'></script>
+  </header>
 </body>
 
 </html>
