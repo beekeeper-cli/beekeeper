@@ -13,6 +13,7 @@ const deployPreLambda = require('../aws/deploy/deployPreLambda');
 const deployCloudwatchEvent = require('../aws/deploy/deployCloudwatchEvent');
 const deployPollingRoute = require("../aws/deploy/deployPollingRoute");
 const deployPollingS3Object = require("../aws/deploy/deployPollingS3Object");
+const addPostLambdaEventPermission = require("../aws/deploy/addPostLambdaEventPermission");
 
 const ANSWERS_FILE_PATH = path.join(__dirname, "..", "config", "user-answers.json");
 const S3_ASSET_PATH = path.join(__dirname, "..", "..", "assets", "s3");
@@ -65,7 +66,10 @@ module.exports = async () => {
     const postLambdaArn = await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsUrl, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME, RATE);
 
     // Deploy Cloudwatch Event Rules for Post Lambda (CRON)
-    await deployCloudwatchEvent(REGION, postLambdaArn, CRON_JOB_NAME);
+    const eventArn = await deployCloudwatchEvent(REGION, postLambdaArn, CRON_JOB_NAME);
+
+    // Add event permission
+    await addPostLambdaEventPermission(REGION, POST_LAMBDA_NAME, eventArn);
 
     // Deploy Pre Lambda
     const preLambdaArn = await deployPreLambda(REGION, PRE_LAMBDA_NAME, sqsUrl, PRE_LAMBDA_ASSET, roleArn, s3ObjectRootDomain);
