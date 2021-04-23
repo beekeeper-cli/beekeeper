@@ -37,8 +37,9 @@ const createCloudWatchEventRule = async (cloudwatchEvent, cronJobName) => {
   const command = new PutRuleCommand(params);
 
   try {
-    const {} = await cloudwatchEvent.send(command);
-    logger.log(`Successfully created Cloudwatch Event Rule: ${cronJobName}`);
+    const { RuleArn } = await cloudwatchEvent.send(command);
+    logger.log(`Successfully created Cloudwatch Event Rule: ${RuleArn}`);
+    return RuleArn;
   } catch (err) {
     logger.warning("Error", err);
   }
@@ -47,6 +48,7 @@ const createCloudWatchEventRule = async (cloudwatchEvent, cronJobName) => {
 module.exports = async (region, postLambdaArn, cronJobName) => {
   const cloudwatchEvent = new CloudWatchEventsClient({ region });
 
-  await createCloudWatchEventRule(cloudwatchEvent, cronJobName);
+  const ruleArn = await createCloudWatchEventRule(cloudwatchEvent, cronJobName);
   await createTarget(cloudwatchEvent, cronJobName, postLambdaArn);
+  return ruleArn;
 };
