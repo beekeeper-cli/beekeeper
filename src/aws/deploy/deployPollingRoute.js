@@ -123,7 +123,8 @@ const setIntegrationResponse = async (
   pollingResourceId,
   restApiId,
   pollingResourceName,
-  bucketObjectTld
+  bucketObjectTld,
+  protectUrl
 ) => {
   const params = {
     httpMethod: "GET",
@@ -138,7 +139,7 @@ const setIntegrationResponse = async (
     },
     responseTemplates: {
       "application/json":
-        '#set($inputRoot = $input.path(\'$\'))\n#if($inputRoot.Count == 0)\n{\n"allow": false\n}\n#else\n{\n  "allow": true,\n  "origin": "https://www.launchschool.com/capstone"\n}\n#end',
+        `#set($inputRoot = $input.path(\'$\'))\n#if($inputRoot.Count == 0)\n{\n"allow": false\n}\n#else\n{\n  "allow": true,\n  "origin": "${protectUrl}"\n}\n#end`,
     },
   };
 
@@ -214,7 +215,8 @@ module.exports = async (
   dynamoDbArn,
   roleArn,
   bucketObjectTld,
-  stageName
+  stageName,
+  protectUrl
 ) => {
   // Create an API Gateway client service object
   const apiGateway = new APIGatewayClient({ region });
@@ -268,7 +270,8 @@ module.exports = async (
     pollingResourceId,
     restApiId,
     pollingResourceName,
-    bucketObjectTld
+    bucketObjectTld,
+    protectUrl
   );
 
   // stage resource and deploy

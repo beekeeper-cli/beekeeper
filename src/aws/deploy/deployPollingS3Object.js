@@ -1,6 +1,6 @@
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 const logger = require("../../utils/logger")("deployPollingS3Object");
-const { getContentType, createPollerFile } = require("../../utils/utilities");
+const { getContentType, createFile } = require("../../utils/utilities");
 const fs = require("fs");
 
 const uploadToS3 = async (s3, bucketName, pollFilePath) => {
@@ -44,7 +44,7 @@ module.exports = async (region, bucketName, stagePollingUrl, pollFilePath) => {
   }, 5000)`;
 
   // Creates poll.js
-  await createPollerFile(script, pollFilePath);
+  await createFile(script, pollFilePath);
 
   // Upload poll.js to s3
   await uploadToS3(s3, bucketName, pollFilePath);

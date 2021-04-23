@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const logger = require('./logger')('utils:utilities');
+const logger = require("./logger")("utils:utilities");
 
 const getFilePaths = (dir) => {
   const filePaths = [];
@@ -30,27 +30,49 @@ const getContentType = (extension) => {
   if (imageExtensions.includes(extension)) {
     return `image/${extension}`;
   } else if (textExtensions.includes(extension)) {
-    if (extension === 'js') {
-      extension = 'javascript';
+    if (extension === "js") {
+      extension = "javascript";
     }
 
     return `text/${extension}`;
   }
 };
 
-const createPollerFile = async (script, pollFilePath) => {
-  const fileName = pollFilePath.split('/').slice(-1)[0];
+const createFile = async (data, filePath) => {
+  const fileName = filePath.split("/").slice(-1)[0];
 
   try {
-    await fs.promises.writeFile(pollFilePath, script);
+    await fs.promises.writeFile(filePath, data);
     logger.log(`Successfully created ${fileName}`);
   } catch (err) {
-    logger.log(err);
+    logger.log("Error", err);
   }
 };
+
+const readFile = async (filePath) => {
+  const fileName = filePath.split("/").slice(-1)[0];
+
+  try {
+    const data = await fs.promises.readFile(filePath, "utf8");
+    logger.log(`Successfully read ${fileName}`);
+    return data;
+  } catch (err) {
+    logger.log("Error", err);
+  }
+};
+
+const fileExists = async (filePath) => {
+  try {
+    return await fs.existsSync(filePath);
+  } catch (err) {
+    logger.log("Error", err);
+  }
+}
 
 module.exports = {
   getFilePaths,
   getContentType,
-  createPollerFile,
+  createFile,
+  readFile,
+  fileExists
 };
