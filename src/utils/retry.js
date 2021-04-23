@@ -1,7 +1,7 @@
 const logger = require('./logger')('commands:Retries');
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const MAX_RETIRES = 3;
+const MAX_RETRIES = 3;
 
 let retries = 1;
 let retry = true;
@@ -18,8 +18,9 @@ module.exports = async (func) => {
         case "Success":
           retry = false;
           break;
-        case "Trottled":
+        case "Throttled":
           retry = true;
+          break;
         default:
           retry = true;
           console.log('retry attempt: ', retries)
@@ -28,9 +29,9 @@ module.exports = async (func) => {
     
       retries = retries += 1;
       await delay(retries * 500);
-    } while (retry && retries <= MAX_RETIRES);
+    } while (retry && retries <= MAX_RETRIES);
     
-    if (retries > MAX_RETIRES) {
+    if (retries > MAX_RETRIES) {
       throw new Error("RetryFailed");
     } else {
       return value;
