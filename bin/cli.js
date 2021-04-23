@@ -4,18 +4,20 @@ const chalk = require("chalk");
 const logger = require("../src/utils/logger")("bin");
 const deploy = require("../src/commands/deploy");
 const destroy = require("../src/commands/destroy");
+const start = require('../src/commands/start');
 
 try {
   const args = arg({
     "--help": Boolean
   });
-  const [command, name] = args._;
-
+  const [command] = args._;
   logger.debug("Received args", args);
   logger.debug("Received command:", command);
-  logger.debug("Received name:", name);
-
+  
   switch (command) {
+    case "start":
+      start();
+      break;
     case "deploy":
       deploy();
       break;
@@ -28,7 +30,6 @@ try {
 
   // if (args["--help"]) {}
 } catch (e) {
-  // Logs any errors & instructions
   logger.warning(e.message);
   instructions();
 }
