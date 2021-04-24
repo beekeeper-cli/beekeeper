@@ -13,6 +13,12 @@ module.exports = (name) => {
     debugError: (...msg) => {
       const fn = debug(name);
       fn(chalk.bold(`${chalk.red("✖")} ${chalk.yellow(...msg)}`));
+    },
+    failDeploy: () => {
+      console.log("");
+      console.log(`${chalk.red("✖")} ${chalk.yellow.bold("Failed to deploy waiting room infrastructure")}`);
+      console.log("");
+      console.log(`Please enter ${chalk.yellow.bold('sealbuzz destroy')} and then enter ${chalk.yellow.bold('sealbuzz deploy')} after 60 seconds`);
     }
   };
 };

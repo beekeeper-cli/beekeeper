@@ -155,6 +155,7 @@ const promptQuestions = async () => {
       type: "text",
       name: "PROTECT_URL",
       message: "Enter the URL to protect:",
+      initial: "ex: https://www.google.com",
       validate: (value) => {
         if (
           !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/i.test(

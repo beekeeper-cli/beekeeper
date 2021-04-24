@@ -53,11 +53,13 @@ module.exports = async () => {
   // Create Role
   let roleArn;
   try {
-    spinner.start("Creating role")
+    spinner.start("Creating IAM role")
     roleArn = await createRole(REGION, ROLE_NAME);
-    spinner.succeed("Successfully created role")
+    spinner.succeed("Successfully created IAM role")
   } catch (err) {
-    spinner.fail("Failed to create role")
+    spinner.fail("Failed to create IAM role")
+    logger.failDeploy();
+    return;
   }
 
   // Deploy S3 Bucket + S3 Objects
@@ -68,6 +70,8 @@ module.exports = async () => {
     spinner.succeed("Successfully deployed S3 bucket")
   } catch (err) {
     spinner.fail("Failed to deploy S3 bucket")
+    logger.failDeploy();
+    return;
   }
 
   // Deploy DLQ
@@ -78,6 +82,8 @@ module.exports = async () => {
     spinner.succeed("Successfully deployed DLQ")
   } catch (err) {
     spinner.fail("Failed to deployed DLQ")
+    logger.failDeploy();
+    return;
   }
 
   // Deploy SQS
@@ -88,6 +94,8 @@ module.exports = async () => {
     spinner.succeed("Successfully deployed SQS")
   } catch (err) {
     spinner.fail("Failed to deployed SQS")
+    logger.failDeploy();
+    return;
   }
 
   // Deploy DynamoDB
@@ -98,6 +106,8 @@ module.exports = async () => {
     spinner.succeed("Successfully deployed DynamoDB")
   } catch (err) {
     spinner.fail("Failed to deployed DynamoDB")
+    logger.failDeploy();
+    return;
   }
 
   // Deploy Post Lambda
@@ -116,6 +126,8 @@ module.exports = async () => {
     spinner.succeed("Successfully deployed post-lambda")
   } catch (err) {
     spinner.fail("Failed to deployed post-lambda")
+    logger.failDeploy();
+    return;
   }
 
   // Deploy Pre Lambda
@@ -127,6 +139,8 @@ module.exports = async () => {
     spinner.succeed("Successfully deployed pre-lambda")
   } catch (err) {
     spinner.fail("Failed to deployed pre-lambda")
+    logger.failDeploy();
+    return;
   }
 
   // Deploy API Gateway + Waiting Room Route
@@ -143,14 +157,15 @@ module.exports = async () => {
     
     // Create and upload poll.js to S3 bucket
     await deployPollingS3Object(REGION, S3_NAME, stagePollingUrl, POLL_FILE_PATH);
-
+    
     spinner.succeed("Successfully deployed API Gateway")
+    console.log("");
+    logger.highlight(`${chalk.green.bold("✔")} Successfully deployed waiting room infrastructure`);
+    console.log("");
+    console.log(`Here's your waiting room URL: ${chalk.yellow.bold(stageSealBuzzUrl)}`);
   } catch (err) {
     spinner.fail("Failed to deployed API Gateway")
+    logger.failDeploy();
+    return;
   }
-  
-  console.log("");
-  console.log(`Here's your waiting room URL: ${chalk.yellow.bold(stageSealBuzzUrl)}`);
-  console.log("");
-  console.log(`To destroy your waiting room infrastructure, enter ${chalk.yellow.bold('sealbuzz destroy')}`);
 }
