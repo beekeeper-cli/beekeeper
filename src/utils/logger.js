@@ -4,9 +4,8 @@ const ora = require("ora");
 
 module.exports = (name) => {
   return {
-    log: (...args) => console.log(chalk.yellow.dim("✔️  ") + chalk.yellow.dim(...args)),
-    error: (...args) => console.log(chalk.red.bold("✖ ") + chalk.yellow.bold(...args)),
     highlight: (...args) => console.log(chalk.yellow.bold(...args)),
+    error: (...args) => console.log(chalk.red.bold("✖ ") + chalk.yellow.bold(...args)),
     spinner: async (startMsg, endMsg, ms) => {
       const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
       const spinner = ora();

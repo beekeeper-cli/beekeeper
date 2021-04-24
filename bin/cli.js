@@ -30,7 +30,7 @@ try {
 
   // if (args["--help"]) {}
 } catch (e) {
-  logger.warning(e.message);
+  logger.error(e.message);
   instructions();
 }
 

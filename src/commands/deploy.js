@@ -26,7 +26,7 @@ module.exports = async () => {
 
   if (!fileFound) {
     console.log("");
-    logger.warning("Error: Run 'sealbuzz start' first.");
+    logger.error("Error: Run 'sealbuzz start' first.");
     return;
   }
 
@@ -96,5 +96,5 @@ module.exports = async () => {
 
   await logger.spinner("Deploying API Gateway", "Successfully deployed API Gateway", 2000);
   
-  logger.log(stageSealBuzzUrl);
+  logger.highlight(stageSealBuzzUrl);
 }
