@@ -22,7 +22,7 @@ const detachPermissions = async (iam, permissions, roleName) => {
 
     try {
       await iam.send(command);
-      logger.debug(`Successfully removed permission ${perm} from ${roleName} role`);
+      logger.debugSuccess(`Successfully removed permission ${perm} from ${roleName} role`);
     } catch (err) {
       logger.debugError("Error", err);
     }
@@ -37,7 +37,7 @@ const destroyRole = async (iam, roleName) => {
 
   try {
     await iam.send(command);
-    logger.debug(`Successfully deleted IAM role: ${roleName}`);
+    logger.debugSuccess(`Successfully deleted IAM role: ${roleName}`);
   } catch (err) {
     logger.debugError("Error", err);
   }

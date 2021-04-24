@@ -22,7 +22,7 @@ const getResources = async (apiGateway, restApiId, apiGatewayName) => {
     const { id: resourceParentId } = result.items.find(
       (item) => item.path === "/"
     );
-    logger.debug(
+    logger.debugSuccess(
       `Successfully retrieved API root resource ('/') for: ${apiGatewayName}`
     );
     return resourceParentId;
@@ -47,7 +47,7 @@ const createResource = async (
 
   try {
     const { id: resourceId } = await apiGateway.send(command);
-    logger.debug(`Successfully retrieved resource id for: ${resourceName}`);
+    logger.debugSuccess(`Successfully retrieved resource id for: ${resourceName}`);
     return resourceId;
   } catch (err) {
     logger.debugError("Error", err);
@@ -74,7 +74,7 @@ const putMethodRequest = async (
 
   try {
     await apiGateway.send(command);
-    logger.debug(
+    logger.debugSuccess(
       `Successfully set request method for resource: ${pollingResourceName}`
     );
   } catch (err) {
@@ -110,7 +110,7 @@ const setIntegrationRequest = async (
 
   try {
     await apiGateway.send(command);
-    logger.debug(
+    logger.debugSuccess(
       `Successfully set integration request for resource: ${pollingResourceName}`
     );
   } catch (err) {
@@ -147,7 +147,7 @@ const setIntegrationResponse = async (
 
   try {
     await apiGateway.send(command);
-    logger.debug(
+    logger.debugSuccess(
       `Successfully set integration response for resource: ${pollingResourceName}`
     );
   } catch (err) {
@@ -183,7 +183,7 @@ const setMethodResponse = async (
 
   try {
     await apiGateway.send(command);
-    logger.debug(
+    logger.debugSuccess(
       `Successfully set method response for resource: ${pollingResourceName}`
     );
   } catch (err) {
@@ -202,7 +202,7 @@ const deployResource = async (apiGateway, restApiId, stageName) => {
 
   try {
     await apiGateway.send(command);
-    logger.debug(`Successfully deployed resource: ${restApiId}`);
+    logger.debugSuccess(`Successfully deployed resource: ${restApiId}`);
   } catch (err) {
     logger.debugError("Error", err);
   }

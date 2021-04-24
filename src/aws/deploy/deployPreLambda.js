@@ -35,7 +35,7 @@ const createPreLambda = async (
 
   try {
     const { FunctionArn } = await lambda.send(command);
-    logger.debug(`Successfully created PreLambda: ${FunctionArn}`);
+    logger.debugSuccess(`Successfully created PreLambda: ${FunctionArn}`);
     return FunctionArn;
   } catch (err) {
     logger.debugError("Error", err);
@@ -53,7 +53,7 @@ const addLambdaPermission = async (lambda, lambdaName) => {
 
   try {
     await lambda.send(command);
-    logger.debug(`Successfully added API Gateway permission to Lambda.`);
+    logger.debugSuccess(`Successfully added API Gateway permission to Lambda.`);
   } catch (err) {
     logger.debugError("Error", err);
   }

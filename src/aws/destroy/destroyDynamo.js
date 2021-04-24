@@ -11,7 +11,7 @@ const destroyTable = async (dynamo, tableName) => {
 
   try {
     await dynamo.send(command);
-    logger.debug(`Successfully deleted table: ${tableName}`);
+    logger.debugSuccess(`Successfully deleted table: ${tableName}`);
   } catch (err) {
     logger.debugError("Error", err);
   }

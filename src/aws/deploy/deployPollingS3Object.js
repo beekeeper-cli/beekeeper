@@ -18,7 +18,7 @@ const uploadToS3 = async (s3, bucketName, pollFilePath) => {
 
   try {
     await s3.send(command);
-    logger.debug(
+    logger.debugSuccess(
       `Successfully uploaded file ${keyName} to S3 bucket ${bucketName}`
     );
   } catch (err) {

@@ -43,7 +43,7 @@ const createFile = async (data, filePath) => {
 
   try {
     await fs.promises.writeFile(filePath, data);
-    logger.debug(`Successfully created ${fileName}`);
+    logger.debugSuccess(`Successfully created ${fileName}`);
   } catch (err) {
     logger.debugError("Error", err);
   }
@@ -54,7 +54,7 @@ const readFile = async (filePath) => {
 
   try {
     const data = await fs.promises.readFile(filePath, "utf8");
-    logger.debug(`Successfully read ${fileName}`);
+    logger.debugSuccess(`Successfully read ${fileName}`);
     return data;
   } catch (err) {
     logger.debugError("Error", err);

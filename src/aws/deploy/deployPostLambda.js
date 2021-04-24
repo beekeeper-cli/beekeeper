@@ -35,7 +35,7 @@ const createPostLambda = async (
 
   try {
     const { FunctionArn } = await lambda.send(command);
-    logger.debug(`Successfully created PostLambda: ${FunctionArn}`);
+    logger.debugSuccess(`Successfully created PostLambda: ${FunctionArn}`);
     return FunctionArn;
   } catch (err) {
     logger.debugError("Error", err);
@@ -55,7 +55,7 @@ const setLambdaConcurrency = async (lambda, lambdaName, rate) => {
 
   try {
     await lambda.send(command);
-    logger.debug(`Successfully set LambdaReserveConcurrency: ${rate}`);
+    logger.debugSuccess(`Successfully set LambdaReserveConcurrency: ${rate}`);
   } catch (err) {
     logger.debugError("Error", err);
   }

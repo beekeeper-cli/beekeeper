@@ -41,7 +41,7 @@ const addPermissions = async (iam, roleName) => {
 
     try {
       await iam.send(command);
-      logger.debug(`Successfully added permission: ${arnPermission}`);
+      logger.debugSuccess(`Successfully added permission: ${arnPermission}`);
     } catch (err) {
       logger.debugError("Error", err);
     }
@@ -57,7 +57,7 @@ const createRole = async (iam, policyDoc, roleName) => {
 
   try {
     let data = await iam.send(command);
-    logger.debug(`Successfully created IAM role: ${data.Role.Arn}`);
+    logger.debugSuccess(`Successfully created IAM role: ${data.Role.Arn}`);
     return data.Role.Arn;
   } catch (err) {
     logger.debugError("Error", err);

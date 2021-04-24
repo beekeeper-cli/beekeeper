@@ -13,7 +13,7 @@ const createBucket = async (s3, bucketName) => {
 
   try {
     const { Location } = await s3.send(command);
-    logger.debug(`Successfully created S3 Bucket: ${bucketName}`);
+    logger.debugSuccess(`Successfully created S3 Bucket: ${bucketName}`);
     return Location;
   } catch (err) {
     logger.debugError("Error", err);
@@ -35,7 +35,7 @@ const uploadToS3 = async (s3, bucketName, directoryPath, filePath) => {
 
   try {
     await s3.send(command);
-    logger.debug(
+    logger.debugSuccess(
       "Successfully uploaded S3 Object file: " + bucketName + "/" + keyName
     );
   } catch (err) {

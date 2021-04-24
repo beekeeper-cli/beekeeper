@@ -16,7 +16,7 @@ const addLambdaPermission = async (lambda, lambdaName, sourceArn) => {
 
   try {
     await lambda.send(command);
-    logger.debug(`Successfully added permission to postLambda.`);
+    logger.debugSuccess(`Successfully added permission to postLambda.`);
   } catch (err) {
     logger.debugError("Error", err);
   }
