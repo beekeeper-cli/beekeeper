@@ -1,6 +1,7 @@
 const path = require("path");
 const logger = require('../utils/logger')('deploy');
-const { readFile, fileExists } = require("../utils/utilities");
+const { readFile, fileExists, delay } = require("../utils/utilities");
+const ora = require("ora");
 
 const createRole = require("../aws/deploy/createRole");
 const deployS3 = require('../aws/deploy/deployS3');
@@ -43,45 +44,79 @@ module.exports = async () => {
   const STAGE_NAME = 'sealbuzz-production';
   const RATE = 100
 
+  const spinner = ora();
+
   logger.highlight('🐝  Deploying waiting room infrastructure');
+  // Create Role
+  const roleArn = await createRole(REGION, ROLE_NAME);
+  // await logger.process(10000, '%s sealing buzz...');
+  // console.log('\n');
 
-    // Create Role
-    const roleArn = await createRole(REGION, ROLE_NAME);
-    await logger.process(10000, '%s sealing buzz...');
-    console.log('\n');
+  spinner.start('Creating role');
+  await delay(5000);
+  spinner.succeed('Successfully created role.');
 
-    // Deploy S3 Bucket + S3 Objects
-    const s3ObjectRootDomain = await deployS3(REGION, S3_NAME, S3_ASSET_PATH);
+  // Deploy S3 Bucket + S3 Objects
+  const s3ObjectRootDomain = await deployS3(REGION, S3_NAME, S3_ASSET_PATH);
 
-    // Deploy DLQ
-    const dlqArn = await deployDlq(REGION, DLQ_NAME);
+  spinner.start('Deploying S3 bucket');
+  await delay(2000);
+  spinner.succeed('Successfully deployed S3 bucket');
 
-    // Deploy SQS
-    const sqsUrl = await deploySqs(REGION, SQS_NAME, dlqArn);
+  // Deploy DLQ
+  const dlqArn = await deployDlq(REGION, DLQ_NAME);
 
-    // Deploy DynamoDB
-    const dbArn = await deployDynamo(REGION, DYNAMO_NAME);
+  spinner.start('Deploying DLQ');
+  await delay(2000);
+  spinner.succeed('Successfully deployed DLQ');
 
-    // Deploy Post Lambda
-    const postLambdaArn = await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsUrl, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME, RATE);
+  // Deploy SQS
+  const sqsUrl = await deploySqs(REGION, SQS_NAME, dlqArn);
 
-    // Deploy Cloudwatch Event Rules for Post Lambda (CRON)
-    const eventArn = await deployCloudwatchEvent(REGION, postLambdaArn, CRON_JOB_NAME);
+  spinner.start('Deploying SQS');
+  await delay(2000);
+  spinner.succeed('Successfully deployed SQS');
 
-    // Add event permission
-    await addPostLambdaEventPermission(REGION, POST_LAMBDA_NAME, eventArn);
+  // Deploy DynamoDB
+  const dbArn = await deployDynamo(REGION, DYNAMO_NAME);
 
-    // Deploy Pre Lambda
-    const preLambdaArn = await deployPreLambda(REGION, PRE_LAMBDA_NAME, sqsUrl, PRE_LAMBDA_ASSET, roleArn, s3ObjectRootDomain);
+  spinner.start('Deploying DynamoDB');
+  await delay(2000);
+  spinner.succeed('Successfully deployed DynamoDB');
 
-    // Deploy API Gateway + Waiting Room Route
-    const { restApiId, stageSealBuzzUrl } = await deployApiGateway(REGION, API_GATEWAY_NAME, preLambdaArn, STAGE_NAME);
+  // Deploy Post Lambda
+  const postLambdaArn = await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsUrl, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME, RATE);
 
-    // Deploy Waiting Room Polling Route on API Gateway
-    const stagePollingUrl = await deployPollingRoute(restApiId, REGION, API_GATEWAY_NAME, dbArn, roleArn, s3ObjectRootDomain, STAGE_NAME, PROTECT_URL);
+  // Deploy Cloudwatch Event Rules for Post Lambda (CRON)
+  const eventArn = await deployCloudwatchEvent(REGION, postLambdaArn, CRON_JOB_NAME);
 
-    // Create and upload poll.js to S3 bucket
-    await deployPollingS3Object(REGION, S3_NAME, stagePollingUrl, POLL_FILE_PATH);
+  // Add event permission
+  await addPostLambdaEventPermission(REGION, POST_LAMBDA_NAME, eventArn);
 
-    logger.log(stageSealBuzzUrl);
+  spinner.start('Deploying Post Lambda');
+  await delay(2000);
+  spinner.succeed('Successfully deployed Post Lambda');
+
+  // Deploy Pre Lambda
+  const preLambdaArn = await deployPreLambda(REGION, PRE_LAMBDA_NAME, sqsUrl, PRE_LAMBDA_ASSET, roleArn, s3ObjectRootDomain);
+
+  spinner.start('Deploying Pre Lambda');
+  await delay(2000);
+  spinner.succeed('Successfully deployed Pre Lambda');
+
+  // Deploy API Gateway + Waiting Room Route
+  const { restApiId, stageSealBuzzUrl } = await deployApiGateway(REGION, API_GATEWAY_NAME, preLambdaArn, STAGE_NAME);
+
+  // Deploy Waiting Room Polling Route on API Gateway
+  const stagePollingUrl = await deployPollingRoute(restApiId, REGION, API_GATEWAY_NAME, dbArn, roleArn, s3ObjectRootDomain, STAGE_NAME, PROTECT_URL);
+
+  // Create and upload poll.js to S3 bucket
+  await deployPollingS3Object(REGION, S3_NAME, stagePollingUrl, POLL_FILE_PATH);
+
+  spinner.start('Deploying API Gateway');
+  await delay(2000);
+  spinner.succeed('Successfully deployed API Gateway');
+
+  
+  logger.log(stageSealBuzzUrl);
 }

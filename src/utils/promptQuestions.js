@@ -189,7 +189,7 @@ const promptQuestions = async () => {
     if (prompt.name === "PROTECT_URL") {
       console.log("");
       console.log(
-        `Now try ${chalk.yellow.bold("sealbuzz deploy")} to deploy your waiting room infrastructure`
+        `Now enter ${chalk.yellow.bold("sealbuzz deploy")} to deploy your waiting room infrastructure`
       );
       return true;
     }
