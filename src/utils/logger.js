@@ -16,6 +16,9 @@ module.exports = (name) => {
       spinner.succeed(endMsg);
     },
     debug: debug(name),
-    debugError: debug(name)
+    debugError: (msg) => {
+      const fn = debug(name);
+      fn(chalk.yellow.bold(`${chalk.red("✖")} ERROR: ${msg}`));
+    }
   };
 };
