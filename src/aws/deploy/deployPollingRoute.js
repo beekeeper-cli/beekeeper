@@ -91,7 +91,8 @@ const setIntegrationRequest = async (
   restApiId,
   dynamoDbUri,
   pollingResourceName,
-  roleArn
+  roleArn,
+  dynamoName
 ) => {
   const params = {
     httpMethod: "GET",
@@ -105,7 +106,7 @@ const setIntegrationRequest = async (
     timeoutInMillis: 29000,
     uri: dynamoDbUri,
     requestTemplates: {
-      "application/json": `#set ($string = \"$input.params('cookie')\")\n#set ($s = $string.split(\"=\"))\n{\n  \"TableName\": \"waiting_room\",\n  \"KeyConditionExpression\": \"usertoken = :v1\",\n  \"ExpressionAttributeValues\": {\n      \":v1\": {\n          \"S\": \"$s.get(1)\"\n      }\n  }\n}`,
+      "application/json": `#set ($string = $input.params('cookie'))\n#set ($s = $string.split(\"=\"))\n{\n  \"TableName\": \"${dynamoName}\",\n  \"KeyConditionExpression\": \"usertoken = :v1\",\n  \"ExpressionAttributeValues\": {\n      \":v1\": {\n          \"S\": \"$s.get(1)\"\n      }\n  }\n}`,
     },
   };
 
@@ -143,7 +144,7 @@ const setIntegrationResponse = async (
     },
     responseTemplates: {
       "application/json":
-        `#set($inputRoot = $input.path(\'$\'))\n#if($inputRoot.Count == 0)\n{\n"allow": false\n}\n#else\n{\n  "allow": true,\n  "origin": "${protectUrl}"\n}\n#end`,
+        `#set($inputRoot = $input.path(\'$\'))\n#if($inputRoot.Count > 0)\n{\n"allow": $inputRoot.Items[0].allow.BOOL,\n  "origin": "${protectUrl}"\n}\n#else\n{\n"allow": false\n}\n#end`,
     },
   };
 
@@ -219,7 +220,7 @@ module.exports = async (
   restApiId,
   region,
   apiGatewayName,
-  dynamoDbArn,
+  dynamoName,
   roleArn,
   bucketObjectTld,
   stageName,
@@ -253,14 +254,15 @@ module.exports = async (
   );
 
   // Setup Integration Request
-  const dynamoDbUri = `arn:aws:apigateway:${region}:dynamodb:action/Query/${dynamoDbArn}`;
+  const dynamoDbUri = `arn:aws:apigateway:${region}:dynamodb:action/Query`;
   await setIntegrationRequest(
     apiGateway,
     pollingResourceId,
     restApiId,
     dynamoDbUri,
     pollingResourceName,
-    roleArn
+    roleArn,
+    dynamoName
   );
 
   // Setup Method Response

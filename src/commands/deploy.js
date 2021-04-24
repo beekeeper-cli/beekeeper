@@ -152,7 +152,7 @@ module.exports = async () => {
     stageSealBuzzUrl = result.stageSealBuzzUrl;
 
     // Deploy Waiting Room Polling Route on API Gateway
-    stagePollingUrl = await deployPollingRoute(restApiId, REGION, API_GATEWAY_NAME, dbArn, roleArn, s3ObjectRootDomain, STAGE_NAME, PROTECT_URL);
+    stagePollingUrl = await deployPollingRoute(restApiId, REGION, API_GATEWAY_NAME, DYNAMO_NAME, roleArn, s3ObjectRootDomain, STAGE_NAME, PROTECT_URL);
     
     // Create and upload poll.js to S3 bucket
     await deployPollingS3Object(REGION, S3_NAME, stagePollingUrl, POLL_FILE_PATH);
