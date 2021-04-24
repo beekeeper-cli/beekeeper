@@ -10,10 +10,10 @@ const listBucketObjects = async (s3, bucketName) => {
 
   try {
     const {Versions} = await s3.send(command);
-    logger.log(`Successfully retrieved bucket objects from: ${bucketName}`);
+    logger.debug(`Successfully retrieved bucket objects from: ${bucketName}`);
     return Versions;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
   }
 }
 
@@ -29,9 +29,9 @@ const deleteBucketObjects = async (s3, versions, bucketName) => {
 
   try {
     await s3.send(command);
-    logger.log(`Successfully deleted bucket objects from: ${bucketName}`);
+    logger.debug(`Successfully deleted bucket objects from: ${bucketName}`);
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
   }
 }
 
@@ -45,9 +45,9 @@ const deleteBucket = async (s3, bucketName) => {
 
   try {
     await s3.send(command);
-    logger.log(`Successfully deleted bucket: ${bucketName}`);
+    logger.debug(`Successfully deleted bucket: ${bucketName}`);
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
   }
 }
 

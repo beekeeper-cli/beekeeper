@@ -15,6 +15,7 @@ module.exports = (name) => {
       await delay(ms);
       spinner.succeed(endMsg);
     },
-    debug: debug(name)
+    debug: debug(name),
+    debugError: debug(name)
   };
 };

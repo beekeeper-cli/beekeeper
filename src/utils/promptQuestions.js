@@ -196,7 +196,7 @@ const promptQuestions = async () => {
     return false;
   }
 
-  const onCancel = (prompt) => {
+  const onCancel = () => {
     console.log("");
     console.log('Exiting prompt.');
   }
@@ -209,7 +209,7 @@ const promptQuestions = async () => {
     const response = await prompts(questions, {onSubmit, onCancel});
     return response;
   } catch (err) {
-    logger.log("Error", err);
+    logger.debugError("Error", err);
   }
 };
 

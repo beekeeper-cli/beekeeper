@@ -9,9 +9,9 @@ const destroyLambda = async (lambda, lambdaName) => {
 
   try {
     await lambda.send(command);
-    logger.log(`Successfully deleted Lambda: ${lambdaName}`);
+    logger.debug(`Successfully deleted Lambda: ${lambdaName}`);
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
   }
 }
 

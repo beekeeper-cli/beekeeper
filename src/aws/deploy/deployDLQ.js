@@ -19,10 +19,10 @@ const createDLQ = async (sqs, dlqName) => {
 
   try {
     const { QueueUrl } = await sqs.send(command);
-    logger.log(`Successfully created DLQ: ${QueueUrl}`);
+    logger.debug(`Successfully created DLQ: ${QueueUrl}`);
     return QueueUrl;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
   }
 };
 
@@ -38,10 +38,10 @@ const getArn = async (sqs, dlqUrl) => {
     const {
       Attributes: { QueueArn },
     } = await sqs.send(command);
-    logger.log(`Successfully retrieved DLQ ARN: ${QueueArn}`);
+    logger.debug(`Successfully retrieved DLQ ARN: ${QueueArn}`);
     return QueueArn;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
   }
 };
 

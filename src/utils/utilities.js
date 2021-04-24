@@ -43,9 +43,9 @@ const createFile = async (data, filePath) => {
 
   try {
     await fs.promises.writeFile(filePath, data);
-    logger.log(`Successfully created ${fileName}`);
+    logger.debug(`Successfully created ${fileName}`);
   } catch (err) {
-    logger.log("Error", err);
+    logger.debugError("Error", err);
   }
 };
 
@@ -54,10 +54,10 @@ const readFile = async (filePath) => {
 
   try {
     const data = await fs.promises.readFile(filePath, "utf8");
-    logger.log(`Successfully read ${fileName}`);
+    logger.debug(`Successfully read ${fileName}`);
     return data;
   } catch (err) {
-    logger.log("Error", err);
+    logger.debugError("Error", err);
   }
 };
 
@@ -65,7 +65,7 @@ const fileExists = async (filePath) => {
   try {
     return await fs.existsSync(filePath);
   } catch (err) {
-    logger.log("Error", err);
+    logger.debugError("Error", err);
   }
 }
 

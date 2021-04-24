@@ -3,7 +3,6 @@ const {
   AddPermissionCommand,
 } = require("@aws-sdk/client-lambda");
 const logger = require("../../utils/logger")("deploy");
-const fs = require("fs");
 
 const addLambdaPermission = async (lambda, lambdaName, sourceArn) => {
   let params = {
@@ -17,9 +16,9 @@ const addLambdaPermission = async (lambda, lambdaName, sourceArn) => {
 
   try {
     await lambda.send(command);
-    logger.log(`Successfully added permission to postLambda.`);
+    logger.debug(`Successfully added permission to postLambda.`);
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
   }
 };
 

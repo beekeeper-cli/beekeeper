@@ -28,10 +28,10 @@ const createDynamo = async (dynamodb, dynamoName) => {
 
   try {
     const { TableDescription } = await dynamodb.send(command);
-    logger.log(`Successfully created DynamoDB table: ${dynamoName}`);
+    logger.debug(`Successfully created DynamoDB table: ${dynamoName}`);
     return TableDescription.TableArn;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
   }
 };
 

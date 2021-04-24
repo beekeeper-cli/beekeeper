@@ -11,10 +11,10 @@ const getApiId = async (apiGateway, apiName) => {
   try {
     const { items } = await apiGateway.send(command);
     const { id } = items.find((gate) => gate.name === apiName);
-    logger.log(`Successfully found id of api gateway: ${apiName}`);
+    logger.debug(`Successfully found id of api gateway: ${apiName}`);
     return id;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
   }
 };
 
@@ -25,9 +25,9 @@ const destroyRestApi = async (apiGateway, restApiId) => {
 
   try {
     await apiGateway.send(command);
-    logger.log(`Successfully deleted api gateway: ${restApiId}`);
+    logger.debug(`Successfully deleted api gateway: ${restApiId}`);
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
   }
 };
 

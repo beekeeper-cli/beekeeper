@@ -22,12 +22,12 @@ const getResources = async (apiGateway, restApiId, apiGatewayName) => {
     const { id: resourceParentId } = result.items.find(
       (item) => item.path === "/"
     );
-    logger.log(
+    logger.debug(
       `Successfully retrieved API root resource ('/') for: ${apiGatewayName}`
     );
     return resourceParentId;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
   }
 };
 
@@ -47,10 +47,10 @@ const createResource = async (
 
   try {
     const { id: resourceId } = await apiGateway.send(command);
-    logger.log(`Successfully retrieved resource id for: ${resourceName}`);
+    logger.debug(`Successfully retrieved resource id for: ${resourceName}`);
     return resourceId;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
   }
 };
 
@@ -74,11 +74,11 @@ const putMethodRequest = async (
 
   try {
     await apiGateway.send(command);
-    logger.log(
+    logger.debug(
       `Successfully set request method for resource: ${pollingResourceName}`
     );
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
   }
 };
 
@@ -110,11 +110,11 @@ const setIntegrationRequest = async (
 
   try {
     await apiGateway.send(command);
-    logger.log(
+    logger.debug(
       `Successfully set integration request for resource: ${pollingResourceName}`
     );
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
   }
 };
 
@@ -147,11 +147,11 @@ const setIntegrationResponse = async (
 
   try {
     await apiGateway.send(command);
-    logger.log(
+    logger.debug(
       `Successfully set integration response for resource: ${pollingResourceName}`
     );
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
   }
 };
 
@@ -183,11 +183,11 @@ const setMethodResponse = async (
 
   try {
     await apiGateway.send(command);
-    logger.log(
+    logger.debug(
       `Successfully set method response for resource: ${pollingResourceName}`
     );
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
   }
 };
 
@@ -202,9 +202,9 @@ const deployResource = async (apiGateway, restApiId, stageName) => {
 
   try {
     await apiGateway.send(command);
-    logger.log(`Successfully deployed resource: ${restApiId}`);
+    logger.debug(`Successfully deployed resource: ${restApiId}`);
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
   }
 };
 

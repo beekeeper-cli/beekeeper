@@ -19,10 +19,10 @@ const createSQS = async (sqs, sqsName, dlqARN) => {
 
   try {
     const { QueueUrl } = await sqs.send(command);
-    logger.log(`Successfully created SQS: ${QueueUrl}`);
+    logger.debug(`Successfully created SQS: ${QueueUrl}`);
     return QueueUrl;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
   }
 };
 

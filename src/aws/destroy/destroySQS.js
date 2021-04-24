@@ -10,10 +10,10 @@ const getQueueUrl = async (queue, name) => {
 
   try {
     let { QueueUrl: queueUrl } = await queue.send(command);
-    logger.log("Successfully found queue URL:", queueUrl)
+    logger.debug("Successfully found queue URL:", queueUrl)
     return queueUrl;
   } catch (error) {
-    logger.warning("Error", error);
+    logger.debugError("Error", error);
   }
 }
 
@@ -28,9 +28,9 @@ const destroyQueue = async (queue, queueName) => {
 
   try {
     await queue.send(command);
-    logger.log(`Successfully deleted queue: ${queueName}`);
+    logger.debug(`Successfully deleted queue: ${queueName}`);
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
   }
 }
 
