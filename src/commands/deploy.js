@@ -1,7 +1,6 @@
 const path = require("path");
 const logger = require('../utils/logger')('deploy');
-const { readFile, fileExists, delay } = require("../utils/utilities");
-const ora = require("ora");
+const { readFile, fileExists } = require("../utils/utilities");
 
 const createRole = require("../aws/deploy/createRole");
 const deployS3 = require('../aws/deploy/deployS3');
@@ -44,45 +43,31 @@ module.exports = async () => {
   const STAGE_NAME = 'sealbuzz-production';
   const RATE = 100
 
-  const spinner = ora();
-
   logger.highlight('🐝  Deploying waiting room infrastructure');
   // Create Role
   const roleArn = await createRole(REGION, ROLE_NAME);
-  // await logger.process(10000, '%s sealing buzz...');
-  // console.log('\n');
 
-  spinner.start('Creating role');
-  await delay(5000);
-  spinner.succeed('Successfully created role.');
+  await logger.spinner("Creating role", "Successfully created role", 5000);
 
   // Deploy S3 Bucket + S3 Objects
   const s3ObjectRootDomain = await deployS3(REGION, S3_NAME, S3_ASSET_PATH);
 
-  spinner.start('Deploying S3 bucket');
-  await delay(2000);
-  spinner.succeed('Successfully deployed S3 bucket');
+  await logger.spinner("Deploying S3 bucket", "Successfully deployed S3 bucket", 2000);
 
   // Deploy DLQ
   const dlqArn = await deployDlq(REGION, DLQ_NAME);
 
-  spinner.start('Deploying DLQ');
-  await delay(2000);
-  spinner.succeed('Successfully deployed DLQ');
+  await logger.spinner("Deploying DLQ", "Successfully deployed DLQ", 2000);
 
   // Deploy SQS
   const sqsUrl = await deploySqs(REGION, SQS_NAME, dlqArn);
 
-  spinner.start('Deploying SQS');
-  await delay(2000);
-  spinner.succeed('Successfully deployed SQS');
+  await logger.spinner("Deploying SQS", "Successfully deployed SQS", 2000);
 
   // Deploy DynamoDB
   const dbArn = await deployDynamo(REGION, DYNAMO_NAME);
 
-  spinner.start('Deploying DynamoDB');
-  await delay(2000);
-  spinner.succeed('Successfully deployed DynamoDB');
+  await logger.spinner("Deploying DynamoDB", "Successfully deployed DynamoDB", 2000);
 
   // Deploy Post Lambda
   const postLambdaArn = await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsUrl, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME, RATE);
@@ -93,16 +78,12 @@ module.exports = async () => {
   // Add event permission
   await addPostLambdaEventPermission(REGION, POST_LAMBDA_NAME, eventArn);
 
-  spinner.start('Deploying Post Lambda');
-  await delay(2000);
-  spinner.succeed('Successfully deployed Post Lambda');
+  await logger.spinner("Deploying Post Lambda", "Successfully deployed Post Lambda", 2000);
 
   // Deploy Pre Lambda
   const preLambdaArn = await deployPreLambda(REGION, PRE_LAMBDA_NAME, sqsUrl, PRE_LAMBDA_ASSET, roleArn, s3ObjectRootDomain);
 
-  spinner.start('Deploying Pre Lambda');
-  await delay(2000);
-  spinner.succeed('Successfully deployed Pre Lambda');
+  await logger.spinner("Deploying Pre Lambda", "Successfully deployed Pre Lambda", 2000);
 
   // Deploy API Gateway + Waiting Room Route
   const { restApiId, stageSealBuzzUrl } = await deployApiGateway(REGION, API_GATEWAY_NAME, preLambdaArn, STAGE_NAME);
@@ -113,10 +94,7 @@ module.exports = async () => {
   // Create and upload poll.js to S3 bucket
   await deployPollingS3Object(REGION, S3_NAME, stagePollingUrl, POLL_FILE_PATH);
 
-  spinner.start('Deploying API Gateway');
-  await delay(2000);
-  spinner.succeed('Successfully deployed API Gateway');
-
+  await logger.spinner("Deploying API Gateway", "Successfully deployed API Gateway", 2000);
   
   logger.log(stageSealBuzzUrl);
 }

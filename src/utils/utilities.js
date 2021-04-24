@@ -69,13 +69,10 @@ const fileExists = async (filePath) => {
   }
 }
 
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-
 module.exports = {
   getFilePaths,
   getContentType,
   createFile,
   readFile,
   fileExists,
-  delay
 };
