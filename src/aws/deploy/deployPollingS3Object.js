@@ -23,6 +23,7 @@ const uploadToS3 = async (s3, bucketName, pollFilePath) => {
     );
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

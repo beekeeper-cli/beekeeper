@@ -25,6 +25,7 @@ const detachPermissions = async (iam, permissions, roleName) => {
       logger.debugSuccess(`Successfully removed permission ${perm} from ${roleName} role`);
     } catch (err) {
       logger.debugError("Error", err);
+      throw new Error(err);
     }
   }
 };
@@ -40,6 +41,7 @@ const destroyRole = async (iam, roleName) => {
     logger.debugSuccess(`Successfully deleted IAM role: ${roleName}`);
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 }
 

@@ -23,6 +23,7 @@ const createTarget = async (cloudwatchEvent, cronJobName, postLambdaArn) => {
     logger.debugSuccess(`Successfully created CloudWatchEvent Target: ${postLambdaArn}`);
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -42,6 +43,7 @@ const createCloudWatchEventRule = async (cloudwatchEvent, cronJobName) => {
     return RuleArn;
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

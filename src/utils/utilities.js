@@ -46,6 +46,7 @@ const createFile = async (data, filePath) => {
     logger.debugSuccess(`Successfully created ${fileName}`);
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -58,6 +59,7 @@ const readFile = async (filePath) => {
     return data;
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -66,6 +68,7 @@ const fileExists = async (filePath) => {
     return await fs.existsSync(filePath);
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 }
 

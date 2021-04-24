@@ -23,6 +23,7 @@ const createSQS = async (sqs, sqsName, dlqARN) => {
     return QueueUrl;
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

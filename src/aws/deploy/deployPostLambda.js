@@ -39,6 +39,7 @@ const createPostLambda = async (
     return FunctionArn;
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -58,6 +59,7 @@ const setLambdaConcurrency = async (lambda, lambdaName, rate) => {
     logger.debugSuccess(`Successfully set LambdaReserveConcurrency: ${rate}`);
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

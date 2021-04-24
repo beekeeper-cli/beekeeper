@@ -210,6 +210,7 @@ const promptQuestions = async () => {
     return response;
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

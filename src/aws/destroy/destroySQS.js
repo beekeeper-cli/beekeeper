@@ -31,6 +31,7 @@ const destroyQueue = async (queue, queueName) => {
     logger.debugSuccess(`Successfully deleted queue: ${queueName}`);
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 }
 

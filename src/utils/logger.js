@@ -18,9 +18,9 @@ module.exports = (name) => {
       const fn = debug(name);
       fn(chalk.bold(`${chalk.green("✔️")} ${msg}`));
     },
-    debugError: (msg) => {
+    debugError: (...msg) => {
       const fn = debug(name);
-      fn(chalk.bold(`${chalk.red("✖")} ${chalk.yellow(msg)}`));
+      fn(chalk.bold(`${chalk.red("✖")} ${chalk.yellow(...msg)}`));
     }
   };
 };

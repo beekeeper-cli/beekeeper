@@ -11,8 +11,6 @@ try {
     "--help": Boolean
   });
   const [command] = args._;
-  logger.debug("Received args", args);
-  logger.debug("Received command:", command);
   
   switch (command) {
     case "start":

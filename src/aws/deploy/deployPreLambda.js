@@ -39,6 +39,7 @@ const createPreLambda = async (
     return FunctionArn;
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -56,6 +57,7 @@ const addLambdaPermission = async (lambda, lambdaName) => {
     logger.debugSuccess(`Successfully added API Gateway permission to Lambda.`);
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

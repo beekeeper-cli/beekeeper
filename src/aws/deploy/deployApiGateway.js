@@ -27,6 +27,7 @@ const createApiGateway = async (apiGateway, apiGatewayName) => {
     return restApiId;
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -46,6 +47,7 @@ const getResources = async (apiGateway, restApiId, apiGatewayName) => {
     return resourceParentId;
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -69,6 +71,7 @@ const createResource = async (
     return resourceId;
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -94,6 +97,7 @@ const mainPutMethodRequest = async (
     );
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -125,6 +129,7 @@ const setIntegrationRequest = async (
     );
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -150,6 +155,7 @@ const setIntegrationResponse = async (
     );
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -175,6 +181,7 @@ const setMethodResponse = async (
     );
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

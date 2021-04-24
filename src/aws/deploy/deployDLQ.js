@@ -23,6 +23,7 @@ const createDLQ = async (sqs, dlqName) => {
     return QueueUrl;
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -42,6 +43,7 @@ const getArn = async (sqs, dlqUrl) => {
     return QueueArn;
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

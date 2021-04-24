@@ -15,6 +15,7 @@ const getApiId = async (apiGateway, apiName) => {
     return id;
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -28,6 +29,7 @@ const destroyRestApi = async (apiGateway, restApiId) => {
     logger.debugSuccess(`Successfully deleted api gateway: ${restApiId}`);
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

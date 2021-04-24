@@ -14,6 +14,7 @@ const listBucketObjects = async (s3, bucketName) => {
     return Versions;
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 }
 
@@ -32,6 +33,7 @@ const deleteBucketObjects = async (s3, versions, bucketName) => {
     logger.debugSuccess(`Successfully deleted bucket objects from: ${bucketName}`);
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 }
 
@@ -48,6 +50,7 @@ const deleteBucket = async (s3, bucketName) => {
     logger.debugSuccess(`Successfully deleted bucket: ${bucketName}`);
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 }
 

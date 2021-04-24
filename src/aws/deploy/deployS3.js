@@ -17,6 +17,7 @@ const createBucket = async (s3, bucketName) => {
     return Location;
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -40,6 +41,7 @@ const uploadToS3 = async (s3, bucketName, directoryPath, filePath) => {
     );
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

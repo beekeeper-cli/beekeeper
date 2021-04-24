@@ -12,6 +12,7 @@ const destroyLambda = async (lambda, lambdaName) => {
     logger.debugSuccess(`Successfully deleted Lambda: ${lambdaName}`);
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 }
 

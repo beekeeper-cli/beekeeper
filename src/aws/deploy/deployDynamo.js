@@ -32,6 +32,7 @@ const createDynamo = async (dynamodb, dynamoName) => {
     return TableDescription.TableArn;
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

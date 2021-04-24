@@ -44,6 +44,7 @@ const addPermissions = async (iam, roleName) => {
       logger.debugSuccess(`Successfully added permission: ${arnPermission}`);
     } catch (err) {
       logger.debugError("Error", err);
+      throw new Error(err);
     }
   }
 };
@@ -61,6 +62,7 @@ const createRole = async (iam, policyDoc, roleName) => {
     return data.Role.Arn;
   } catch (err) {
     logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
