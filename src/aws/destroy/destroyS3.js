@@ -1,5 +1,5 @@
 const { S3Client, ListObjectVersionsCommand, DeleteObjectsCommand, DeleteBucketCommand } = require("@aws-sdk/client-s3");
-const logger = require("../../utils/logger")("destroy");
+const logger = require("../../utils/logger")("dev");
 
 const listBucketObjects = async (s3, bucketName) => {
   const params = {

@@ -2,7 +2,7 @@ const {
   DynamoDBClient,
   CreateTableCommand,
 } = require("@aws-sdk/client-dynamodb");
-const logger = require("../../utils/logger")("deploy");
+const logger = require("../../utils/logger")("dev");
 
 const createDynamo = async (dynamodb, dynamoName) => {
   const params = {

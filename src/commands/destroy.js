@@ -1,5 +1,5 @@
 const path = require("path");
-const logger = require("../utils/logger")("destroy");
+const logger = require("../utils/logger")("dev");
 const { readFile } = require("../utils/utilities");
 
 const destroyRole = require("../aws/destroy/destroyRole");

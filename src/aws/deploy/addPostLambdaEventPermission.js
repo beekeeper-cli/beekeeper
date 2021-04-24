@@ -2,7 +2,7 @@ const {
   LambdaClient,
   AddPermissionCommand,
 } = require("@aws-sdk/client-lambda");
-const logger = require("../../utils/logger")("deploy");
+const logger = require("../../utils/logger")("dev");
 
 const addLambdaPermission = async (lambda, lambdaName, sourceArn) => {
   let params = {

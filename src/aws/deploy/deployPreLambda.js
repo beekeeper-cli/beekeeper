@@ -3,7 +3,7 @@ const {
   CreateFunctionCommand,
   AddPermissionCommand,
 } = require("@aws-sdk/client-lambda");
-const logger = require("../../utils/logger")("deploy");
+const logger = require("../../utils/logger")("dev");
 const fs = require("fs");
 
 const createPreLambda = async (

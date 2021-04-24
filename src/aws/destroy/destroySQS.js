@@ -1,5 +1,5 @@
 const { SQSClient, DeleteQueueCommand, GetQueueUrlCommand } = require("@aws-sdk/client-sqs");
-const logger = require("../../utils/logger")("destroy");
+const logger = require("../../utils/logger")("dev");
 
 const getQueueUrl = async (queue, name) => {
   const params = {

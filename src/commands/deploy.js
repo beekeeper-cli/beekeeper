@@ -1,5 +1,5 @@
 const path = require("path");
-const logger = require('../utils/logger')('deploy');
+const logger = require('../utils/logger')('dev');
 const { readFile, fileExists } = require("../utils/utilities");
 
 const createRole = require("../aws/deploy/createRole");
