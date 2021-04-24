@@ -26,6 +26,7 @@ const POLL_FILE_PATH = path.join(__dirname, "..", "..", "assets", "s3", 'polling
 module.exports = async () => {
   let fileFound = await fileExists(ANSWERS_FILE_PATH);
 
+  // Check if user executed `sealbuzz start` first
   if (!fileFound) {
     console.log("");
     logger.error("Error: Run 'sealbuzz start' first.");
@@ -59,8 +60,7 @@ module.exports = async () => {
     spinner.fail("Failed to create role")
   }
 
-  // await logger.spinner("Creating role", "Successfully created role", 5000);
-
+  // Deploy S3 Bucket + S3 Objects
   let s3ObjectRootDomain;
   try {
     spinner.start("Deploying S3 bucket")
@@ -69,10 +69,6 @@ module.exports = async () => {
   } catch (err) {
     spinner.fail("Failed to deploy S3 bucket")
   }
-
-  // Deploy S3 Bucket + S3 Objects
-
-  // await logger.spinner("Deploying S3 bucket", "Successfully deployed S3 bucket", 2000);
 
   // Deploy DLQ
   let dlqArn
@@ -84,8 +80,6 @@ module.exports = async () => {
     spinner.fail("Failed to deployed DLQ")
   }
 
-  // await logger.spinner("Deploying DLQ", "Successfully deployed DLQ", 2000);
-
   // Deploy SQS
   let sqsUrl;
   try {
@@ -96,8 +90,6 @@ module.exports = async () => {
     spinner.fail("Failed to deployed SQS")
   }
 
-  // await logger.spinner("Deploying SQS", "Successfully deployed SQS", 2000);
-
   // Deploy DynamoDB
   let dbArn;
   try {
@@ -107,8 +99,6 @@ module.exports = async () => {
   } catch (err) {
     spinner.fail("Failed to deployed DynamoDB")
   }
-
-  // await logger.spinner("Deploying DynamoDB", "Successfully deployed DynamoDB", 2000);
 
   // Deploy Post Lambda
   let postLambdaArn;
@@ -128,8 +118,6 @@ module.exports = async () => {
     spinner.fail("Failed to deployed post-lambda")
   }
 
-  // await logger.spinner("Deploying Post Lambda", "Successfully deployed Post Lambda", 2000);
-
   // Deploy Pre Lambda
   let preLambdaArn;
   try {
@@ -140,8 +128,6 @@ module.exports = async () => {
   } catch (err) {
     spinner.fail("Failed to deployed pre-lambda")
   }
-
-  // await logger.spinner("Deploying Pre Lambda", "Successfully deployed Pre Lambda", 2000);
 
   // Deploy API Gateway + Waiting Room Route
   let restApiId, stageSealBuzzUrl;
@@ -162,8 +148,6 @@ module.exports = async () => {
   } catch (err) {
     spinner.fail("Failed to deployed API Gateway")
   }
-
-  // await logger.spinner("Deploying API Gateway", "Successfully deployed API Gateway", 2000);
   
   console.log("");
   console.log(`Here's your waiting room URL: ${chalk.yellow.bold(stageSealBuzzUrl)}`);
