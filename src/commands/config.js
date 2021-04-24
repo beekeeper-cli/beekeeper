@@ -13,10 +13,10 @@ const ANSWERS_FILE_PATH = path.join(
 module.exports = async () => {
   let fileFound = await fileExists(ANSWERS_FILE_PATH);
 
-  // Check if user executed `sealbuzz start` first
+  // Check if user executed `sealbuzz init` first
   if (!fileFound) {
     console.log("");
-    logger.error("No configuration file detected: run 'sealbuzz start' first.");
+    logger.error("No configuration file detected: run 'sealbuzz init' first.");
     return;
   }
 

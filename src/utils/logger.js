@@ -23,7 +23,7 @@ module.exports = (name) => {
     help: () => {
       console.log();
       console.log(`${chalk.whiteBright("sealbuzz [CMD]")}
-      ${chalk.greenBright("start")}\tConfigure waiting room infrastructure before deploying or destroying
+      ${chalk.greenBright("init")}\tConfigure waiting room infrastructure before deploying or destroying
       ${chalk.greenBright("deploy")}\tDeploys waiting room infrastructure
       ${chalk.greenBright("destroy")}\tDestroys waiting room infrastructure
       ${chalk.greenBright("config")}\tDisplays current waiting room infrastructure configuration`);

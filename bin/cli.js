@@ -3,7 +3,7 @@ const arg = require("arg");
 const logger = require("../src/utils/logger")("dev");
 const deploy = require("../src/commands/deploy");
 const destroy = require("../src/commands/destroy");
-const start = require("../src/commands/start");
+const init = require("../src/commands/init");
 const config = require("../src/commands/config");
 
 try {
@@ -11,8 +11,8 @@ try {
   const [command] = args._;
 
   switch (command) {
-    case "start":
-      start();
+    case "init":
+      init();
       break;
     case "deploy":
       deploy();

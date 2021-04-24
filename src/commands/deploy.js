@@ -26,10 +26,10 @@ const POLL_FILE_PATH = path.join(__dirname, "..", "..", "assets", "s3", 'polling
 module.exports = async () => {
   let fileFound = await fileExists(ANSWERS_FILE_PATH);
 
-  // Check if user executed `sealbuzz start` first
+  // Check if user executed `sealbuzz init` first
   if (!fileFound) {
     console.log("");
-    logger.error("Error: Run 'sealbuzz start' first.");
+    logger.error("Error: Run 'sealbuzz init' first.");
     return;
   }
 
