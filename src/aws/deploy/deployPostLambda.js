@@ -3,7 +3,7 @@ const {
   CreateFunctionCommand,
   PutFunctionConcurrencyCommand,
 } = require("@aws-sdk/client-lambda");
-const logger = require("../../utils/logger")("deployPostLambda");
+const logger = require("../../utils/logger")("deploy");
 const fs = require("fs");
 
 const createPostLambda = async (

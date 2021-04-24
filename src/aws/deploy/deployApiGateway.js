@@ -8,7 +8,7 @@ const {
   PutIntegrationResponseCommand,
   PutMethodResponseCommand,
 } = require("@aws-sdk/client-api-gateway");
-const logger = require("../../utils/logger")("deployApiGateway");
+const logger = require("../../utils/logger")("deploy");
 
 const createApiGateway = async (apiGateway, apiGatewayName) => {
   const params = {

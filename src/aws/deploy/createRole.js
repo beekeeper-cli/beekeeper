@@ -3,7 +3,7 @@ const {
   CreateRoleCommand,
   AttachRolePolicyCommand,
 } = require("@aws-sdk/client-iam");
-const logger = require("../../utils/logger")("createRole");
+const logger = require("../../utils/logger")("deploy");
 
 const policy = {
   Version: "2012-10-17",

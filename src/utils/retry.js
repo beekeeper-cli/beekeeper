@@ -1,4 +1,4 @@
-const logger = require('./logger')('commands:Retries');
+const logger = require('./logger')('retry');
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const MAX_RETRIES = 3;

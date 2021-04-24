@@ -3,7 +3,7 @@ const {
   CreateQueueCommand,
   GetQueueAttributesCommand,
 } = require("@aws-sdk/client-sqs");
-const logger = require("../../utils/logger")("deployDlq");
+const logger = require("../../utils/logger")("deploy");
 
 const createDLQ = async (sqs, dlqName) => {
   const params = {

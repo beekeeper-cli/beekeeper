@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const arg = require("arg");
 const chalk = require("chalk");
-const logger = require("../src/utils/logger")("bin");
+const logger = require("../src/utils/logger")("cli");
 const deploy = require("../src/commands/deploy");
 const destroy = require("../src/commands/destroy");
 const start = require('../src/commands/start');

@@ -3,7 +3,7 @@ const {
   PutObjectCommand,
   CreateBucketCommand,
 } = require("@aws-sdk/client-s3");
-const logger = require("../../utils/logger")("deployS3");
+const logger = require("../../utils/logger")("deploy");
 const { getFilePaths, getContentType } = require("../../utils/utilities");
 const fs = require("fs");
 

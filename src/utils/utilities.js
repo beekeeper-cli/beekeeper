@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const logger = require("./logger")("utils:utilities");
+const logger = require("./logger")("utilities");
 
 const getFilePaths = (dir) => {
   const filePaths = [];

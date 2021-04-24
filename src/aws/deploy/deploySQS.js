@@ -1,5 +1,5 @@
 const { SQSClient, CreateQueueCommand } = require("@aws-sdk/client-sqs");
-const logger = require("../../utils/logger")("deploySqs");
+const logger = require("../../utils/logger")("deploy");
 
 const createSQS = async (sqs, sqsName, dlqARN) => {
   const params = {

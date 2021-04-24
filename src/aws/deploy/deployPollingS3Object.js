@@ -1,5 +1,5 @@
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
-const logger = require("../../utils/logger")("deployPollingS3Object");
+const logger = require("../../utils/logger")("deploy");
 const { getContentType, createFile } = require("../../utils/utilities");
 const fs = require("fs");
 

@@ -3,7 +3,7 @@ const {
   DetachRolePolicyCommand,
   DeleteRoleCommand
 } = require("@aws-sdk/client-iam");
-const logger = require("../../utils/logger")("destroyRole");
+const logger = require("../../utils/logger")("destroy");
 
 const permissions = [
   "arn:aws:iam::aws:policy/AmazonSQSFullAccess",

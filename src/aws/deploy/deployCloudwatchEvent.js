@@ -3,7 +3,7 @@ const {
   PutRuleCommand,
   PutTargetsCommand,
 } = require("@aws-sdk/client-cloudwatch-events");
-const logger = require("../../utils/logger")("deployCloudwatchEvent");
+const logger = require("../../utils/logger")("deploy");
 
 const createTarget = async (cloudwatchEvent, cronJobName, postLambdaArn) => {
   const params = {

@@ -1,5 +1,5 @@
 const prompts = require("prompts");
-const logger = require("./logger");
+const logger = require("./logger")("start");
 const chalk = require("chalk");
 
 const promptQuestions = async () => {
