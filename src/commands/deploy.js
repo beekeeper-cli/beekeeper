@@ -33,7 +33,7 @@ module.exports = async () => {
     return;
   }
 
-  const { WAITING_ROOM_NAME, REGION, PROTECT_URL } = JSON.parse(await readFile(ANSWERS_FILE_PATH));
+  const { WAITING_ROOM_NAME, REGION, PROTECT_URL, RATE } = JSON.parse(await readFile(ANSWERS_FILE_PATH));
   const S3_NAME = `wr-${WAITING_ROOM_NAME}-s3`
   const DLQ_NAME = `wr-${WAITING_ROOM_NAME}-dlq`
   const SQS_NAME = `wr-${WAITING_ROOM_NAME}-sqs`
@@ -44,7 +44,6 @@ module.exports = async () => {
   const ROLE_NAME = `wr-${WAITING_ROOM_NAME}-master-role`
   const CRON_JOB_NAME = `wr-${WAITING_ROOM_NAME}-cloudwatcheventcron`
   const STAGE_NAME = 'sealbuzz-production';
-  const RATE = 100
   const spinner = ora();
 
   logger.highlight('🐝  Deploying waiting room infrastructure');

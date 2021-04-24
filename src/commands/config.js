@@ -20,7 +20,7 @@ module.exports = async () => {
     return;
   }
 
-  const { WAITING_ROOM_NAME, REGION, PROTECT_URL } = JSON.parse(
+  const { WAITING_ROOM_NAME, REGION, PROTECT_URL, RATE } = JSON.parse(
     await readFile(ANSWERS_FILE_PATH)
   );
 
@@ -31,4 +31,6 @@ module.exports = async () => {
   console.log(`${chalk.green.bold("✔")} ${chalk.bold("Region: ")} ${REGION}`);
 
   console.log(`${chalk.green.bold("✔")} ${chalk.bold("Protected URL: ")} ${PROTECT_URL}`);
+  
+  console.log(`${chalk.green.bold("✔")} ${chalk.bold("Users allowed to enter per minute: ")} ${RATE}`);
 };
