@@ -59,9 +59,9 @@ const initializeTimer = () => {
 initializeTimer();
 startTimer();
 
-function onTimesUp() {
+const onTimesUp = async () => {
   const waitMessage = document.querySelector("#wait-message");
-  let forard = await poll();
+  let forward = await poll();
 
   if (!forward) {
     waitMessage.style.display = "block";
