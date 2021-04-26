@@ -120,7 +120,7 @@ module.exports = async () => {
     eventArn = await deployCloudwatchEvent(REGION, postLambdaArn, CRON_JOB_NAME);
     
     // Add event permission
-    await addPostLambdaEventPermission(REGION, POST_LAMBDA_NAME, eventArn);
+    await addPostLambdaEventPermission(REGION, POST_LAMBDA_NAME, eventArn, RATE);
 
     spinner.succeed("Successfully deployed post-lambda")
   } catch (err) {
