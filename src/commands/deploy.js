@@ -65,7 +65,7 @@ module.exports = async () => {
   let s3ObjectRootDomain;
   try {
     spinner.start("Deploying S3 bucket")
-    s3ObjectRootDomain = await deployS3(REGION, S3_NAME, S3_ASSET_PATH);
+    s3ObjectRootDomain = await deployS3(REGION, S3_NAME, S3_ASSET_PATH); // Pass display name from CLI in here.
     spinner.succeed("Successfully deployed S3 bucket")
   } catch (err) {
     spinner.fail("Failed to deploy S3 bucket")

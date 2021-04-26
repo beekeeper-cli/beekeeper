@@ -1,7 +1,11 @@
-import poll from '../polling.js';
+import {poll, displayName} from '../polling.js';
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 10;
 const ALERT_THRESHOLD = 5;
+
+(() => {
+  document.querySelector("#display-name").innerText = displayName;
+})();
 
 const COLOR_CODES = {
   info: {
