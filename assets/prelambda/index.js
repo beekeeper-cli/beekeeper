@@ -20,16 +20,10 @@ const cookieCheck = (response, event) => {
 //     AttributeNames: ["ApproximateNumberOfMessages"],
 //   };
 
-//   const command = new GetQueueAttributesCommand(params);
-
-//   try {
-//     data = await sqsClient.send(command);
-//   } catch (e) {
-//     console.log(e);
-//   } finally {
-//     console.log(data);
-//     response.body = data;
-//   }
+//   sqsClient.getQueueAttributes(params, function(err, data) {
+//     if (err) console.log(err, err.stack); // an error occurred
+//     else     console.log(data);           // successful response
+//   });
 // };
 
 function sendMessageToSQS(cookieValue) {

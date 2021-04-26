@@ -1,19 +1,19 @@
-const logger = require('./logger')('dev');
+const logger = require("./logger")("dev");
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const MAX_RETRIES = 3;
 
-let retries = 1;
-let retry = true;
 
 module.exports = async (func) => {
   let value;
+  let retries = 0;
+  let retry = true;
 
   try {
-    do {
+    while (retry && retries <= MAX_RETRIES) {
       let { status, response } = await func();
       value = response;
-  
+
       switch (status) {
         case "Success":
           retry = false;
@@ -23,22 +23,21 @@ module.exports = async (func) => {
           break;
         default:
           retry = true;
-          console.log('retry attempt: ', retries)
+          console.log("retry attempt: ", retries);
           break;
       }
-    
-      retries = retries += 1;
+
       await delay(retries * 500);
-    } while (retry && retries <= MAX_RETRIES);
-    
+      retries += 1;
+    }
+
     if (retries > MAX_RETRIES) {
       throw new Error("RetryFailed");
     } else {
       return value;
     }
-  } catch (error) {
-    logger.debugError(error);
-    return value;
+  } catch (err) {
+    logger.debugError(err)
+    throw new Error(err);
   }
-
-}
+};
