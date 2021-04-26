@@ -175,7 +175,7 @@ const promptQuestions = async () => {
       name: 'RATE',
       message: 'Number of users allowed to enter per minute:',
       style: 'default',
-      validate: value => value < 10 || value > 10000 ? `Please enter a number between 10 to 10,000` : true
+      validate: value => value < 50 || value > 10000 ? `Please enter a number between 50 to 10,000` : true
     },
   ];
 
