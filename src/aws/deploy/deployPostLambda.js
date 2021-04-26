@@ -3,7 +3,7 @@ const {
   CreateFunctionCommand,
   PutFunctionConcurrencyCommand,
 } = require("@aws-sdk/client-lambda");
-const logger = require("../../utils/logger")("deployPostLambda");
+const logger = require("../../utils/logger")("dev");
 const fs = require("fs");
 
 const createPostLambda = async (
@@ -35,10 +35,11 @@ const createPostLambda = async (
 
   try {
     const { FunctionArn } = await lambda.send(command);
-    logger.log(`Successfully created PostLambda: ${FunctionArn}`);
+    logger.debugSuccess(`Successfully created PostLambda: ${FunctionArn}`);
     return FunctionArn;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -55,9 +56,10 @@ const setLambdaConcurrency = async (lambda, lambdaName, rate) => {
 
   try {
     await lambda.send(command);
-    logger.log(`Successfully set LambdaReserveConcurrency: ${rate}`);
+    logger.debugSuccess(`Successfully set LambdaReserveConcurrency: ${rate}`);
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

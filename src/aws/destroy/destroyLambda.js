@@ -1,5 +1,5 @@
 const { LambdaClient, DeleteFunctionCommand } = require("@aws-sdk/client-lambda");
-const logger = require("../../utils/logger")("destroyLambda");
+const logger = require("../../utils/logger")("dev");
 
 const destroyLambda = async (lambda, lambdaName) => {
   const params = {
@@ -9,9 +9,10 @@ const destroyLambda = async (lambda, lambdaName) => {
 
   try {
     await lambda.send(command);
-    logger.log(`Successfully deleted Lambda: ${lambdaName}`);
+    logger.debugSuccess(`Successfully deleted Lambda: ${lambdaName}`);
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 }
 

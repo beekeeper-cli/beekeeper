@@ -1,5 +1,5 @@
 const {CloudWatchEventsClient, DeleteRuleCommand, RemoveTargetsCommand} = require("@aws-sdk/client-cloudwatch-events");
-const logger = require('../../utils/logger')('destroyCloudwatchEvent');
+const logger = require('../../utils/logger')('dev');
 
 const destroyCloudwatchTarget = async (cloudwatchEvent, name) => {
   // const base64String = Buffer.from(name).toString('base64');
@@ -12,9 +12,10 @@ const destroyCloudwatchTarget = async (cloudwatchEvent, name) => {
 
   try { 
     await cloudwatchEvent.send(command);
-    logger.log(`Successfully deleted Cloudwatch Event Target: ${name}`);
+    logger.debugSuccess(`Successfully deleted Cloudwatch Event Target: ${name}`);
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 }
 
@@ -27,9 +28,10 @@ const destroyCloudwatchEvent = async (cloudwatchEvent, eventName) => {
 
   try {
     await cloudwatchEvent.send(command);
-    logger.log(`Successfully deleted Cloudwatch Event Rule: ${eventName}`);
+    logger.debugSuccess(`Successfully deleted Cloudwatch Event Rule: ${eventName}`);
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 }
 

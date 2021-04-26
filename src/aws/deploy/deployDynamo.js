@@ -2,7 +2,7 @@ const {
   DynamoDBClient,
   CreateTableCommand,
 } = require("@aws-sdk/client-dynamodb");
-const logger = require("../../utils/logger")("deployDynamo");
+const logger = require("../../utils/logger")("dev");
 
 const createDynamo = async (dynamodb, dynamoName) => {
   const params = {
@@ -28,10 +28,11 @@ const createDynamo = async (dynamodb, dynamoName) => {
 
   try {
     const { TableDescription } = await dynamodb.send(command);
-    logger.log(`Successfully created DynamoDB table: ${dynamoName}`);
+    logger.debugSuccess(`Successfully created DynamoDB table: ${dynamoName}`);
     return TableDescription.TableArn;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

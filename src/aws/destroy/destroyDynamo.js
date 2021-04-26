@@ -1,6 +1,6 @@
 const { DynamoDBClient, DeleteTableCommand } = require("@aws-sdk/client-dynamodb");
 
-const logger = require("../../utils/logger")("destroyDynamo");
+const logger = require("../../utils/logger")("dev");
 
 const destroyTable = async (dynamo, tableName) => {
   const params = {
@@ -11,9 +11,10 @@ const destroyTable = async (dynamo, tableName) => {
 
   try {
     await dynamo.send(command);
-    logger.log(`Successfully deleted table: ${tableName}`);
+    logger.debugSuccess(`Successfully deleted table: ${tableName}`);
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 }
 

@@ -8,7 +8,7 @@ const {
   PutMethodResponseCommand,
   CreateDeploymentCommand,
 } = require("@aws-sdk/client-api-gateway");
-const logger = require("../../utils/logger")("deployPollingRoute");
+const logger = require("../../utils/logger")("dev");
 
 const getResources = async (apiGateway, restApiId, apiGatewayName) => {
   const params = {
@@ -22,12 +22,13 @@ const getResources = async (apiGateway, restApiId, apiGatewayName) => {
     const { id: resourceParentId } = result.items.find(
       (item) => item.path === "/"
     );
-    logger.log(
+    logger.debugSuccess(
       `Successfully retrieved API root resource ('/') for: ${apiGatewayName}`
     );
     return resourceParentId;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -47,10 +48,11 @@ const createResource = async (
 
   try {
     const { id: resourceId } = await apiGateway.send(command);
-    logger.log(`Successfully retrieved resource id for: ${resourceName}`);
+    logger.debugSuccess(`Successfully retrieved resource id for: ${resourceName}`);
     return resourceId;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -74,11 +76,12 @@ const putMethodRequest = async (
 
   try {
     await apiGateway.send(command);
-    logger.log(
+    logger.debugSuccess(
       `Successfully set request method for resource: ${pollingResourceName}`
     );
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -88,7 +91,8 @@ const setIntegrationRequest = async (
   restApiId,
   dynamoDbUri,
   pollingResourceName,
-  roleArn
+  roleArn,
+  dynamoName
 ) => {
   const params = {
     httpMethod: "GET",
@@ -102,7 +106,7 @@ const setIntegrationRequest = async (
     timeoutInMillis: 29000,
     uri: dynamoDbUri,
     requestTemplates: {
-      "application/json": `#set ($string = \"$input.params('cookie')\")\n#set ($s = $string.split(\"=\"))\n{\n  \"TableName\": \"waiting_room\",\n  \"KeyConditionExpression\": \"usertoken = :v1\",\n  \"ExpressionAttributeValues\": {\n      \":v1\": {\n          \"S\": \"$s.get(1)\"\n      }\n  }\n}`,
+      "application/json": `#set ($string = $input.params('cookie'))\n#set ($s = $string.split(\"=\"))\n{\n  \"TableName\": \"${dynamoName}\",\n  \"KeyConditionExpression\": \"usertoken = :v1\",\n  \"ExpressionAttributeValues\": {\n      \":v1\": {\n          \"S\": \"$s.get(1)\"\n      }\n  }\n}`,
     },
   };
 
@@ -110,11 +114,12 @@ const setIntegrationRequest = async (
 
   try {
     await apiGateway.send(command);
-    logger.log(
+    logger.debugSuccess(
       `Successfully set integration request for resource: ${pollingResourceName}`
     );
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -139,7 +144,7 @@ const setIntegrationResponse = async (
     },
     responseTemplates: {
       "application/json":
-        `#set($inputRoot = $input.path(\'$\'))\n#if($inputRoot.Count == 0)\n{\n"allow": false\n}\n#else\n{\n  "allow": true,\n  "origin": "${protectUrl}"\n}\n#end`,
+        `#set($inputRoot = $input.path(\'$\'))\n#if($inputRoot.Count > 0)\n{\n"allow": $inputRoot.Items[0].allow.BOOL,\n  "origin": "${protectUrl}"\n}\n#else\n{\n"allow": false\n}\n#end`,
     },
   };
 
@@ -147,11 +152,12 @@ const setIntegrationResponse = async (
 
   try {
     await apiGateway.send(command);
-    logger.log(
+    logger.debugSuccess(
       `Successfully set integration response for resource: ${pollingResourceName}`
     );
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -183,11 +189,12 @@ const setMethodResponse = async (
 
   try {
     await apiGateway.send(command);
-    logger.log(
+    logger.debugSuccess(
       `Successfully set method response for resource: ${pollingResourceName}`
     );
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -202,9 +209,10 @@ const deployResource = async (apiGateway, restApiId, stageName) => {
 
   try {
     await apiGateway.send(command);
-    logger.log(`Successfully deployed resource: ${restApiId}`);
+    logger.debugSuccess(`Successfully deployed resource: ${restApiId}`);
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -212,7 +220,7 @@ module.exports = async (
   restApiId,
   region,
   apiGatewayName,
-  dynamoDbArn,
+  dynamoName,
   roleArn,
   bucketObjectTld,
   stageName,
@@ -246,14 +254,15 @@ module.exports = async (
   );
 
   // Setup Integration Request
-  const dynamoDbUri = `arn:aws:apigateway:${region}:dynamodb:action/Query/${dynamoDbArn}`;
+  const dynamoDbUri = `arn:aws:apigateway:${region}:dynamodb:action/Query`;
   await setIntegrationRequest(
     apiGateway,
     pollingResourceId,
     restApiId,
     dynamoDbUri,
     pollingResourceName,
-    roleArn
+    roleArn,
+    dynamoName
   );
 
   // Setup Method Response

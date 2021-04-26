@@ -1,21 +1,32 @@
 const chalk = require("chalk");
 const debug = require('debug');
-const spinner = require('cli-spinner').Spinner;
-spinner.setDefaultSpinnerString(18);
 
 module.exports = (name) => {
   return {
-    log: (...args) => console.log(chalk.yellow.dim("✔️  ") + chalk.yellow.dim(...args)),
-    // warning: (...args) => console.log("💀  " + chalk.bgYellowBright.black(...args)),
-    warning: (...args) => console.log(chalk.red("✖ ") + chalk.bold.rgb(209, 132, 112)(...args)),
     highlight: (...args) => console.log(chalk.yellow.bold(...args)),
-    process: async (millisecs, message) => {
-      const spinObj = new spinner(chalk.yellow.bold(message));
-      spinObj.start();
-      const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-      await delay(millisecs);
-      spinObj.stop();
+    error: (...args) => console.log(chalk.red.bold("✖ ") + chalk.yellow.bold(...args)),
+    debug: debug(name),
+    debugSuccess: (msg) => {
+      const fn = debug(name);
+      fn(chalk.bold(`${chalk.green("✔️")} ${msg}`));
     },
-    debug: debug(name)
+    debugError: (...msg) => {
+      const fn = debug(name);
+      fn(chalk.bold(`${chalk.red("✖")} ${chalk.yellow(...msg)}`));
+    },
+    failDeploy: () => {
+      console.log("");
+      console.log(`${chalk.red("✖")} ${chalk.yellow.bold("Failed to deploy waiting room infrastructure")}`);
+      console.log("");
+      console.log(`Please enter ${chalk.yellow.bold('sealbuzz destroy')} and then enter ${chalk.yellow.bold('sealbuzz deploy')} after 60 seconds`);
+    },
+    help: () => {
+      console.log();
+      console.log(`${chalk.whiteBright("sealbuzz [CMD]")}
+      ${chalk.greenBright("init")}\tConfigure waiting room infrastructure before deploying or destroying
+      ${chalk.greenBright("deploy")}\tDeploys waiting room infrastructure
+      ${chalk.greenBright("destroy")}\tDestroys waiting room infrastructure
+      ${chalk.greenBright("config")}\tDisplays current waiting room infrastructure configuration`);
+    }
   };
 };

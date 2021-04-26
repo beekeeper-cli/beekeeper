@@ -1,16 +1,9 @@
 config:
-  target: "https://rsr0uuuqj5.execute-api.us-east-1.amazonaws.com/sealbuzz-production/sealbuzz"
+  target: "https://pmkz13dash.execute-api.us-west-2.amazonaws.com/sealbuzz-production/sealbuzz"
   phases:
-    - duration: 60
+    - duration: 100
       arrivalRate: 5
       name: Warm up
-    - duration: 120
-      arrivalRate: 5
-      rampTo: 50
-      name: Ramp up load
-    - duration: 600
-      arrivalRate: 50
-      name: Sustained load
 scenarios:
   # We define one scenario:
   - name: "Go through waitroom"

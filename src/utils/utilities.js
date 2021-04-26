@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const logger = require("./logger")("utils:utilities");
+const logger = require("./logger")("dev");
 
 const getFilePaths = (dir) => {
   const filePaths = [];
@@ -43,9 +43,10 @@ const createFile = async (data, filePath) => {
 
   try {
     await fs.promises.writeFile(filePath, data);
-    logger.log(`Successfully created ${fileName}`);
+    logger.debugSuccess(`Successfully created ${fileName}`);
   } catch (err) {
-    logger.log("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -54,10 +55,11 @@ const readFile = async (filePath) => {
 
   try {
     const data = await fs.promises.readFile(filePath, "utf8");
-    logger.log(`Successfully read ${fileName}`);
+    logger.debugSuccess(`Successfully read ${fileName}`);
     return data;
   } catch (err) {
-    logger.log("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -65,7 +67,8 @@ const fileExists = async (filePath) => {
   try {
     return await fs.existsSync(filePath);
   } catch (err) {
-    logger.log("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 }
 
@@ -74,5 +77,5 @@ module.exports = {
   getContentType,
   createFile,
   readFile,
-  fileExists
+  fileExists,
 };

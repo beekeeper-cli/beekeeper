@@ -3,7 +3,7 @@ const {
   DetachRolePolicyCommand,
   DeleteRoleCommand
 } = require("@aws-sdk/client-iam");
-const logger = require("../../utils/logger")("destroyRole");
+const logger = require("../../utils/logger")("dev");
 
 const permissions = [
   "arn:aws:iam::aws:policy/AmazonSQSFullAccess",
@@ -22,9 +22,10 @@ const detachPermissions = async (iam, permissions, roleName) => {
 
     try {
       await iam.send(command);
-      logger.log(`Successfully removed permission ${perm} from ${roleName} role`);
+      logger.debugSuccess(`Successfully removed permission ${perm} from ${roleName} role`);
     } catch (err) {
-      logger.warning("Error", err);
+      logger.debugError("Error", err);
+      throw new Error(err);
     }
   }
 };
@@ -37,9 +38,10 @@ const destroyRole = async (iam, roleName) => {
 
   try {
     await iam.send(command);
-    logger.log(`Successfully deleted IAM role: ${roleName}`);
+    logger.debugSuccess(`Successfully deleted IAM role: ${roleName}`);
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 }
 

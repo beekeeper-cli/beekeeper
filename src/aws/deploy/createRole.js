@@ -3,7 +3,7 @@ const {
   CreateRoleCommand,
   AttachRolePolicyCommand,
 } = require("@aws-sdk/client-iam");
-const logger = require("../../utils/logger")("createRole");
+const logger = require("../../utils/logger")("dev");
 
 const policy = {
   Version: "2012-10-17",
@@ -41,9 +41,10 @@ const addPermissions = async (iam, roleName) => {
 
     try {
       await iam.send(command);
-      logger.log(`Successfully added permission: ${arnPermission}`);
+      logger.debugSuccess(`Successfully added permission: ${arnPermission}`);
     } catch (err) {
-      logger.warning("Error", err);
+      logger.debugError("Error", err);
+      throw new Error(err);
     }
   }
 };
@@ -57,10 +58,11 @@ const createRole = async (iam, policyDoc, roleName) => {
 
   try {
     let data = await iam.send(command);
-    logger.log(`Successfully created IAM role: ${data.Role.Arn}`);
+    logger.debugSuccess(`Successfully created IAM role: ${data.Role.Arn}`);
     return data.Role.Arn;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

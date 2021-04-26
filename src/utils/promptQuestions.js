@@ -1,5 +1,5 @@
 const prompts = require("prompts");
-const logger = require("./logger");
+const logger = require("./logger")("dev");
 const chalk = require("chalk");
 
 const promptQuestions = async () => {
@@ -155,6 +155,7 @@ const promptQuestions = async () => {
       type: "text",
       name: "PROTECT_URL",
       message: "Enter the URL to protect:",
+      initial: "ex: https://www.google.com",
       validate: (value) => {
         if (
           !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/i.test(
@@ -169,47 +170,43 @@ const promptQuestions = async () => {
         return true;
       },
     },
-    // {
-    //   type: 'number',
-    //   name: 'RATE',
-    //   message: 'Enter the URL to protect:',
-    //   validate: value => {
-    //     if (!(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/i.test(value))) {
-    //       return "Please enter a valid URL."
-    //     }
-    //     if (value.length > 2000) {
-    //       return `URL can't exceed 2000 characters.`
-    //     }
-    //     return true;
-    //   }
-    // },
+    {
+      type: 'number',
+      name: 'RATE',
+      message: 'Number of users allowed to enter per minute:',
+      style: 'default',
+      validate: value => value < 10 || value > 10000 ? `Please enter a number between 10 to 10,000` : true
+    },
   ];
 
   const onSubmit = (prompt) => {
-    if (prompt.name === "PROTECT_URL") {
+    if (prompt.name === "RATE") {
       console.log("");
       console.log(
-        `Now try ${chalk.yellow.bold("sealbuzz deploy")} to deploy your waiting room infrastructure`
+        `Now enter ${chalk.yellow.bold("sealbuzz deploy")} to deploy your waiting room infrastructure`
       );
       return true;
     }
     return false;
   }
 
-  const onCancel = (prompt) => {
+  const onCancel = () => {
     console.log("");
     console.log('Exiting prompt.');
   }
 
   try {
-    console.log("Lets configure your waiting room.");
-    console.log("Press Ctrl+C to cancel at anytime.");
+
+    console.log("");    
+    logger.highlight('🐝  Lets configure your waiting room');
+    console.log("Press Ctrl+C to cancel at anytime");
     console.log("");
 
     const response = await prompts(questions, {onSubmit, onCancel});
     return response;
   } catch (err) {
-    logger.log("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

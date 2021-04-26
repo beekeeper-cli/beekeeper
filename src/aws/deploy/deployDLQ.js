@@ -3,7 +3,7 @@ const {
   CreateQueueCommand,
   GetQueueAttributesCommand,
 } = require("@aws-sdk/client-sqs");
-const logger = require("../../utils/logger")("deployDlq");
+const logger = require("../../utils/logger")("dev");
 
 const createDLQ = async (sqs, dlqName) => {
   const params = {
@@ -19,10 +19,11 @@ const createDLQ = async (sqs, dlqName) => {
 
   try {
     const { QueueUrl } = await sqs.send(command);
-    logger.log(`Successfully created DLQ: ${QueueUrl}`);
+    logger.debugSuccess(`Successfully created DLQ: ${QueueUrl}`);
     return QueueUrl;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -38,10 +39,11 @@ const getArn = async (sqs, dlqUrl) => {
     const {
       Attributes: { QueueArn },
     } = await sqs.send(command);
-    logger.log(`Successfully retrieved DLQ ARN: ${QueueArn}`);
+    logger.debugSuccess(`Successfully retrieved DLQ ARN: ${QueueArn}`);
     return QueueArn;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

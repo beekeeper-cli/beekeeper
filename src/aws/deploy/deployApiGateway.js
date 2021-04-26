@@ -8,7 +8,7 @@ const {
   PutIntegrationResponseCommand,
   PutMethodResponseCommand,
 } = require("@aws-sdk/client-api-gateway");
-const logger = require("../../utils/logger")("deployApiGateway");
+const logger = require("../../utils/logger")("dev");
 
 const createApiGateway = async (apiGateway, apiGatewayName) => {
   const params = {
@@ -21,12 +21,13 @@ const createApiGateway = async (apiGateway, apiGatewayName) => {
 
   try {
     const { id: restApiId } = await apiGateway.send(command);
-    logger.log(
+    logger.debugSuccess(
       `Successfully created API Gateway: ${apiGatewayName}, id:${restApiId}`
     );
     return restApiId;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -40,12 +41,13 @@ const getResources = async (apiGateway, restApiId, apiGatewayName) => {
   try {
     const result = await apiGateway.send(command);
     const { id: resourceParentId } = result.items[0];
-    logger.log(
+    logger.debugSuccess(
       `Successfully retrieved API root resource ('/') for: ${apiGatewayName}`
     );
     return resourceParentId;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -65,10 +67,11 @@ const createResource = async (
 
   try {
     const { id: resourceId } = await apiGateway.send(command);
-    logger.log(`Successfully retrieved resource id for: ${resourceName}`);
+    logger.debugSuccess(`Successfully retrieved resource id for: ${resourceName}`);
     return resourceId;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -89,11 +92,12 @@ const mainPutMethodRequest = async (
 
   try {
     await apiGateway.send(command);
-    logger.log(
+    logger.debugSuccess(
       `Successfully set request method for resource: ${mainResourceName}`
     );
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -120,11 +124,12 @@ const setIntegrationRequest = async (
 
   try {
     await apiGateway.send(command);
-    logger.log(
+    logger.debugSuccess(
       `Successfully set integration request for resource: ${mainResourceName}`
     );
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -145,11 +150,12 @@ const setIntegrationResponse = async (
 
   try {
     await apiGateway.send(command);
-    logger.log(
+    logger.debugSuccess(
       `Successfully set integration response for resource: ${mainResourceName}`
     );
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -170,11 +176,12 @@ const setMethodResponse = async (
 
   try {
     await apiGateway.send(command);
-    logger.log(
+    logger.debugSuccess(
       `Successfully set method response for resource: ${mainResourceName}`
     );
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

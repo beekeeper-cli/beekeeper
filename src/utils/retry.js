@@ -1,4 +1,4 @@
-const logger = require('./logger')('commands:Retries');
+const logger = require('./logger')('dev');
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const MAX_RETRIES = 3;
@@ -37,7 +37,7 @@ module.exports = async (func) => {
       return value;
     }
   } catch (error) {
-    logger.warning(error);
+    logger.debugError(error);
     return value;
   }
 

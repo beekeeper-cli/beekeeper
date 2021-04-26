@@ -1,5 +1,5 @@
 const { SQSClient, CreateQueueCommand } = require("@aws-sdk/client-sqs");
-const logger = require("../../utils/logger")("deploySqs");
+const logger = require("../../utils/logger")("dev");
 
 const createSQS = async (sqs, sqsName, dlqARN) => {
   const params = {
@@ -19,10 +19,11 @@ const createSQS = async (sqs, sqsName, dlqARN) => {
 
   try {
     const { QueueUrl } = await sqs.send(command);
-    logger.log(`Successfully created SQS: ${QueueUrl}`);
+    logger.debugSuccess(`Successfully created SQS: ${QueueUrl}`);
     return QueueUrl;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

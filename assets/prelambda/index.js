@@ -13,6 +13,25 @@ const cookieCheck = (response, event) => {
     response.statusCode = '302';
 }
 
+// const getWaitTime = async (response) => {
+//   let data;
+//   var params = {
+//     QueueUrl: SQS_URL /* required */,
+//     AttributeNames: ["ApproximateNumberOfMessages"],
+//   };
+
+//   const command = new GetQueueAttributesCommand(params);
+
+//   try {
+//     data = await sqsClient.send(command);
+//   } catch (e) {
+//     console.log(e);
+//   } finally {
+//     console.log(data);
+//     response.body = data;
+//   }
+// };
+
 function sendMessageToSQS(cookieValue) {
   var params = {
     MessageBody: cookieValue,

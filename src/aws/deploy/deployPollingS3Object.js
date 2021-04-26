@@ -1,5 +1,5 @@
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
-const logger = require("../../utils/logger")("deployPollingS3Object");
+const logger = require("../../utils/logger")("dev");
 const { getContentType, createFile } = require("../../utils/utilities");
 const fs = require("fs");
 
@@ -18,11 +18,12 @@ const uploadToS3 = async (s3, bucketName, pollFilePath) => {
 
   try {
     await s3.send(command);
-    logger.log(
+    logger.debugSuccess(
       `Successfully uploaded file ${keyName} to S3 bucket ${bucketName}`
     );
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -31,17 +32,21 @@ module.exports = async (region, bucketName, stagePollingUrl, pollFilePath) => {
   const s3 = new S3Client({ region });
 
   // Create javascript for waiting room to poll
-  const script = `setInterval(async () => {
+  const script = `const poll = async () => {
     const URL = "${stagePollingUrl}";
     let response = await fetch(URL, {
       credentials: "include",
     });
     let json = await response.json();
-    if (json.allow) {
+    if (json.allow === true) {
       let origin = json.origin;
       window.location.href = origin;
+      return true;
     }
-  }, 5000)`;
+    return false;
+  }
+  
+  export default poll;`;
 
   // Creates poll.js
   await createFile(script, pollFilePath);

@@ -3,7 +3,7 @@ const {
   CreateFunctionCommand,
   AddPermissionCommand,
 } = require("@aws-sdk/client-lambda");
-const logger = require("../../utils/logger")("deployPreLambda");
+const logger = require("../../utils/logger")("dev");
 const fs = require("fs");
 
 const createPreLambda = async (
@@ -35,10 +35,11 @@ const createPreLambda = async (
 
   try {
     const { FunctionArn } = await lambda.send(command);
-    logger.log(`Successfully created PreLambda: ${FunctionArn}`);
+    logger.debugSuccess(`Successfully created PreLambda: ${FunctionArn}`);
     return FunctionArn;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -53,9 +54,10 @@ const addLambdaPermission = async (lambda, lambdaName) => {
 
   try {
     await lambda.send(command);
-    logger.log(`Successfully added API Gateway permission to Lambda.`);
+    logger.debugSuccess(`Successfully added API Gateway permission to Lambda.`);
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

@@ -1,8 +1,5 @@
 const { SQSClient, DeleteQueueCommand, GetQueueUrlCommand } = require("@aws-sdk/client-sqs");
-
-
-
-const logger = require("../../utils/logger")("destroySQS");
+const logger = require("../../utils/logger")("dev");
 
 const getQueueUrl = async (queue, name) => {
   const params = {
@@ -13,10 +10,10 @@ const getQueueUrl = async (queue, name) => {
 
   try {
     let { QueueUrl: queueUrl } = await queue.send(command);
-    logger.log("Successfully found queue URL:", queueUrl)
+    logger.debugSuccess("Successfully found queue URL:", queueUrl)
     return queueUrl;
   } catch (error) {
-    logger.warning("Error", error);
+    logger.debugError("Error", error);
   }
 }
 
@@ -31,9 +28,10 @@ const destroyQueue = async (queue, queueName) => {
 
   try {
     await queue.send(command);
-    logger.log(`Successfully deleted queue: ${queueName}`);
+    logger.debugSuccess(`Successfully deleted queue: ${queueName}`);
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 }
 

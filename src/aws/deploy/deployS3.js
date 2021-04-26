@@ -3,7 +3,7 @@ const {
   PutObjectCommand,
   CreateBucketCommand,
 } = require("@aws-sdk/client-s3");
-const logger = require("../../utils/logger")("deployS3");
+const logger = require("../../utils/logger")("dev");
 const { getFilePaths, getContentType } = require("../../utils/utilities");
 const fs = require("fs");
 
@@ -13,10 +13,11 @@ const createBucket = async (s3, bucketName) => {
 
   try {
     const { Location } = await s3.send(command);
-    logger.log(`Successfully created S3 Bucket: ${bucketName}`);
+    logger.debugSuccess(`Successfully created S3 Bucket: ${bucketName}`);
     return Location;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 
@@ -35,11 +36,12 @@ const uploadToS3 = async (s3, bucketName, directoryPath, filePath) => {
 
   try {
     await s3.send(command);
-    logger.log(
+    logger.debugSuccess(
       "Successfully uploaded S3 Object file: " + bucketName + "/" + keyName
     );
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 };
 

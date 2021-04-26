@@ -1,3 +1,4 @@
+import poll from '../polling.js';
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 10;
 const ALERT_THRESHOLD = 5;
@@ -58,26 +59,22 @@ const initializeTimer = () => {
 initializeTimer();
 startTimer();
 
-function onTimesUp() {
+const onTimesUp = async () => {
   const waitMessage = document.querySelector("#wait-message");
-  waitMessage.style.display = "block";
-  const URL = "${stagePollingUrl}";
-  let response = await fetch(URL, {
-    credentials: "include",
-  });
-  let json = await response.json();
-  if (json.allow === true) {
-    let origin = json.origin;
-    window.location.href = origin;
-  } else {
-    clearInterval(timerInterval);
-    setTimeout(() => {
-      waitMessage.style.display = "none";
-      initializeTimer();
-      startTimer();
-    }, 3000);
-  }   
-}
+  let forward = await poll();
+
+  if (!forward) {
+    waitMessage.style.display = "block";
+  }
+
+  clearInterval(timerInterval);
+  setTimeout(() => {
+    waitMessage.style.display = "none";
+    initializeTimer();
+    startTimer();
+  }, 3000);
+}   
+
 
 function startTimer() {
   timerInterval = setInterval(() => {

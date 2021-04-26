@@ -1,6 +1,5 @@
 const { S3Client, ListObjectVersionsCommand, DeleteObjectsCommand, DeleteBucketCommand } = require("@aws-sdk/client-s3");
-
-const logger = require("../../utils/logger")("destroyS3");
+const logger = require("../../utils/logger")("dev");
 
 const listBucketObjects = async (s3, bucketName) => {
   const params = {
@@ -11,10 +10,11 @@ const listBucketObjects = async (s3, bucketName) => {
 
   try {
     const {Versions} = await s3.send(command);
-    logger.log(`Successfully retrieved bucket objects from: ${bucketName}`);
+    logger.debugSuccess(`Successfully retrieved bucket objects from: ${bucketName}`);
     return Versions;
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 }
 
@@ -30,9 +30,10 @@ const deleteBucketObjects = async (s3, versions, bucketName) => {
 
   try {
     await s3.send(command);
-    logger.log(`Successfully deleted bucket objects from: ${bucketName}`);
+    logger.debugSuccess(`Successfully deleted bucket objects from: ${bucketName}`);
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 }
 
@@ -46,9 +47,10 @@ const deleteBucket = async (s3, bucketName) => {
 
   try {
     await s3.send(command);
-    logger.log(`Successfully deleted bucket: ${bucketName}`);
+    logger.debugSuccess(`Successfully deleted bucket: ${bucketName}`);
   } catch (err) {
-    logger.warning("Error", err);
+    logger.debugError("Error", err);
+    throw new Error(err);
   }
 }
 
