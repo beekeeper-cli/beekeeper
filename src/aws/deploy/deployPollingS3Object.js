@@ -48,11 +48,13 @@ module.exports = async (region, bucketName, stagePollingUrl, pollFilePath) => {
   }
   
   const displayName = "Dummy Value";
-  
-  export default {
+
+  const polling = {
     poll,
     displayName
-  };`;
+  }
+  
+  export default polling;`;
 
   // Creates poll.js
   await createFile(script, pollFilePath);

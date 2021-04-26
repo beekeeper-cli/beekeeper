@@ -1,10 +1,10 @@
-import {poll, displayName} from '../polling.js';
+import polling from '../polling.js';
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 10;
 const ALERT_THRESHOLD = 5;
 
 (() => {
-  document.querySelector("#display-name").innerText = displayName;
+  document.querySelector("#display-name").innerText = polling.displayName;
 })();
 
 const COLOR_CODES = {
@@ -65,7 +65,7 @@ startTimer();
 
 const onTimesUp = async () => {
   const waitMessage = document.querySelector("#wait-message");
-  let forward = await poll();
+  let forward = await polling.poll();
 
   if (!forward) {
     waitMessage.style.display = "block";
@@ -78,7 +78,6 @@ const onTimesUp = async () => {
     startTimer();
   }, 3000);
 }   
-
 
 function startTimer() {
   timerInterval = setInterval(() => {
