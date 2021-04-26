@@ -4,6 +4,7 @@ const {
   AttachRolePolicyCommand,
 } = require("@aws-sdk/client-iam");
 const logger = require("../../utils/logger")("dev");
+const retry = require("../../utils/retry");
 
 const policy = {
   Version: "2012-10-17",
@@ -32,20 +33,27 @@ const arnPermissions = [
   "arn:aws:iam::aws:policy/AWSLambda_FullAccess",
 ];
 
+const attachPolicy = async (iam, arnPermission, roleName) => {
+  const command = new AttachRolePolicyCommand({
+    PolicyArn: arnPermission,
+    RoleName: roleName,
+  });
+
+  try {
+    await iam.send(command);
+    logger.debugSuccess(`Successfully added permission: ${arnPermission}`);
+    return { status: "Success", response: ""}
+  } catch (err) {
+    logger.debugError("Error", err);
+    // throw new Error(err);
+    return { status: err.Code, response: ""}
+  }
+}
+
 const addPermissions = async (iam, roleName) => {
   for (let arnPermission of arnPermissions) {
-    const command = new AttachRolePolicyCommand({
-      PolicyArn: arnPermission,
-      RoleName: roleName,
-    });
-
-    try {
-      await iam.send(command);
-      logger.debugSuccess(`Successfully added permission: ${arnPermission}`);
-    } catch (err) {
-      logger.debugError("Error", err);
-      throw new Error(err);
-    }
+    // console.log("for looping ", arnPermission);
+    await retry(() => attachPolicy(iam, arnPermission, roleName));
   }
 };
 
