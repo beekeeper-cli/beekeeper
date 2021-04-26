@@ -1,6 +1,6 @@
 const path = require("path");
 const logger = require("../utils/logger")("dev");
-const { readFile } = require("../utils/utilities");
+const { readFile, validateInitRan, validateProfileName } = require("../utils/utilities");
 const chalk = require("chalk");
 const ora = require("ora");
 
@@ -19,17 +19,24 @@ const ANSWERS_FILE_PATH = path.join(
   "user-answers.json"
 );
 
-module.exports = async () => {
-  const { WAITING_ROOM_NAME, REGION } = JSON.parse(await readFile(ANSWERS_FILE_PATH));
-  const S3_NAME = `wr-${WAITING_ROOM_NAME}-s3`
-  const DLQ_NAME = `wr-${WAITING_ROOM_NAME}-dlq`
-  const SQS_NAME = `wr-${WAITING_ROOM_NAME}-sqs`
-  const DYNAMO_NAME = `wr-${WAITING_ROOM_NAME}-ddb`
-  const API_GATEWAY_NAME = `wr-${WAITING_ROOM_NAME}-apigateway`
-  const POST_LAMBDA_NAME = `wr-${WAITING_ROOM_NAME}-postlambda`
-  const PRE_LAMBDA_NAME = `wr-${WAITING_ROOM_NAME}-prelambda`
-  const ROLE_NAME = `wr-${WAITING_ROOM_NAME}-master-role`
-  const CRON_JOB_NAME = `wr-${WAITING_ROOM_NAME}-cloudwatcheventcron`
+module.exports = async (profileName) => {
+  const initRan = await validateInitRan(ANSWERS_FILE_PATH);
+  if (!initRan) return;
+  
+  const profiles = JSON.parse(await readFile(ANSWERS_FILE_PATH));
+  const validProfileName = validateProfileName(profileName, profiles, "destroy");
+  if (!validProfileName) return;
+
+  const {[profileName] : { PROFILE_NAME, REGION }} = profiles;
+  const S3_NAME = `wr-${PROFILE_NAME}-s3`
+  const DLQ_NAME = `wr-${PROFILE_NAME}-dlq`
+  const SQS_NAME = `wr-${PROFILE_NAME}-sqs`
+  const DYNAMO_NAME = `wr-${PROFILE_NAME}-ddb`
+  const API_GATEWAY_NAME = `wr-${PROFILE_NAME}-apigateway`
+  const POST_LAMBDA_NAME = `wr-${PROFILE_NAME}-postlambda`
+  const PRE_LAMBDA_NAME = `wr-${PROFILE_NAME}-prelambda`
+  const ROLE_NAME = `wr-${PROFILE_NAME}-master-role`
+  const CRON_JOB_NAME = `wr-${PROFILE_NAME}-cloudwatcheventcron`
   const spinner = ora();
   let warn = false;
 

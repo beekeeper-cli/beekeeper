@@ -72,10 +72,41 @@ const fileExists = async (filePath) => {
   }
 }
 
+// Check if user executed `sealbuzz init` before any other commands
+const validateInitRan = async (answersFilePath) => {
+  let fileFound = await fileExists(answersFilePath);
+  
+  if (!fileFound) {
+    logger.error("Error: Run 'sealbuzz init' first.");
+    return false;
+  }
+
+  return true;
+}
+
+// Check if user provided a valid profile name as part of command
+const validateProfileName = (profileName, profiles, command) => {
+  if (!profileName) {
+    logger.error(`Error: Please provide a profile name 'sealbuzz ${command} [PROFILE_NAME]'.`);
+    return false;
+  }
+
+  const profileNames = Object.keys(profiles);
+
+  if (!profileNames.includes(profileName)) {
+    logger.error(`Error: Profile '${profileName}' does not exist. Enter 'sealbuzz config' to see a list of all profiles.`);
+    return false;
+  }
+
+  return true;
+}
+
 module.exports = {
   getFilePaths,
   getContentType,
   createFile,
   readFile,
   fileExists,
+  validateInitRan,
+  validateProfileName
 };

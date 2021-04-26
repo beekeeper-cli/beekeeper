@@ -1,6 +1,6 @@
 const path = require("path");
 const logger = require('../utils/logger')('dev');
-const { readFile, fileExists } = require("../utils/utilities");
+const { readFile, validateInitRan, validateProfileName } = require("../utils/utilities");
 const chalk = require("chalk");
 const ora = require("ora");
 
@@ -23,27 +23,25 @@ const POST_LAMBDA_ASSET = path.join(__dirname, "..", "..", "assets", "postlambda
 const PRE_LAMBDA_ASSET = path.join(__dirname, "..", "..", "assets", "prelambda", 'index.js.zip');
 const POLL_FILE_PATH = path.join(__dirname, "..", "..", "assets", "s3", 'polling.js');
 
-module.exports = async () => {
-  let fileFound = await fileExists(ANSWERS_FILE_PATH);
+module.exports = async (profileName) => {
+  const initRan = await validateInitRan(ANSWERS_FILE_PATH);
+  if (!initRan) return;
+  
+  const profiles = JSON.parse(await readFile(ANSWERS_FILE_PATH));
+  const validProfileName = validateProfileName(profileName, profiles, "deploy");
+  if (!validProfileName) return;
 
-  // Check if user executed `sealbuzz init` first
-  if (!fileFound) {
-    console.log("");
-    logger.error("Error: Run 'sealbuzz init' first.");
-    return;
-  }
-
-  const { WAITING_ROOM_NAME, REGION, PROTECT_URL, RATE } = JSON.parse(await readFile(ANSWERS_FILE_PATH));
-  const S3_NAME = `wr-${WAITING_ROOM_NAME}-s3`
-  const DLQ_NAME = `wr-${WAITING_ROOM_NAME}-dlq`
-  const SQS_NAME = `wr-${WAITING_ROOM_NAME}-sqs`
-  const DYNAMO_NAME = `wr-${WAITING_ROOM_NAME}-ddb`
-  const API_GATEWAY_NAME = `wr-${WAITING_ROOM_NAME}-apigateway`
-  const POST_LAMBDA_NAME = `wr-${WAITING_ROOM_NAME}-postlambda`
-  const PRE_LAMBDA_NAME = `wr-${WAITING_ROOM_NAME}-prelambda`
-  const ROLE_NAME = `wr-${WAITING_ROOM_NAME}-master-role`
-  const CRON_JOB_NAME = `wr-${WAITING_ROOM_NAME}-cloudwatcheventcron`
-  const STAGE_NAME = 'sealbuzz-production';
+  const {[profileName] : { PROFILE_NAME, WAITING_ROOM_NAME, REGION, PROTECT_URL, RATE }} = profiles;
+  const S3_NAME = `wr-${PROFILE_NAME}-s3`
+  const DLQ_NAME = `wr-${PROFILE_NAME}-dlq`
+  const SQS_NAME = `wr-${PROFILE_NAME}-sqs`
+  const DYNAMO_NAME = `wr-${PROFILE_NAME}-ddb`
+  const API_GATEWAY_NAME = `wr-${PROFILE_NAME}-apigateway`
+  const POST_LAMBDA_NAME = `wr-${PROFILE_NAME}-postlambda`
+  const PRE_LAMBDA_NAME = `wr-${PROFILE_NAME}-prelambda`
+  const ROLE_NAME = `wr-${PROFILE_NAME}-master-role`
+  const CRON_JOB_NAME = `wr-${PROFILE_NAME}-cloudwatcheventcron`
+  const STAGE_NAME = `sealbuzz-production`;
   const spinner = ora();
 
   logger.highlight('🐝  Deploying waiting room infrastructure');
