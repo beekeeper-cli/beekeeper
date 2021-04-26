@@ -31,6 +31,7 @@ module.exports = async (region, bucketName, stagePollingUrl, pollFilePath) => {
   // Create an S3 client service object
   const s3 = new S3Client({ region });
 
+  // ToDo: Take passed in display name and interpolate down below for dummy value
   // Create javascript for waiting room to poll
   const script = `const poll = async () => {
     const URL = "${stagePollingUrl}";
@@ -46,7 +47,12 @@ module.exports = async (region, bucketName, stagePollingUrl, pollFilePath) => {
     return false;
   }
   
-  export default poll;`;
+  const displayName = "Dummy Value";
+  
+  export default {
+    poll,
+    displayName
+  };`;
 
   // Creates poll.js
   await createFile(script, pollFilePath);
