@@ -6,8 +6,9 @@ const promptQuestions = async () => {
   const questions = [
     {
       type: "text",
-      name: "WAITING_ROOM_NAME",
-      message: "Enter waiting room name:",
+      name: "PROFILE_NAME",
+      message: "Enter profile name:",
+      initial: "Your AWS services deployed will use this name",
       validate: (value) => {
         if (!/^[a-z0-9]+$/i.test(value)) {
           return "Name can only contain alphanumerics.";
@@ -17,6 +18,18 @@ const promptQuestions = async () => {
         }
         return true;
       },
+    },
+    {
+      type: "text",
+      name: "WAITING_ROOM_NAME",
+      message: "Enter waiting room name:",
+      validate: (value) => {
+        if (value.length > 100) {
+          return `Name can't exceed 100 characters.`;
+        }
+        return true;
+      },
+      initial: "This is your public waiting room display name",
     },
     {
       type: "select",
@@ -183,7 +196,7 @@ const promptQuestions = async () => {
     if (prompt.name === "RATE") {
       console.log("");
       console.log(
-        `Now enter ${chalk.yellow.bold("sealbuzz deploy")} to deploy your waiting room infrastructure`
+        `Now enter ${chalk.yellow.bold("sealbuzz deploy [PROFILE_NAME]")} to deploy your waiting room infrastructure`
       );
       return true;
     }
@@ -196,9 +209,7 @@ const promptQuestions = async () => {
   }
 
   try {
-
-    console.log("");    
-    logger.highlight('🐝  Lets configure your waiting room');
+    logger.highlight(`🐝  Let's configure your waiting room`);
     console.log("Press Ctrl+C to cancel at anytime");
     console.log("");
 

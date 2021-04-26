@@ -8,17 +8,17 @@ const config = require("../src/commands/config");
 
 try {
   const args = arg({});
-  const [command] = args._;
+  const [command, profileName] = args._;
 
   switch (command) {
     case "init":
       init();
       break;
     case "deploy":
-      deploy();
+      deploy(profileName);
       break;
     case "destroy":
-      destroy();
+      destroy(profileName);
       break;
     case "config":
       config();
