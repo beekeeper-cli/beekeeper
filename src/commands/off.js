@@ -69,6 +69,8 @@ module.exports = async (profileName) => {
     await updateLambdaConfig(lambda, PRE_LAMBDA_NAME, environment);
     logger.highlight(`${chalk.green.bold("✔")} Successfully turned off waiting room`);
   } catch (err) {
-    logger.error(`Failed to turn off waiting room`);
+    logger.error(`Failed to turn off waiting room.`);
+    console.log("");
+    console.log(`Note: If you haven't deployed a waiting room yet, please enter ${chalk.yellow.bold('beekeeper deploy [PROFILE_NAME]')} first.`);
   }
 };
