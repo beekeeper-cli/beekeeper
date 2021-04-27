@@ -45,14 +45,12 @@ const attachPolicy = async (iam, arnPermission, roleName) => {
     return { status: "Success", response: ""}
   } catch (err) {
     logger.debugError("Error", err);
-    // throw new Error(err);
     return { status: err.Code, response: ""}
   }
 }
 
 const addPermissions = async (iam, roleName) => {
   for (let arnPermission of arnPermissions) {
-    // console.log("for looping ", arnPermission);
     await retry(() => attachPolicy(iam, arnPermission, roleName));
   }
 };

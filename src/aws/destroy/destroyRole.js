@@ -4,6 +4,7 @@ const {
   DeleteRoleCommand
 } = require("@aws-sdk/client-iam");
 const logger = require("../../utils/logger")("dev");
+const retry = require("../../utils/retry");
 
 const permissions = [
   "arn:aws:iam::aws:policy/AmazonSQSFullAccess",
@@ -13,20 +14,25 @@ const permissions = [
   "arn:aws:iam::aws:policy/AWSLambda_FullAccess",
 ];
 
+const detachPolicy = async (iam, perm, roleName) => {
+  const command = new DetachRolePolicyCommand({
+    PolicyArn: perm,
+    RoleName: roleName,
+  });
+  
+  try {
+    await iam.send(command);
+    logger.debugSuccess(`Successfully removed permission ${perm} from ${roleName} role`);
+    return { status: "Success", response: "" }
+  } catch (err) {
+    logger.debugError("Error", err);
+    return { status: err.Code, response: ""}
+  }
+}
+
 const detachPermissions = async (iam, permissions, roleName) => {
   for (let perm of permissions) {
-    const command = new DetachRolePolicyCommand({
-      PolicyArn: perm,
-      RoleName: roleName,
-    });
-
-    try {
-      await iam.send(command);
-      logger.debugSuccess(`Successfully removed permission ${perm} from ${roleName} role`);
-    } catch (err) {
-      logger.debugError("Error", err);
-      throw new Error(err);
-    }
+    await retry(() => detachPolicy(iam, perm, roleName));
   }
 };
 

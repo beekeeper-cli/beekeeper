@@ -27,7 +27,7 @@ module.exports = async (func) => {
           break;
       }
 
-      await delay(retries * 500);
+      await delay(2**retries * 200);
       retries += 1;
     }
 
