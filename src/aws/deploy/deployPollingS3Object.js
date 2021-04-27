@@ -27,7 +27,7 @@ const uploadToS3 = async (s3, bucketName, pollFilePath) => {
   }
 };
 
-module.exports = async (region, bucketName, stagePollingUrl, pollFilePath) => {
+module.exports = async (region, bucketName, stagePollingUrl, pollFilePath, waitingRoomName) => {
   // Create an S3 client service object
   const s3 = new S3Client({ region });
 
@@ -47,7 +47,7 @@ module.exports = async (region, bucketName, stagePollingUrl, pollFilePath) => {
     return false;
   }
   
-  const displayName = "Dummy Value";
+  const displayName = "${waitingRoomName}";
 
   const polling = {
     poll,

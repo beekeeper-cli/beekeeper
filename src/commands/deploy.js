@@ -63,7 +63,7 @@ module.exports = async (profileName) => {
   let s3ObjectRootDomain;
   try {
     spinner.start("Deploying S3 bucket")
-    s3ObjectRootDomain = await deployS3(REGION, S3_NAME, S3_ASSET_PATH); // Pass display name from CLI in here.
+    s3ObjectRootDomain = await deployS3(REGION, S3_NAME, S3_ASSET_PATH);
     spinner.succeed("Successfully deployed S3 bucket")
   } catch (err) {
     spinner.fail("Failed to deploy S3 bucket")
@@ -153,7 +153,7 @@ module.exports = async (profileName) => {
     stagePollingUrl = await deployPollingRoute(restApiId, REGION, API_GATEWAY_NAME, DYNAMO_NAME, roleArn, s3ObjectRootDomain, STAGE_NAME, PROTECT_URL);
     
     // Create and upload poll.js to S3 bucket
-    await deployPollingS3Object(REGION, S3_NAME, stagePollingUrl, POLL_FILE_PATH);
+    await deployPollingS3Object(REGION, S3_NAME, stagePollingUrl, POLL_FILE_PATH, WAITING_ROOM_NAME);
     
     spinner.succeed("Successfully deployed API Gateway")
     console.log("");
