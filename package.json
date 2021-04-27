@@ -1,15 +1,18 @@
 {
   "name": "beekeeper-cli",
   "version": "1.0.0",
-  "description": "",
+  "description": "Open-sourced infrastructure as a service virtual waiting room.",
   "main": "cli.js",
   "bin": {
     "beekeeper": "./bin/cli.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/beekeeper-cli/beekeeper"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repositor": {},
   "keywords": [
     "lambda",
     "aws",
@@ -22,7 +25,9 @@
     "amazon web services",
     "s3",
     "dynamodb",
-    "waiting room"
+    "waiting room",
+    "serverless",
+    "beekeeper"
   ],
   "author": "beekeeper-cli",
   "contributors": [
@@ -32,19 +37,22 @@
     },
     {
       "name": "Ryan Schaul",
-      "email": ""
+      "email": "rschaul@gmail.com"
     },
     {
       "name": "Ian Eustis",
-      "email": ""
+      "email": "eustisic@gmail.com"
     },
     {
       "name": "Aaron Crane",
-      "email": ""
+      "email": "aaron@duodreamers.com"
     }
   ],
   "license": "MIT",
-  "homepage": "",
+  "bugs": {
+    "url": "https://github.com/beekeeper-cli/beekeeper/issues"
+  },
+  "homepage": "https://github.com/beekeeper-cli/beekeeper#readme",
   "dependencies": {
     "@aws-sdk/client-api-gateway": "^3.13.0",
     "@aws-sdk/client-cloudwatch-events": "^3.13.0",
