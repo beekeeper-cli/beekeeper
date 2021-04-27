@@ -1,15 +1,50 @@
 {
-  "name": "beekeeper",
+  "name": "beekeeper-cli",
   "version": "1.0.0",
   "description": "",
   "main": "cli.js",
-  "bin": "./bin/cli.js",
+  "bin": {
+    "beekeeper": "./bin/cli.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repositor": {},
+  "keywords": [
+    "lambda",
+    "aws",
+    "amazon",
+    "web",
+    "services",
+    "api",
+    "apigateway",
+    "sqs",
+    "amazon web services",
+    "s3",
+    "dynamodb",
+    "waiting room"
+  ],
+  "author": "beekeeper-cli",
+  "contributors": [
+    {
+      "name": "Justin Zeng",
+      "email": "hi.justinzeng@gmail.com"
+    },
+    {
+      "name": "Ryan Schaul",
+      "email": ""
+    },
+    {
+      "name": "Ian Eustis",
+      "email": ""
+    },
+    {
+      "name": "Aaron Crane",
+      "email": ""
+    }
+  ],
+  "license": "MIT",
+  "homepage": "",
   "dependencies": {
     "@aws-sdk/client-api-gateway": "^3.13.0",
     "@aws-sdk/client-cloudwatch-events": "^3.13.0",
