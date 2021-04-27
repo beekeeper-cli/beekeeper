@@ -3,6 +3,8 @@ AWS.config.update({region: process.env.REGION});
 const sqsClient = new AWS.SQS({apiVersion: '2012-11-05'});
 const SQS_URL = process.env.SQS_URL;
 const S3_OBJECT_ROOT_DOMAIN = process.env.S3_OBJECT_ROOT_DOMAIN;
+const WAITROOM_ON = process.env.WAITROOM_ON;
+const PROTECT_URL = process.env.PROTECT_URL;
 
 const cookieCheck = (response, event) => {
     if (event.headers && !event.headers.cookie) {
@@ -48,7 +50,7 @@ exports.handler = async (event, context, callback) => {
     let statusCode = '200';
     const headers = {
         'Content-Type': 'application/json',
-        'Location': `${S3_OBJECT_ROOT_DOMAIN}/index.html`,
+        'Location': WAITROOM_ON === "true" ? `${S3_OBJECT_ROOT_DOMAIN}/index.html` : PROTECT_URL,
         'Access-Control-Allow-Credentials': true,
         'Access-Control-Allow-Origin': S3_OBJECT_ROOT_DOMAIN,
         'Access-Control-Allow-Headers': '*',

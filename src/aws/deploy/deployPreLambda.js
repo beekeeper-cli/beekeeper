@@ -13,7 +13,8 @@ const createPreLambda = async (
   code,
   roleArn,
   region,
-  s3ObjectRootDomain
+  s3ObjectRootDomain,
+  protectUrl
 ) => {
   const params = {
     FunctionName: lambdaName,
@@ -26,6 +27,8 @@ const createPreLambda = async (
         SQS_URL: sqsUrl,
         REGION: region,
         S3_OBJECT_ROOT_DOMAIN: s3ObjectRootDomain,
+        WAITROOM_ON: "true",
+        PROTECT_URL: protectUrl
       },
     },
     Code: { ZipFile: code },
@@ -67,7 +70,8 @@ module.exports = async (
   sqsUrl,
   asset,
   roleArn,
-  s3ObjectRootDomain
+  s3ObjectRootDomain,
+  protectUrl
 ) => {
   let code = fs.readFileSync(asset);
 
@@ -82,7 +86,8 @@ module.exports = async (
     code,
     roleArn,
     region,
-    s3ObjectRootDomain
+    s3ObjectRootDomain,
+    protectUrl
   );
 
   // Add API Gateway Permission (Solution to AWS Bug)

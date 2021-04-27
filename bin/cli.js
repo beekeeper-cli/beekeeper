@@ -5,6 +5,7 @@ const deploy = require("../src/commands/deploy");
 const destroy = require("../src/commands/destroy");
 const init = require("../src/commands/init");
 const config = require("../src/commands/config");
+const off = require("../src/commands/off");
 
 try {
   const args = arg({});
@@ -22,6 +23,9 @@ try {
       break;
     case "config":
       config();
+      break;
+    case "off":
+      off(profileName);
       break;
     default:
       throw new Error("Please enter a valid command.");

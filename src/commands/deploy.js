@@ -131,7 +131,7 @@ module.exports = async (profileName) => {
   let preLambdaArn;
   try {
     spinner.start("Deploying pre-lambda")
-    preLambdaArn = await deployPreLambda(REGION, PRE_LAMBDA_NAME, sqsUrl, PRE_LAMBDA_ASSET, roleArn, s3ObjectRootDomain);
+    preLambdaArn = await deployPreLambda(REGION, PRE_LAMBDA_NAME, sqsUrl, PRE_LAMBDA_ASSET, roleArn, s3ObjectRootDomain, PROTECT_URL);
 
     spinner.succeed("Successfully deployed pre-lambda")
   } catch (err) {
