@@ -76,7 +76,7 @@ module.exports = (onOff) => {
     } catch (err) {
       logger.error(`Failed to turn ${onOff} waiting room.`);
       console.log("");
-      console.log(`Note: If you haven't deployed a waiting room yet, please enter ${chalk.yellow.bold('beekeeper deploy [PROFILE_NAME]')} first.`);
+      console.log(`Note: If you haven't deployed a waiting room yet, please enter ${chalk.yellow.bold(`beekeeper deploy ${profileName}`)} first.`);
     }
   }
 };

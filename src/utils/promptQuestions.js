@@ -193,14 +193,7 @@ const promptQuestions = async () => {
   ];
 
   const onSubmit = (prompt) => {
-    if (prompt.name === "RATE") {
-      console.log("");
-      console.log(
-        `Now enter ${chalk.yellow.bold("beekeeper deploy [PROFILE_NAME]")} to deploy your waiting room infrastructure`
-      );
-      return true;
-    }
-    return false;
+    return prompt.name === "RATE";
   }
 
   const onCancel = () => {
@@ -214,6 +207,12 @@ const promptQuestions = async () => {
     console.log("");
 
     const response = await prompts(questions, {onSubmit, onCancel});
+    if (response.RATE) {
+      console.log("");
+      console.log(
+        `Now enter ${chalk.yellow.bold(`beekeeper deploy ${response.PROFILE_NAME}`)} to deploy your waiting room infrastructure`
+      );
+    }
     return response;
   } catch (err) {
     logger.debugError("Error", err);
