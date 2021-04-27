@@ -13,8 +13,10 @@ const createPostLambda = async (
   code,
   roleArn,
   region,
-  dynamoName
+  dynamoName,
+  rate
 ) => {
+  let RATE = (rate / 10).toString();
   const params = {
     FunctionName: lambdaName,
     Role: roleArn,
@@ -26,6 +28,7 @@ const createPostLambda = async (
         SQS_URL: sqsUrl,
         REGION: region,
         TABLE_NAME: dynamoName,
+        RATE: RATE
       },
     },
     Code: { ZipFile: code },
@@ -43,9 +46,9 @@ const createPostLambda = async (
   }
 };
 
-const setLambdaConcurrency = async (lambda, lambdaName, rate) => {
+const setLambdaConcurrency = async (lambda, lambdaName) => {
   // Assumption for now is rate is requests per minute, and one lambda does 10 messages per minute pursuant to CloudFront cronjob
-  const reserveAmount = rate / 10;
+  const reserveAmount = 2;
 
   const params = {
     FunctionName: lambdaName,
@@ -56,7 +59,7 @@ const setLambdaConcurrency = async (lambda, lambdaName, rate) => {
 
   try {
     await lambda.send(command);
-    logger.debugSuccess(`Successfully set LambdaReserveConcurrency: ${rate}`);
+    logger.debugSuccess(`Successfully set LambdaReserveConcurrency: ${reserveAmount}`);
   } catch (err) {
     logger.debugError("Error", err);
     throw new Error(err);
@@ -85,8 +88,9 @@ module.exports = async (
     code,
     roleArn,
     region,
-    dynamoName
+    dynamoName,
+    rate
   );
-  await setLambdaConcurrency(lambda, lambdaName, rate);
+  await setLambdaConcurrency(lambda, lambdaName);
   return lambdaArn;
 };

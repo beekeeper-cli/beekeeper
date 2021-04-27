@@ -48,8 +48,8 @@ const publishVersion = async (lambda, lambdaName) => {
   }
 };
 
-const provisionConcurrency = async (lambda, lambdaName, version, rate) => {
-  const provision = rate / 50;
+const provisionConcurrency = async (lambda, lambdaName, version) => {
+  const provision = 2;
 
   const params = {
     FunctionName: lambdaName,
