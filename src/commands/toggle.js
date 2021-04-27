@@ -50,11 +50,11 @@ const getLambdaConfig = async (lambda, lambdaName) => {
   }
 }
 
-module.exports = async (onOff) => {
+module.exports = (onOff) => {
   
   const WAITROOM_ON = onOff === "on" ? "true" : "false";
 
-  return (profileName) => {
+  return async (profileName) => {
 
     const initRan = await validateInitRan(ANSWERS_FILE_PATH);
     if (!initRan) return;
