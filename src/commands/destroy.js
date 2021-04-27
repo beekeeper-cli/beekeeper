@@ -28,15 +28,15 @@ module.exports = async (profileName) => {
   if (!validProfileName) return;
 
   const {[profileName] : { PROFILE_NAME, REGION }} = profiles;
-  const S3_NAME = `wr-${PROFILE_NAME}-s3`
-  const DLQ_NAME = `wr-${PROFILE_NAME}-dlq`
-  const SQS_NAME = `wr-${PROFILE_NAME}-sqs`
-  const DYNAMO_NAME = `wr-${PROFILE_NAME}-ddb`
-  const API_GATEWAY_NAME = `wr-${PROFILE_NAME}-apigateway`
-  const POST_LAMBDA_NAME = `wr-${PROFILE_NAME}-postlambda`
-  const PRE_LAMBDA_NAME = `wr-${PROFILE_NAME}-prelambda`
-  const ROLE_NAME = `wr-${PROFILE_NAME}-master-role`
-  const CRON_JOB_NAME = `wr-${PROFILE_NAME}-cloudwatcheventcron`
+  const S3_NAME = `beekeeper-${PROFILE_NAME}-s3`
+  const DLQ_NAME = `beekeeper-${PROFILE_NAME}-dlq`
+  const SQS_NAME = `beekeeper-${PROFILE_NAME}-sqs`
+  const DYNAMO_NAME = `beekeeper-${PROFILE_NAME}-ddb`
+  const API_GATEWAY_NAME = `beekeeper-${PROFILE_NAME}-apigateway`
+  const POST_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-postlambda`
+  const PRE_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-prelambda`
+  const ROLE_NAME = `beekeeper-${PROFILE_NAME}-master-role`
+  const CRON_JOB_NAME = `beekeeper-${PROFILE_NAME}-cloudwatcheventcron`
   const spinner = ora();
   let warn = false;
 
