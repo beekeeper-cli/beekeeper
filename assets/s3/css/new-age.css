@@ -435,13 +435,14 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active, footer ul li 
 }
 
 /* My added stuff */
-.brand-name {
+/* .brand-name {
   color: goldenrod;
-  /* margin-left: 2%; */
-}
+  margin-left: 2%;
+} */
 
 .safari-message {
-  text-align: center;
+  /* text-align: center !important; */
+  color: goldenrod;
 }
 
 #wait-message {
