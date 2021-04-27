@@ -18,11 +18,11 @@ module.exports = (name) => {
       console.log("");
       console.log(`${chalk.red("✖")} ${chalk.yellow.bold("Failed to deploy waiting room infrastructure")}`);
       console.log("");
-      console.log(`Please enter ${chalk.yellow.bold('sealbuzz destroy')} and then enter ${chalk.yellow.bold('sealbuzz deploy')} after 60 seconds`);
+      console.log(`Please enter ${chalk.yellow.bold('beekeeper destroy')} and then enter ${chalk.yellow.bold('beekeeper deploy')} after 60 seconds`);
     },
     help: () => {
       console.log();
-      console.log(`${chalk.whiteBright("sealbuzz [CMD]")}
+      console.log(`${chalk.whiteBright("beekeeper [CMD]")}
       ${chalk.greenBright("init")}\tConfigure waiting room infrastructure before deploying or destroying
       ${chalk.greenBright("deploy")}\tDeploys waiting room infrastructure
       ${chalk.greenBright("destroy")}\tDestroys waiting room infrastructure

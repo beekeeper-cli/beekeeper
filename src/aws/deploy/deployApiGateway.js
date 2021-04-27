@@ -13,7 +13,7 @@ const logger = require("../../utils/logger")("dev");
 const createApiGateway = async (apiGateway, apiGatewayName) => {
   const params = {
     name: apiGatewayName,
-    description: "SealBuzz API",
+    description: "Beekeeper API",
     endpointConfiguration: { types: ["REGIONAL"] },
   };
 
@@ -200,7 +200,7 @@ module.exports = async (region, apiGatewayName, preLambdaArn, stageName) => {
   );
 
   // Resource triggers lambda
-  const mainResourceName = "sealbuzz";
+  const mainResourceName = "beekeeper";
   const mainResourceId = await createResource(
     apiGateway,
     restApiId,
@@ -245,6 +245,6 @@ module.exports = async (region, apiGatewayName, preLambdaArn, stageName) => {
 
   return {
     restApiId,
-    stageSealBuzzUrl: `https://${restApiId}.execute-api.${region}.amazonaws.com/${stageName}/${mainResourceName}`,
+    stageBeekeeperUrl: `https://${restApiId}.execute-api.${region}.amazonaws.com/${stageName}/${mainResourceName}`,
   };
 };

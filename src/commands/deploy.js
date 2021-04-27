@@ -41,7 +41,7 @@ module.exports = async (profileName) => {
   const PRE_LAMBDA_NAME = `wr-${PROFILE_NAME}-prelambda`
   const ROLE_NAME = `wr-${PROFILE_NAME}-master-role`
   const CRON_JOB_NAME = `wr-${PROFILE_NAME}-cloudwatcheventcron`
-  const STAGE_NAME = `sealbuzz-production`;
+  const STAGE_NAME = `prod`;
   const spinner = ora();
 
   logger.highlight('🐝  Deploying waiting room infrastructure');
@@ -141,13 +141,13 @@ module.exports = async (profileName) => {
   }
 
   // Deploy API Gateway + Waiting Room Route
-  let restApiId, stageSealBuzzUrl;
+  let restApiId, stageBeekeeperUrl;
   let stagePollingUrl;
   try {
     spinner.start("Deploying API Gateway")
     let result = await deployApiGateway(REGION, API_GATEWAY_NAME, preLambdaArn, STAGE_NAME);
     restApiId = result.restApiId;
-    stageSealBuzzUrl = result.stageSealBuzzUrl;
+    stageBeekeeperUrl = result.stageBeekeeperUrl;
 
     // Deploy Waiting Room Polling Route on API Gateway
     stagePollingUrl = await deployPollingRoute(restApiId, REGION, API_GATEWAY_NAME, DYNAMO_NAME, roleArn, s3ObjectRootDomain, STAGE_NAME, PROTECT_URL);
@@ -159,7 +159,7 @@ module.exports = async (profileName) => {
     console.log("");
     logger.highlight(`${chalk.green.bold("✔")} Successfully deployed waiting room infrastructure`);
     console.log("");
-    console.log(`Here's your waiting room URL: ${chalk.yellow.bold(stageSealBuzzUrl)}`);
+    console.log(`Here's your waiting room URL: ${chalk.yellow.bold(stageBeekeeperUrl)}`);
   } catch (err) {
     spinner.fail("Failed to deployed API Gateway")
     logger.failDeploy();

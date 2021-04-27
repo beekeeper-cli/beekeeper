@@ -196,7 +196,7 @@ const promptQuestions = async () => {
     if (prompt.name === "RATE") {
       console.log("");
       console.log(
-        `Now enter ${chalk.yellow.bold("sealbuzz deploy [PROFILE_NAME]")} to deploy your waiting room infrastructure`
+        `Now enter ${chalk.yellow.bold("beekeeper deploy [PROFILE_NAME]")} to deploy your waiting room infrastructure`
       );
       return true;
     }

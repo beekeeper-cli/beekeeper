@@ -201,7 +201,7 @@ const setMethodResponse = async (
 const deployResource = async (apiGateway, restApiId, stageName) => {
   const params = {
     restApiId,
-    stageDescription: "production sealbuzz waitroom",
+    stageDescription: "production beekeeper waitroom",
     stageName,
   };
 
