@@ -14,6 +14,7 @@ const deployPostLambda = require("../aws/deploy/deployPostLambda");
 const deployPreLambda = require('../aws/deploy/deployPreLambda');
 const deployCloudwatchEvent = require('../aws/deploy/deployCloudwatchEvent');
 const deployPollingRoute = require("../aws/deploy/deployPollingRoute");
+const deployClientCheckRoute = require("../aws/deploy/deployClientCheckRoute");
 const deployPollingS3Object = require("../aws/deploy/deployPollingS3Object");
 const addPostLambdaEventPermission = require("../aws/deploy/addPostLambdaEventPermission");
 
@@ -143,6 +144,7 @@ module.exports = async (profileName) => {
   // Deploy API Gateway + Waiting Room Route
   let restApiId, stageBeekeeperUrl;
   let stagePollingUrl;
+  let clientCheckUrl;
   try {
     spinner.start("Deploying API Gateway")
     let result = await deployApiGateway(REGION, API_GATEWAY_NAME, preLambdaArn, STAGE_NAME);
@@ -151,6 +153,12 @@ module.exports = async (profileName) => {
 
     // Deploy Waiting Room Polling Route on API Gateway
     stagePollingUrl = await deployPollingRoute(restApiId, REGION, API_GATEWAY_NAME, DYNAMO_NAME, roleArn, s3ObjectRootDomain, STAGE_NAME, PROTECT_URL);
+
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    await delay(5000);
+
+    // Deploy Client Check Route on API Gateway
+    clientCheckUrl = await deployClientCheckRoute(restApiId, REGION, API_GATEWAY_NAME, DYNAMO_NAME, roleArn, STAGE_NAME, PROTECT_URL);
     
     // Create and upload poll.js to S3 bucket
     await deployPollingS3Object(REGION, S3_NAME, stagePollingUrl, POLL_FILE_PATH, WAITING_ROOM_NAME);
@@ -160,6 +168,7 @@ module.exports = async (profileName) => {
     logger.highlight(`${chalk.green.bold("✔")} Successfully deployed waiting room infrastructure`);
     console.log("");
     console.log(`Here's your waiting room URL: ${chalk.yellow.bold(stageBeekeeperUrl)}`);
+    console.log(`Here's the client check endpoint: ${chalk.yellow.bold(clientCheckUrl)}`);
   } catch (err) {
     spinner.fail("Failed to deployed API Gateway")
     logger.failDeploy();
