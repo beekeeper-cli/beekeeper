@@ -45,7 +45,7 @@ exports.handler = async (event, context, callback) => {
     let statusCode = '200';
     let peopleInWaitroom = await getWaitTime();
 
-    let waitingParams = `people=${peopleInWaitroom}`;
+    let waitingParams = `p=${peopleInWaitroom.toString(16)}`;
     const headers = {
         'Content-Type': 'application/json',
         'Location': WAITROOM_ON === "true" ? `${S3_OBJECT_ROOT_DOMAIN}/index.html?${waitingParams}` : PROTECT_URL,

@@ -161,7 +161,7 @@ module.exports = async (profileName) => {
     clientCheckUrl = await deployClientCheckRoute(restApiId, REGION, API_GATEWAY_NAME, DYNAMO_NAME, roleArn, STAGE_NAME, PROTECT_URL);
     
     // Create and upload poll.js to S3 bucket
-    await deployPollingS3Object(REGION, S3_NAME, stagePollingUrl, POLL_FILE_PATH, WAITING_ROOM_NAME);
+    await deployPollingS3Object(REGION, S3_NAME, stagePollingUrl, POLL_FILE_PATH, WAITING_ROOM_NAME, RATE);
     
     spinner.succeed("Successfully deployed API Gateway")
     console.log("");
