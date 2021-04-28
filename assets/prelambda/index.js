@@ -15,25 +15,20 @@ const cookieCheck = (response, event) => {
     response.statusCode = '302';
 }
 
-// const getWaitTime = async (response) => {
-//   let data;
-//   var params = {
-//     QueueUrl: SQS_URL /* required */,
-//     AttributeNames: ["ApproximateNumberOfMessages"],
-//   };
+const getWaitTime = async () => {
+  var params = {
+    QueueUrl: SQS_URL /* required */,
+    AttributeNames: ["ApproximateNumberOfMessages"],
+  };
+  let {Attributes} = await sqsClient.getQueueAttributes(params).promise();
 
-//   sqsClient.getQueueAttributes(params, function(err, data) {
-//     if (err) console.log(err, err.stack); // an error occurred
-//     else     console.log(data);           // successful response
-//   });
-// };
+  return Attributes.ApproximateNumberOfMessages;
+};
 
 function sendMessageToSQS(cookieValue) {
   var params = {
     MessageBody: cookieValue,
-    QueueUrl: SQS_URL,
-    // MessageDeduplicationId: `${Math.random()}`,  // Required for FIFO queues
-    // MessageGroupId: `${Math.random()}`, 
+    QueueUrl: SQS_URL
   };
 
   sqsClient.sendMessage(params, function(err, data) {
@@ -48,9 +43,12 @@ function sendMessageToSQS(cookieValue) {
 exports.handler = async (event, context, callback) => {
     let body;
     let statusCode = '200';
+    let peopleInWaitroom = await getWaitTime();
+
+    let waitingParams = `people=${peopleInWaitroom}`;
     const headers = {
         'Content-Type': 'application/json',
-        'Location': WAITROOM_ON === "true" ? `${S3_OBJECT_ROOT_DOMAIN}/index.html` : PROTECT_URL,
+        'Location': WAITROOM_ON === "true" ? `${S3_OBJECT_ROOT_DOMAIN}/index.html?${waitingParams}` : PROTECT_URL,
         'Access-Control-Allow-Credentials': true,
         'Access-Control-Allow-Origin': S3_OBJECT_ROOT_DOMAIN,
         'Access-Control-Allow-Headers': '*',
