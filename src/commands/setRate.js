@@ -77,7 +77,6 @@ module.exports = async (profileName, newRate) => {
     logger.highlight(`${chalk.green.bold("✔")} Successfully set postLambda rate to ${newRate}`);
 
     profiles[profileName].RATE = newRate;
-    console.log(profiles);
     await createFile(JSON.stringify(profiles), ANSWERS_FILE_PATH);
   } catch (err) {
     logger.error(`Failed to set postLambda rate: ${newRate}.`);
