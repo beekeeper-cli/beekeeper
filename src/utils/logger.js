@@ -26,7 +26,9 @@ module.exports = (name) => {
       ${chalk.greenBright("init")}\tConfigure waiting room infrastructure before deploying or destroying
       ${chalk.greenBright("deploy")}\tDeploys waiting room infrastructure
       ${chalk.greenBright("destroy")}\tDestroys waiting room infrastructure
-      ${chalk.greenBright("config")}\tDisplays current waiting room infrastructure configuration`);
+      ${chalk.greenBright("config")}\tDisplays current waiting room infrastructure configuration
+      ${chalk.greenBright("on/off")}\tTurns a deployed waiting room infrastructure on or off
+      ${chalk.greenBright("set-rate")}\tChanges the rate on a deployed waiting room infrastructure`);
     }
   };
 };
