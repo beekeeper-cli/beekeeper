@@ -2,6 +2,10 @@ import polling from '../polling.js';
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 10;
 const ALERT_THRESHOLD = 5;
+const RATE = polling.rate;
+// 50
+// 17 every 20 seconds
+
 
 (() => {
   document.querySelector("#display-name").innerText = polling.displayName;
@@ -20,6 +24,15 @@ const COLOR_CODES = {
     threshold: ALERT_THRESHOLD
   }
 };
+
+let waitLine = parseInt(window.location.search.split('=')[1], 16);
+const reduceLineAmount = Math.floor(RATE / 3);
+let lineDisplay = document.querySelector('#current-line')
+lineDisplay.textContent = `Place in line: ${waitLine}`;
+
+
+const urlParams = new URLSearchParams(window.location.search);
+const myParam = urlParams.get('myParam');
 
 const TIME_LIMIT = 20;
 let timePassed;
@@ -67,13 +80,17 @@ const onTimesUp = async () => {
   const waitMessage = document.querySelector("#wait-message");
   let forward = await polling.poll();
 
+
   if (!forward) {
     waitMessage.style.display = "block";
   }
 
   clearInterval(timerInterval);
   setTimeout(() => {
+    //working
     waitMessage.style.display = "none";
+    waitLine = waitLine <= reduceLineAmount ? 1 : waitLine - reduceLineAmount;
+    lineDisplay.textContent = `Place in line: ${waitLine}`;
     initializeTimer();
     startTimer();
   }, 3000);

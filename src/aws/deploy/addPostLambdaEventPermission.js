@@ -100,7 +100,7 @@ module.exports = async (region, lambdaName, sourceArn, rate, cronJobName) => {
   // creates a new lambda version and returns the new function arn and version number
   const { Version:version, FunctionArn:lambdaArn } = await publishVersion(lambda, lambdaName);
 
-  provisionConcurrency(lambda, lambdaName, version, rate);
+  // provisionConcurrency(lambda, lambdaName, version, rate);
 
   // Add API Gateway Permission (Solution to AWS Bug)
   await addLambdaPermission(lambda, lambdaName, sourceArn, version);
