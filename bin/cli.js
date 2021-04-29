@@ -7,10 +7,11 @@ const init = require("../src/commands/init");
 const config = require("../src/commands/config");
 const off = require("../src/commands/toggle")("off");
 const on = require("../src/commands/toggle")("on");
+const setRate = require("../src/commands/setRate");
 
 try {
   const args = arg({});
-  const [command, profileName] = args._;
+  const [command, profileName, value] = args._;
 
   switch (command) {
     case "init":
@@ -30,6 +31,9 @@ try {
       break;
     case "on":
       on(profileName);
+      break;
+    case "set-rate":
+      setRate(profileName, value);
       break;
     default:
       throw new Error("Please enter a valid command.");
