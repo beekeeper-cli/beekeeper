@@ -6,7 +6,7 @@ const {
 const chalk = require("chalk");
 const path = require("path");
 const logger = require("../utils/logger")("dev");
-const { readFile, validateInitRan, validateProfileName } = require("../utils/utilities");
+const { readFile, validateInitRan, validateProfileName, createFile } = require("../utils/utilities");
 
 
 const ANSWERS_FILE_PATH = path.join(
@@ -50,6 +50,13 @@ const getLambdaConfig = async (lambda, lambdaName) => {
   }
 }
 
+/**
+ * 
+ * @param {*} profileName 
+ * @param {*} newRate 
+ * @returns 
+ */
+
 module.exports = async (profileName, newRate) => {
   const initRan = await validateInitRan(ANSWERS_FILE_PATH);
   if (!initRan) return;
@@ -68,6 +75,10 @@ module.exports = async (profileName, newRate) => {
     const { Environment:environment } = await getLambdaConfig(lambda, POST_LAMBDA_NAME);
     await updateLambdaConfig(lambda, POST_LAMBDA_NAME, environment, newRate);
     logger.highlight(`${chalk.green.bold("✔")} Successfully set postLambda rate to ${newRate}`);
+
+    profiles[profileName].RATE = newRate;
+    console.log(profiles);
+    await createFile(JSON.stringify(profiles), ANSWERS_FILE_PATH);
   } catch (err) {
     logger.error(`Failed to set postLambda rate: ${newRate}.`);
     console.log("");

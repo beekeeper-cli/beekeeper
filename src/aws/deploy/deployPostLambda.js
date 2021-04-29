@@ -46,9 +46,9 @@ const createPostLambda = async (
   }
 };
 
-const setLambdaConcurrency = async (lambda, lambdaName) => {
+const setLambdaConcurrency = async (lambda, lambdaName, rate) => {
   // Assumption for now is rate is requests per minute, and one lambda does 10 messages per minute pursuant to CloudFront cronjob
-  const reserveAmount = 1;
+  const reserveAmount = 1 + Math.floor(rate / 1500);
 
   const params = {
     FunctionName: lambdaName,
@@ -91,6 +91,6 @@ module.exports = async (
     dynamoName,
     rate
   );
-  await setLambdaConcurrency(lambda, lambdaName);
+  await setLambdaConcurrency(lambda, lambdaName, rate);
   return lambdaArn;
 };

@@ -1,7 +1,7 @@
 config:
   target: "https://l9nyc9pwfb.execute-api.us-west-2.amazonaws.com/prod/beekeeper"
   phases:
-    - duration: 120
+    - duration: 240
       arrivalRate: 5
       name: Warm up
     # - duration: 30
