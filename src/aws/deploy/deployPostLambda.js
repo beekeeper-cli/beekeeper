@@ -48,7 +48,7 @@ const createPostLambda = async (
 
 const setLambdaConcurrency = async (lambda, lambdaName) => {
   // Assumption for now is rate is requests per minute, and one lambda does 10 messages per minute pursuant to CloudFront cronjob
-  const reserveAmount = 2;
+  const reserveAmount = 1;
 
   const params = {
     FunctionName: lambdaName,

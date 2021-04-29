@@ -1,5 +1,5 @@
 config:
-  target: "https://t4bttp6k85.execute-api.us-east-1.amazonaws.com/prod/beekeeper"
+  target: "https://dwb1c0uqz8.execute-api.us-east-1.amazonaws.com/prod/beekeeper"
   phases:
     - duration: 100
       arrivalRate: 5
