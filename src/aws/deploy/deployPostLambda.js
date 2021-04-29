@@ -23,6 +23,7 @@ const createPostLambda = async (
     Handler: "index.handler",
     Runtime: "nodejs12.x",
     Description: "consumerLambda",
+    Timeout: 60,
     Environment: {
       Variables: {
         SQS_URL: sqsUrl,

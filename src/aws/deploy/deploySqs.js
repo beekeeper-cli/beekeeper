@@ -5,7 +5,7 @@ const createSQS = async (sqs, sqsName, dlqARN) => {
   const params = {
     QueueName: sqsName,
     Attributes: {
-      VisibilityTimeout: 30,
+      VisibilityTimeout: 60,
       ReceiveMessageWaitTimeSeconds: 0,
       MessageRetentionPeriod: 345600,
       DelaySeconds: 0,

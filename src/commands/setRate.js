@@ -50,12 +50,12 @@ const getLambdaConfig = async (lambda, lambdaName) => {
   }
 }
 
-/**
- * 
- * @param {*} profileName 
- * @param {*} newRate 
- * @returns 
- */
+const validateRate = (rate) => {
+  if (rate < 10 || rate > 3000) {
+    logger.error(`Rate ${rate} is outside of range 10 - 3000.`)
+    throw new Error("InvalidRate");
+  }
+}
 
 module.exports = async (profileName, newRate) => {
   const initRan = await validateInitRan(ANSWERS_FILE_PATH);
@@ -72,6 +72,7 @@ module.exports = async (profileName, newRate) => {
   const lambda = new LambdaClient({ REGION });
 
   try {
+    validateRate(newRate);
     const { Environment:environment } = await getLambdaConfig(lambda, POST_LAMBDA_NAME);
     await updateLambdaConfig(lambda, POST_LAMBDA_NAME, environment, newRate);
     logger.highlight(`${chalk.green.bold("✔")} Successfully set postLambda rate to ${newRate}`);

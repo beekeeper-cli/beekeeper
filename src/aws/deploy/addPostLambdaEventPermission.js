@@ -91,7 +91,7 @@ const createTarget = async (cloudwatchEvent, cronJobName, postLambdaArn) => {
   }
 };
 
-module.exports = async (region, lambdaName, sourceArn, rate, cronJobName, postLambdaArn) => {
+module.exports = async (region, lambdaName, sourceArn, cronJobName, postLambdaArn) => {
   // Create a Lambda client service object
   const lambda = new LambdaClient({ region });
   const cloudwatchEvent = new CloudWatchEventsClient({ region });
