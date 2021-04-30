@@ -11,7 +11,7 @@
     "url": "https://github.com/beekeeper-cli/beekeeper"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "doc": "jsdoc -c jsdoc.conf.json"
   },
   "keywords": [
     "lambda",
