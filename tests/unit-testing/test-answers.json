@@ -1,0 +1,9 @@
+{
+  "testprofile": {
+    "PROFILE_NAME": "test_profile",
+    "WAITING_ROOM_NAME": "test_room",
+    "REGION": "us-west-2",
+    "PROTECT_URL": "https://www.example.com",
+    "RATE": 100
+  }
+}

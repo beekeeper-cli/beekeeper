@@ -11,7 +11,7 @@
     "url": "https://github.com/beekeeper-cli/beekeeper"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --verbose"
   },
   "keywords": [
     "lambda",
@@ -66,5 +66,11 @@
     "debug": "^4.3.1",
     "ora": "^5.4.0",
     "prompts": "^2.4.1"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
