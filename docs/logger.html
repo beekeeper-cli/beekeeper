@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Namespace: logger</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Namespace: logger</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>logger</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Exports a function, which takes a string as an argument, and returns an object with methods that adds syntactial highlighting to your logs, leveraging the &quot;chalk&quot; and &quot;debug&quot; npm packages.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_logger.js.html">utils/logger.js</a>, <a href="utils_logger.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+            <h3>Examples</h3>
+            
+        <p class="code-caption">Use as a terminal command</p>
+    
+    <pre class="prettyprint"><code>const logger = require('/path/to/logger.js');
+const debugLogger = logger("dev")
+debugLogger.debugSucess("Hello Beekeeper");
+// in the terminal
+// DEBUG=dev node tester.js
+// "✔️Hello Beekeeper"</code></pre>
+
+        <p class="code-caption">Use as an in-file command</p>
+    
+    <pre class="prettyprint"><code>const logger = require('/path/to/logger.js')("dev");
+logger.highlight("Hello Beekeeper");
+// Hello Beekeeper</code></pre>
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".highlight"><span class="type-signature">(static) </span>highlight<span class="signature">(args)</span><span class="type-signature"> &rarr; {undefined}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Outputs bold yellow text</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Takes nearly anything that you would pass into console.log</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_logger.js.html">utils/logger.js</a>, <a href="utils_logger.js.html#line33">line 33</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">undefined</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addPostLambdaEventPermission.html">addPostLambdaEventPermission</a></li><li><a href="module-config.html">config</a></li><li><a href="module-createRole.html">createRole</a></li><li><a href="module-deploy.html">deploy</a></li><li><a href="module-destroy.html">destroy</a></li><li><a href="module-destroyApiGateway.html">destroyApiGateway</a></li><li><a href="module-destroyCloudwatchEvent.html">destroyCloudwatchEvent</a></li><li><a href="module-destroyDynamo.html">destroyDynamo</a></li><li><a href="module-destroyLambda.html">destroyLambda</a></li><li><a href="module-destroyRole.html">destroyRole</a></li><li><a href="module-destroyS3.html">destroyS3</a></li><li><a href="module-destroySQS.html">destroySQS</a></li><li><a href="module-init.html">init</a></li><li><a href="module-promptQuestions.html">promptQuestions</a></li><li><a href="module-retry.html">retry</a></li><li><a href="module-setRate.html">setRate</a></li><li><a href="module-toggle.html">toggle</a></li><li><a href="module-utilities.html">utilities</a></li></ul><h3>Namespaces</h3><ul><li><a href="logger.html">logger</a></li></ul><h3>Global</h3><ul><li><a href="global.html#debugError">debugError</a></li><li><a href="global.html#debugSuccess">debugSuccess</a></li><li><a href="global.html#error">error</a></li><li><a href="global.html#failDeploy">failDeploy</a></li><li><a href="global.html#help">help</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sat May 01 2021 07:30:43 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

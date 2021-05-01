@@ -1,7 +1,34 @@
+/**
+ * Prompts a series of questions, and stores the answers in an object. 
+ * @module promptQuestions
+ * @example <caption>questions is an object, which contains an asynchnous method, which returns a promise</caption>
+ * const questions = require('./promptQuestions.js');
+ * questions.promptQuestions().then(data => console.log(data)); 
+ * // {
+ * //   PROFILE_NAME: String, -> "myName"
+ * //   WAITING_ROOM_NAME: String, -> "Black Friday Sale"
+ * //   REGION: String, -> "us-east-1"
+ * //   PROTECT_URL: String, -> "https://www.example.com"
+ * //   RATE: Int -> 50
+ * // }
+ * 
+ * @example <caption>Same example, but with object destructuring and async/await</caption>
+ * const { promptQuestions } = require('./promptQuestions.js');
+ * (async () => {
+ *  let answers = await promptQuestions();
+ *  console.log(answers);
+ * })();
+ */
+
+
 const prompts = require("prompts");
 const logger = require("./logger")("dev");
 const chalk = require("chalk");
 
+/**
+ * Returns an object that contains the answers to the prompted questions
+ * @returns {Object}
+ */
 const promptQuestions = async () => {
   const questions = [
     {
@@ -220,6 +247,10 @@ const promptQuestions = async () => {
   }
 };
 
+ /**
+ * Exports the promptQuestions function.
+ * @returns {Object}
+ */
 module.exports = {
   promptQuestions,
 };
