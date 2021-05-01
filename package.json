@@ -11,7 +11,8 @@
     "url": "https://github.com/beekeeper-cli/beekeeper"
   },
   "scripts": {
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "doc": "jsdoc -c jsdoc.conf.json"
   },
   "keywords": [
     "lambda",

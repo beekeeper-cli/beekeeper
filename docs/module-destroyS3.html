@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: addPostLambdaEventPermission</title>
+    <title>JSDoc: Module: destroyS3</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: addPostLambdaEventPermission</h1>
+    <h1 class="page-title">Module: destroyS3</h1>
 
     
 
@@ -40,7 +40,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Exports an async function that adds the CRON job trigger to the post lambda and creates the post lambda as the target on the CRON job.</div>
+            <div class="description"><p>Exports an async function that tears down the S3 bucket</p></div>
         
 
         
@@ -89,7 +89,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="addPostLambdaEventPermission.js.html">addPostLambdaEventPermission.js</a>, <a href="addPostLambdaEventPermission.js.html#line1">line 1</a>
+        <a href="destroy_destroyS3.js.html">destroy/destroyS3.js</a>, <a href="destroy_destroyS3.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -125,7 +125,7 @@
     
 
     
-    <h4 class="name" id="module:addPostLambdaEventPermission"><span class="type-signature"></span>(require("addPostLambdaEventPermission"))<span class="signature">(region, lambdaName, sourceArn, cronJobName, postLambdaArn)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="module:destroyS3"><span class="type-signature"></span>(require("destroyS3"))<span class="signature">(region, bucketName)</span><span class="type-signature"></span></h4>
     
 
     
@@ -133,7 +133,7 @@
 
 
 <div class="description">
-    Exports addPostLambdaEventPermission
+    <p>Exports destroyS3</p>
 </div>
 
 
@@ -185,14 +185,14 @@
 
             
 
-            <td class="description last">This is the region of where this AWS service is deployed.</td>
+            <td class="description last"><p>This is the region of where this AWS service is deployed</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>lambdaName</code></td>
+                <td class="name"><code>bucketName</code></td>
             
 
             <td class="type">
@@ -208,76 +208,7 @@
 
             
 
-            <td class="description last">This is the name of the post lambda function.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>sourceArn</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">This is the Event Bridge CRON job arn.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>cronJobName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">This is the name of the CRON job.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>postLambdaArn</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">This is the post lambda function arn.</td>
+            <td class="description last"><p>This is the name of the S3 bucket</p></td>
         </tr>
 
     
@@ -318,7 +249,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="addPostLambdaEventPermission.js.html">addPostLambdaEventPermission.js</a>, <a href="addPostLambdaEventPermission.js.html#line79">line 79</a>
+        <a href="destroy_destroyS3.js.html">destroy/destroyS3.js</a>, <a href="destroy_destroyS3.js.html#line83">line 83</a>
     </li></ul></dd>
     
 
@@ -375,7 +306,7 @@
     
 
     
-    <h4 class="name" id="~addLambdaPermission"><span class="type-signature">(async, inner) </span>addLambdaPermission<span class="signature">(lambda, lambdaName, sourceArn)</span><span class="type-signature"> &rarr; {undefined}</span></h4>
+    <h4 class="name" id="~deleteBucket"><span class="type-signature">(async, inner) </span>deleteBucket<span class="signature">(s3, bucketName)</span><span class="type-signature"></span></h4>
     
 
     
@@ -383,7 +314,7 @@
 
 
 <div class="description">
-    Adds event bridge permission to lambda (CRON JOB)
+    <p>Deletes a S3 bucket</p>
 </div>
 
 
@@ -419,13 +350,13 @@
 
         <tr>
             
-                <td class="name"><code>lambda</code></td>
+                <td class="name"><code>s3</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">LambdaClient</span>
+<span class="param-type">S3Client</span>
 
 
             
@@ -435,14 +366,14 @@
 
             
 
-            <td class="description last">This is the lambda client.</td>
+            <td class="description last"><p>This is the S3 Client</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>lambdaName</code></td>
+                <td class="name"><code>bucketName</code></td>
             
 
             <td class="type">
@@ -458,30 +389,7 @@
 
             
 
-            <td class="description last">This is the name of the lambda function.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>sourceArn</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">This is the Event Bridge CRON job arn.</td>
+            <td class="description last"><p>This is the S3 bucket name</p></td>
         </tr>
 
     
@@ -522,7 +430,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="addPostLambdaEventPermission.js.html">addPostLambdaEventPermission.js</a>, <a href="addPostLambdaEventPermission.js.html#line22">line 22</a>
+        <a href="destroy_destroyS3.js.html">destroy/destroyS3.js</a>, <a href="destroy_destroyS3.js.html#line61">line 61</a>
     </li></ul></dd>
     
 
@@ -547,24 +455,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">undefined</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -576,7 +466,7 @@
     
 
     
-    <h4 class="name" id="~createTarget"><span class="type-signature">(async, inner) </span>createTarget<span class="signature">(cloudwatchEvent, cronJobName, postLambdaArn)</span><span class="type-signature"> &rarr; {undefined}</span></h4>
+    <h4 class="name" id="~deleteBucketObjects"><span class="type-signature">(async, inner) </span>deleteBucketObjects<span class="signature">(s3, versions, bucketName)</span><span class="type-signature"></span></h4>
     
 
     
@@ -584,7 +474,7 @@
 
 
 <div class="description">
-    Adds the post lambda as the target to the event bridge CRON job.
+    <p>Deletes S3 bucket objects</p>
 </div>
 
 
@@ -620,13 +510,13 @@
 
         <tr>
             
-                <td class="name"><code>cloudwatchEvent</code></td>
+                <td class="name"><code>s3</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">CloudWatchEventsClient</span>
+<span class="param-type">S3Client</span>
 
 
             
@@ -636,14 +526,37 @@
 
             
 
-            <td class="description last">This is the cloudwatch event client.</td>
+            <td class="description last"><p>This is the S3 Client</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>cronJobName</code></td>
+                <td class="name"><code>versions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>This is the list of object versions</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bucketName</code></td>
             
 
             <td class="type">
@@ -659,30 +572,7 @@
 
             
 
-            <td class="description last">This is the name of the CRON job.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>postLambdaArn</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">This is the post lambda function arn.</td>
+            <td class="description last"><p>This is the S3 bucket name</p></td>
         </tr>
 
     
@@ -723,7 +613,167 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="addPostLambdaEventPermission.js.html">addPostLambdaEventPermission.js</a>, <a href="addPostLambdaEventPermission.js.html#line49">line 49</a>
+        <a href="destroy_destroyS3.js.html">destroy/destroyS3.js</a>, <a href="destroy_destroyS3.js.html#line37">line 37</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~listBucketObjects"><span class="type-signature">(async, inner) </span>listBucketObjects<span class="signature">(s3, bucketName)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>List all the objects versions from a S3 bucket</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>s3</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">S3Client</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>This is the S3 Client</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bucketName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>This is the name of the S3 bucket</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="destroy_destroyS3.js.html">destroy/destroyS3.js</a>, <a href="destroy_destroyS3.js.html#line14">line 14</a>
     </li></ul></dd>
     
 
@@ -751,6 +801,10 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    <p>This is the list of object versions</p>
+</div>
+
 
 
 <dl>
@@ -759,7 +813,7 @@
     </dt>
     <dd>
         
-<span class="param-type">undefined</span>
+<span class="param-type">Array</span>
 
 
     </dd>
@@ -787,13 +841,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addPostLambdaEventPermission.html">addPostLambdaEventPermission</a></li><li><a href="module-createRole.html">createRole</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addPostLambdaEventPermission.html">addPostLambdaEventPermission</a></li><li><a href="module-createRole.html">createRole</a></li><li><a href="module-destroyApiGateway.html">destroyApiGateway</a></li><li><a href="module-destroyCloudwatchEvent.html">destroyCloudwatchEvent</a></li><li><a href="module-destroyDynamo.html">destroyDynamo</a></li><li><a href="module-destroyLambda.html">destroyLambda</a></li><li><a href="module-destroyRole.html">destroyRole</a></li><li><a href="module-destroyS3.html">destroyS3</a></li><li><a href="module-destroySQS.html">destroySQS</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Thu Apr 29 2021 11:28:31 GMT-0700 (Pacific Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Apr 30 2021 13:39:39 GMT-0700 (Pacific Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
