@@ -63,9 +63,9 @@ const readFile = async (filePath) => {
   }
 };
 
-const fileExists = async (filePath) => {
+const fileExists = (filePath) => {
   try {
-    return await fs.existsSync(filePath);
+    return fs.existsSync(filePath);
   } catch (err) {
     logger.debugError("Error", err);
     throw new Error(err);
