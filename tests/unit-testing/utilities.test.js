@@ -83,7 +83,7 @@ describe("Testing for getFilePaths method", () => {
   test("Get file paths returns the files paths of a directory", () => {
     let filePaths = getFilePaths(__dirname)
 
-    expect(filePaths).toContain(path.join(__dirname, 'readFile.test.js'));
+    expect(filePaths).toContain(path.join(__dirname, 'utilities.test.js'));
   });
 });
 
