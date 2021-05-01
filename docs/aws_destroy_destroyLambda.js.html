@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: aws/destroy/destroyLambda.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,48 +17,56 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: aws/destroy/destroyLambda.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><h3></h3>
-<ol>
-<li><code>beekeeper deploy</code></li>
-</ol>
-<ul>
-<li>Creates all AWS services &amp; roles that are required to build the waiting room infrastructure.</li>
-</ul>
-<ol start="2">
-<li><code>beekeeper destroy</code></li>
-</ol>
-<ul>
-<li>Removes all AWS services &amp; roles that were created using the <code>deploy</code> command.</li>
-</ul></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Exports an async function that tears down a Lambda function.
+ * @module destroyLambda
+ */
+const { LambdaClient, DeleteFunctionCommand } = require("@aws-sdk/client-lambda");
+const logger = require("../../utils/logger")("dev");
+
+/**
+ * Tears down the Lambda function
+ * @param {LambdaClient} lambda This is the LambdaClient client
+ * @param {String} lambdaName This is the name of the Lambda function
+ * @throws Will throw an error if DynamoDB client fails to execute its command
+ */
+const destroyLambda = async (lambda, lambdaName) => {
+  const params = {
+    FunctionName: lambdaName,
+  };
+  const command = new DeleteFunctionCommand(params);
+
+  try {
+    await lambda.send(command);
+    logger.debugSuccess(`Successfully deleted Lambda: ${lambdaName}`);
+  } catch (err) {
+    logger.debugError("Error", err);
+    throw new Error(err);
+  }
+}
+
+/**
+ * Exports destroyLambda
+ * @param {String} region This is the region of where this AWS service is deployed
+ * @param {String} lambdaName This is the name of the Lambda function
+ */
+module.exports = async (region, lambdaName) => {
+  const lambda = new LambdaClient({ region });
+
+  await destroyLambda(lambda, lambdaName);
+};
+</code></pre>
+        </article>
     </section>
-
-
 
 
 

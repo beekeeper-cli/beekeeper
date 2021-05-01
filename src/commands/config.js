@@ -1,3 +1,8 @@
+/**
+ * Logs the contents of user-answers.json.
+ * @module config
+ */
+
 const path = require("path");
 const chalk = require("chalk");
 const { readFile, validateInitRan } = require("../utils/utilities");
@@ -8,6 +13,11 @@ const ANSWERS_FILE_PATH = path.join(
   "config",
   "user-answers.json"
 );
+
+/**
+ * Iterates through every profile in the user-answers.json file and logs the contents of each to the console.
+ * @returns undefined
+ */
 
 module.exports = async () => {
   const initRan = await validateInitRan(ANSWERS_FILE_PATH);

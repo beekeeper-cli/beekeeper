@@ -1,3 +1,8 @@
+/**
+ * Prompts a user for questions and and writes the answers to user-answers.json.
+ * @module init
+ */
+
 const path = require("path");
 const { promptQuestions } = require("../utils/promptQuestions");
 const { createFile, fileExists, readFile } = require("../utils/utilities");
@@ -8,6 +13,11 @@ const ANSWERS_FILE_PATH = path.join(
   "config",
   "user-answers.json"
 );
+
+/**
+ * Exports the init function.
+ * @returns {undefined}
+ */
 
 module.exports = async () => {
   const answers = await promptQuestions();

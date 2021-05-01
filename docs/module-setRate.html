@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: destroyApiGateway</title>
+    <title>JSDoc: Module: setRate</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: destroyApiGateway</h1>
+    <h1 class="page-title">Module: setRate</h1>
 
     
 
@@ -40,7 +40,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Exports an async function that tears down the API Gateway.</p></div>
+            <div class="description"><p>Changes the postLambda rate of a deployed waiting room.</p></div>
         
 
         
@@ -89,7 +89,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyApiGateway.js.html">aws/destroy/destroyApiGateway.js</a>, <a href="aws_destroy_destroyApiGateway.js.html#line1">line 1</a>
+        <a href="commands_setRate.js.html">commands/setRate.js</a>, <a href="commands_setRate.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -125,7 +125,7 @@
     
 
     
-    <h4 class="name" id="module:destroyApiGateway"><span class="type-signature"></span>(require("destroyApiGateway"))<span class="signature">(region, apiName)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="module:setRate"><span class="type-signature"></span>(require("setRate"))<span class="signature">(profileName, newRate)</span><span class="type-signature"> &rarr; {undefined}</span></h4>
     
 
     
@@ -133,7 +133,7 @@
 
 
 <div class="description">
-    <p>Exports destroyApiGateway</p>
+    <p>Exports the setRate function.</p>
 </div>
 
 
@@ -169,13 +169,13 @@
 
         <tr>
             
-                <td class="name"><code>region</code></td>
+                <td class="name"><code>profileName</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
@@ -185,20 +185,20 @@
 
             
 
-            <td class="description last"><p>This is the region of where this AWS service is deployed.</p></td>
+            <td class="description last"><p>The name of the profile to commit the rate change to</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>apiName</code></td>
+                <td class="name"><code>newRate</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">number</span>
 
 
             
@@ -208,7 +208,7 @@
 
             
 
-            <td class="description last"><p>This is the name of the API Gateway</p></td>
+            <td class="description last"><p>The new rate</p></td>
         </tr>
 
     
@@ -249,7 +249,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyApiGateway.js.html">aws/destroy/destroyApiGateway.js</a>, <a href="aws_destroy_destroyApiGateway.js.html#line58">line 58</a>
+        <a href="commands_setRate.js.html">commands/setRate.js</a>, <a href="commands_setRate.js.html#line92">line 92</a>
     </li></ul></dd>
     
 
@@ -274,6 +274,24 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">undefined</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -306,7 +324,7 @@
     
 
     
-    <h4 class="name" id="~destroyRestApi"><span class="type-signature">(async, inner) </span>destroyRestApi<span class="signature">(apiGateway, restApiId)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~getLambdaConfig"><span class="type-signature">(async, inner) </span>getLambdaConfig<span class="signature">(lambda, lambdaName)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
     
@@ -314,7 +332,7 @@
 
 
 <div class="description">
-    <p>Tear down the API Gateway</p>
+    <p>Gets the current configuration object of the postLambda.</p>
 </div>
 
 
@@ -350,13 +368,13 @@
 
         <tr>
             
-                <td class="name"><code>apiGateway</code></td>
+                <td class="name"><code>lambda</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">APIGatewayClient</span>
+<span class="param-type">LambdaClient</span>
 
 
             
@@ -366,20 +384,20 @@
 
             
 
-            <td class="description last"><p>This is the API Gateway client.</p></td>
+            <td class="description last"><p>LambdaClient</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>restApiId</code></td>
+                <td class="name"><code>lambdaName</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
@@ -389,7 +407,7 @@
 
             
 
-            <td class="description last"><p>This is the API Gateway ID.</p></td>
+            <td class="description last"><p>The name of the postLambda</p></td>
         </tr>
 
     
@@ -430,7 +448,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyApiGateway.js.html">aws/destroy/destroyApiGateway.js</a>, <a href="aws_destroy_destroyApiGateway.js.html#line39">line 39</a>
+        <a href="commands_setRate.js.html">commands/setRate.js</a>, <a href="commands_setRate.js.html#line57">line 57</a>
     </li></ul></dd>
     
 
@@ -453,197 +471,13 @@
 
 
 
-<h5>Throws:</h5>
-
-        
-
-    <div class="param-desc">
-    
-        <p>Will throw an error if API Gateway fails to execute its command</p>
-    
-    </div>
-
-
-    
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~getApiId"><span class="type-signature">(async, inner) </span>getApiId<span class="signature">(apiGateway, apiName)</span><span class="type-signature"> &rarr; {Number}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Retrieves the API Gateway ID</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>apiGateway</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">APIGatewayClient</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>This is the API Gateway client.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>apiName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>This is the name of the API Gateway</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyApiGateway.js.html">aws/destroy/destroyApiGateway.js</a>, <a href="aws_destroy_destroyApiGateway.js.html#line19">line 19</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-    <div class="param-desc">
-    
-        <p>Will throw an error if API Gateway fails to execute its command</p>
-    
-    </div>
-
-
-    
 
 
 <h5>Returns:</h5>
 
         
 <div class="param-desc">
-    <p>This is the API Gateway ID</p>
+    <p>The current configuration object</p>
 </div>
 
 
@@ -654,13 +488,356 @@
     </dt>
     <dd>
         
-<span class="param-type">Number</span>
+<span class="param-type">object</span>
 
 
     </dd>
 </dl>
 
     
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~updateLambdaConfig"><span class="type-signature">(async, inner) </span>updateLambdaConfig<span class="signature">(lambda, lambdaName, environment, rate)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Updates the environmental variables on an existing lambda.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>lambda</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">LambdaClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The AWS lambda client</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lambdaName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the postLambda</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>environment</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The object of environmental variables</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The new rate environmental variable</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="commands_setRate.js.html">commands/setRate.js</a>, <a href="commands_setRate.js.html#line32">line 32</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~validateRate"><span class="type-signature">(inner) </span>validateRate<span class="signature">(rate)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Validates a new rate.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The new rate</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="commands_setRate.js.html">commands/setRate.js</a>, <a href="commands_setRate.js.html#line78">line 78</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: destroyLambda</title>
+    <title>JSDoc: Module: toggle</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: destroyLambda</h1>
+    <h1 class="page-title">Module: toggle</h1>
 
     
 
@@ -40,7 +40,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Exports an async function that tears down a Lambda function.</p></div>
+            <div class="description"><p>Toggles a deployed waitroom on or off.</p></div>
         
 
         
@@ -89,7 +89,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyLambda.js.html">aws/destroy/destroyLambda.js</a>, <a href="aws_destroy_destroyLambda.js.html#line1">line 1</a>
+        <a href="commands_toggle.js.html">commands/toggle.js</a>, <a href="commands_toggle.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -125,7 +125,7 @@
     
 
     
-    <h4 class="name" id="module:destroyLambda"><span class="type-signature"></span>(require("destroyLambda"))<span class="signature">(region, lambdaName)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="module:toggle"><span class="type-signature"></span>(require("toggle"))<span class="signature">(onOff)</span><span class="type-signature"> &rarr; {function}</span></h4>
     
 
     
@@ -133,7 +133,7 @@
 
 
 <div class="description">
-    <p>Exports destroyLambda</p>
+    <p>Exports the onOff function.</p>
 </div>
 
 
@@ -169,13 +169,13 @@
 
         <tr>
             
-                <td class="name"><code>region</code></td>
+                <td class="name"><code>onOff</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
@@ -185,30 +185,7 @@
 
             
 
-            <td class="description last"><p>This is the region of where this AWS service is deployed</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>lambdaName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>This is the name of the Lambda function</p></td>
+            <td class="description last"><p>either &quot;on&quot; or &quot;off&quot;</p></td>
         </tr>
 
     
@@ -249,7 +226,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyLambda.js.html">aws/destroy/destroyLambda.js</a>, <a href="aws_destroy_destroyLambda.js.html#line34">line 34</a>
+        <a href="commands_toggle.js.html">commands/toggle.js</a>, <a href="commands_toggle.js.html#line79">line 79</a>
     </li></ul></dd>
     
 
@@ -274,6 +251,28 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>a function that takes the profile name to turn on or off</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">function</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -306,7 +305,185 @@
     
 
     
-    <h4 class="name" id="~destroyLambda"><span class="type-signature">(async, inner) </span>destroyLambda<span class="signature">(lambda, lambdaName)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~getLambdaConfig"><span class="type-signature">(async, inner) </span>getLambdaConfig<span class="signature">(lambda, lambdaName)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>lambda</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">LambdaClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The AWS LambdaClient object</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lambdaName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the preLambda</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="commands_toggle.js.html">commands/toggle.js</a>, <a href="commands_toggle.js.html#line57">line 57</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The current configuration of the preLambda</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~updateLambdaConfig"><span class="type-signature">(async, inner) </span>updateLambdaConfig<span class="signature">(lambda, lambdaName, environment, waitroomOnOff)</span><span class="type-signature"></span></h4>
     
 
     
@@ -314,7 +491,7 @@
 
 
 <div class="description">
-    <p>Tears down the Lambda function</p>
+    <p>Updates the preLambda with a new environment object.</p>
 </div>
 
 
@@ -366,7 +543,7 @@
 
             
 
-            <td class="description last"><p>This is the LambdaClient client</p></td>
+            <td class="description last"><p>The LambdaClient object</p></td>
         </tr>
 
     
@@ -379,7 +556,7 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
@@ -389,7 +566,53 @@
 
             
 
-            <td class="description last"><p>This is the name of the Lambda function</p></td>
+            <td class="description last"><p>The name of the preLambda</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>environment</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The environment object of the preLambda</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>waitroomOnOff</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The new value for the WAITROOM_ON environmental variable</p></td>
         </tr>
 
     
@@ -430,7 +653,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyLambda.js.html">aws/destroy/destroyLambda.js</a>, <a href="aws_destroy_destroyLambda.js.html#line14">line 14</a>
+        <a href="commands_toggle.js.html">commands/toggle.js</a>, <a href="commands_toggle.js.html#line32">line 32</a>
     </li></ul></dd>
     
 
@@ -453,18 +676,6 @@
 
 
 
-<h5>Throws:</h5>
-
-        
-
-    <div class="param-desc">
-    
-        <p>Will throw an error if DynamoDB client fails to execute its command</p>
-    
-    </div>
-
-
-    
 
 
 

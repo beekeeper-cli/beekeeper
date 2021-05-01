@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: commands/init.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,48 +17,60 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: commands/init.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><h3></h3>
-<ol>
-<li><code>beekeeper deploy</code></li>
-</ol>
-<ul>
-<li>Creates all AWS services &amp; roles that are required to build the waiting room infrastructure.</li>
-</ul>
-<ol start="2">
-<li><code>beekeeper destroy</code></li>
-</ol>
-<ul>
-<li>Removes all AWS services &amp; roles that were created using the <code>deploy</code> command.</li>
-</ul></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Prompts a user for questions and and writes the answers to user-answers.json.
+ * @module init
+ */
+
+const path = require("path");
+const { promptQuestions } = require("../utils/promptQuestions");
+const { createFile, fileExists, readFile } = require("../utils/utilities");
+
+const ANSWERS_FILE_PATH = path.join(
+  __dirname,
+  "..",
+  "config",
+  "user-answers.json"
+);
+
+/**
+ * Exports the init function.
+ * @returns {undefined}
+ */
+
+module.exports = async () => {
+  const answers = await promptQuestions();
+  const length = Object.keys(answers).length;
+
+  const profile = {
+    [answers.PROFILE_NAME]: answers
+  }
+
+  if (length === 5) {
+    let fileFound = await fileExists(ANSWERS_FILE_PATH);
+
+    if(!fileFound) {
+      await createFile(JSON.stringify(profile), ANSWERS_FILE_PATH);
+    } else {
+      const profiles = JSON.parse(await readFile(ANSWERS_FILE_PATH));
+
+      profiles[answers.PROFILE_NAME] = profile[answers.PROFILE_NAME];
+      await createFile(JSON.stringify(profiles), ANSWERS_FILE_PATH);
+    }
+  }
+};
+</code></pre>
+        </article>
     </section>
-
-
 
 
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: commands/config.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,48 +17,54 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: commands/config.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><h3></h3>
-<ol>
-<li><code>beekeeper deploy</code></li>
-</ol>
-<ul>
-<li>Creates all AWS services &amp; roles that are required to build the waiting room infrastructure.</li>
-</ul>
-<ol start="2">
-<li><code>beekeeper destroy</code></li>
-</ol>
-<ul>
-<li>Removes all AWS services &amp; roles that were created using the <code>deploy</code> command.</li>
-</ul></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Logs the contents of user-answers.json.
+ * @module config
+ */
+
+const path = require("path");
+const chalk = require("chalk");
+const { readFile, validateInitRan } = require("../utils/utilities");
+
+const ANSWERS_FILE_PATH = path.join(
+  __dirname,
+  "..",
+  "config",
+  "user-answers.json"
+);
+
+/**
+ * Iterates through every profile in the user-answers.json file and logs the contents of each to the console.
+ * @returns undefined
+ */
+
+module.exports = async () => {
+  const initRan = await validateInitRan(ANSWERS_FILE_PATH);
+  if (!initRan) return;
+
+  const profiles = Object.values(JSON.parse(await readFile(ANSWERS_FILE_PATH)));
+  
+  profiles.forEach(profile => {
+    console.log("")
+    console.log(`${chalk.green.bold("✔")} ${chalk.bold("Profile name: ")} ${profile.PROFILE_NAME}`);
+    console.log(`${chalk.green.bold("✔")} ${chalk.bold("Waiting room name: ")} ${profile.WAITING_ROOM_NAME}`);
+    console.log(`${chalk.green.bold("✔")} ${chalk.bold("Region: ")} ${profile.REGION}`);
+    console.log(`${chalk.green.bold("✔")} ${chalk.bold("Protected URL: ")} ${profile.PROTECT_URL}`);
+    console.log(`${chalk.green.bold("✔")} ${chalk.bold("Users allowed to enter per minute: ")} ${profile.RATE}`);
+  })
+};
+</code></pre>
+        </article>
     </section>
-
-
 
 
 
