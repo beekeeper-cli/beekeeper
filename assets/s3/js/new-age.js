@@ -25,14 +25,35 @@ const COLOR_CODES = {
   }
 };
 
-let waitLine = parseInt(window.location.search.split('=')[1], 16);
-const reduceLineAmount = Math.floor(RATE / 3);
-let lineDisplay = document.querySelector('#current-line')
-lineDisplay.textContent = `Place in line: ${waitLine}`;
+const waitLine = parseInt(window.location.search.split('=')[1], 16) || 1;
+const numOfMinutes = Math.ceil(waitLine / RATE);
+let currentDate = new Date();
+let waitDisplay = document.querySelector('#wait-display');
+let displayTime = window.localStorage.getItem('displayTime');
+
+currentDate.setMinutes(currentDate.getMinutes() + numOfMinutes);
+
+console.log("line36", displayTime);
+if (!displayTime) {
+  displayTime = currentDate;
+
+  window.localStorage.setItem('displayTime', displayTime);
+
+  console.log("line 42", displayTime);
+} else if (new Date() > new Date(displayTime)) {
+  console.log('running');
+  window.localStorage.removeItem('displayTime');
+  currentDate = new Date();
+  console.log("line 47", currentDate);
+  currentDate.setMinutes(currentDate.getMinutes() + 1);
+  window.localStorage.setItem('displayTime', currentDate);
+
+  console.log("line 51", displayTime);
+}
+console.log("line 52", displayTime);
 
 
-const urlParams = new URLSearchParams(window.location.search);
-const myParam = urlParams.get('myParam');
+waitDisplay.textContent = `You will be redirected by approximately: ${new Date(window.localStorage.getItem('displayTime')).toLocaleTimeString([], {hour: 'numeric', minute:'numeric'})}`;
 
 const TIME_LIMIT = 20;
 let timePassed;
@@ -87,10 +108,7 @@ const onTimesUp = async () => {
 
   clearInterval(timerInterval);
   setTimeout(() => {
-    //working
     waitMessage.style.display = "none";
-    waitLine = waitLine <= reduceLineAmount ? 1 : waitLine - reduceLineAmount;
-    lineDisplay.textContent = `Place in line: ${waitLine}`;
     initializeTimer();
     startTimer();
   }, 3000);
