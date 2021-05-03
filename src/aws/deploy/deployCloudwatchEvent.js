@@ -5,32 +5,8 @@
 const {
   CloudWatchEventsClient,
   PutRuleCommand,
-  PutTargetsCommand,
 } = require("@aws-sdk/client-cloudwatch-events");
 const logger = require("../../utils/logger")("dev");
-
-// [Ian Confirm deletion]
-// const createTarget = async (cloudwatchEvent, cronJobName, postLambdaArn) => {
-//   const params = {
-//     Rule: cronJobName,
-//     Targets: [
-//       {
-//         Arn: postLambdaArn,
-//         Id: cronJobName,
-//       },
-//     ],
-//   };
-
-//   const command = new PutTargetsCommand(params);
-
-//   try {
-//     await cloudwatchEvent.send(command);
-//     logger.debugSuccess(`Successfully created CloudWatchEvent Target: ${postLambdaArn}`);
-//   } catch (err) {
-//     logger.debugError("Error", err);
-//     throw new Error(err);
-//   }
-// };
 
 /**
  * Creates the Cloud Watch event rule that executes the post queue Lambdas once a minute
@@ -69,7 +45,6 @@ module.exports = async (region, postLambdaArn, cronJobName) => {
   const cloudwatchEventsClient = new CloudWatchEventsClient({ region });
 
   const ruleArn = await createCloudWatchEventRule(cloudwatchEventsClient, cronJobName);
-  // [Ian Confirm deletion]
-  //await createTarget(cloudwatchEvent, cronJobName, postLambdaArn);
+
   return ruleArn;
 };
