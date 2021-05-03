@@ -1,3 +1,7 @@
+/**
+ * Exports an async function that deploys the DynamoDB database
+ * @module deployPollingRoute
+ */
 const {
   APIGatewayClient,
   GetResourcesCommand,
@@ -6,10 +10,16 @@ const {
   PutIntegrationCommand,
   PutIntegrationResponseCommand,
   PutMethodResponseCommand,
-  CreateDeploymentCommand,
 } = require("@aws-sdk/client-api-gateway");
 const logger = require("../../utils/logger")("dev");
 
+/**
+ * Function which gets the id of the root resource "/" of the API Gateway originally created in `deployApiGateway()`
+ * @param {APIGatewayClient} apiGateway Looks like `new APIGatewayClient({ region });`
+ * @param {String} restApiId ID refering to the API Gateway. Was returned from `deployApiGateway()`
+ * @param {String} apiGatewayName A constant from `deploy.js`, looks like `beekeeper-${PROFILE_NAME}-apigateway`
+ * @returns {String} An id which refers to the root resource of the API Gateway, i.e. "/"
+ */
 const getResources = async (apiGateway, restApiId, apiGatewayName) => {
   const params = {
     restApiId,
@@ -32,6 +42,14 @@ const getResources = async (apiGateway, restApiId, apiGatewayName) => {
   }
 };
 
+/**
+ * Creates a subresource "/polling" of root
+ * @param {APIGatewayClient} apiGateway Looks like `new APIGatewayClient({ region })`
+ * @param {String} restApiId The string returned from `createApiGateway()`
+ * @param {String} resourceParentId The id of the root resource returned from `getResources();`
+ * @param {String} resourceName A constant "polling"
+ * @returns {String} A resourceId referring to this new resource
+ */
 const createResource = async (
   apiGateway,
   restApiId,
@@ -56,6 +74,13 @@ const createResource = async (
   }
 };
 
+/**
+ * Our "/polling" endpoint has one method it handles, a GET request. This function creates it and customizes a header for the request named `cookie` with a placeholder value of false at creation time. 
+ * @param {APIGatewayClient} apiGateway Looks like new `APIGatewayClient({ region })`
+ * @param {String} restApiId The string returned from `createApiGateway()`
+ * @param {String} pollingResourceId Id referring to the "/polling" resource returned from `createResource()`
+ * @param {String} pollingResourceName A constant "polling"
+ */
 const putMethodRequest = async (
   apiGateway,
   restApiId,
@@ -85,6 +110,16 @@ const putMethodRequest = async (
   }
 };
 
+/**
+ * Instead of triggering a Lambda, this resource uses a template to access the `cookie` value off the request headers and then performs a direct query of the DB to see if the token exists.
+ * @param {APIGatewayClient} apiGateway Looks like `new APIGatewayClient({ region })`
+ * @param {String} pollingResourceId Id referring to the the "/polling" resource we created.
+ * @param {String} restApiId The string returned from `createApiGateway()`
+ * @param {String} dynamoDbUri Uri that references the DynamoDB
+ * @param {String} pollingResourceName Constant is "polling"
+ * @param {String} roleArn Amazon resource number for the kitchen sink role returned by `createRole()`
+ * @param {String} dynamoName Constant initialized in `deploy.js`, looks like `beekeeper-${PROFILE_NAME}-ddb`
+ */
 const setIntegrationRequest = async (
   apiGateway,
   pollingResourceId,
@@ -123,6 +158,15 @@ const setIntegrationRequest = async (
   }
 };
 
+/**
+* Creates the Integration Response stage of the API Gateway and makes customizations. We add specific headers to the response to allow CORS and since credentials are being sent with the original request to this resource, we have to specifically interpolate the URL we want the browswer to allow for Access-Control-Allow-Origin, in this case the waiting room URL. We also use a template to take the response from the DB and construct an object to send back to the client with two properties "allow" that will be a boolean and "protectUrl" that will be the final destination to redirect users to.
+ * @param {APIGatewayClient} apiGateway Looks like `new APIGatewayClient({ region })`
+ * @param {String} pollingResourceId Id referring to the the "/polling" resource we created.
+ * @param {String} restApiId The string returned from `createApiGateway()`
+ * @param {String} pollingResourceName Constant is "polling"
+ * @param {String} bucketObjectTld A public URL where the object in the S3 bucket is located, i.e. the waiting room URL.
+ * @param {String} protectUrl A constant destructured from the CLI user's answers in `deploy.js`. Like "https://www.example.com".
+ */
 const setIntegrationResponse = async (
   apiGateway,
   pollingResourceId,
@@ -161,6 +205,13 @@ const setIntegrationResponse = async (
   }
 };
 
+/**
+* Creates the Method Response stage. Of note is the creation of headers for CORS purposes. The values start out as false when creating them, but are changed in `setIntegrationResponse()`
+ * @param {APIGatewayClient} apiGateway Looks like `new APIGatewayClient({ region })`
+ * @param {String} pollingResourceId Id referring to the the "/polling" resource we created.
+ * @param {String} restApiId The string returned from `createApiGateway()`
+ * @param {String} pollingResourceName Constant is "polling"
+ */
 const setMethodResponse = async (
   apiGateway,
   pollingResourceId,
@@ -193,24 +244,18 @@ const setMethodResponse = async (
   }
 };
 
-const deployResource = async (apiGateway, restApiId, stageName) => {
-  const params = {
-    restApiId,
-    stageDescription: "production beekeeper waitroom",
-    stageName,
-  };
-
-  const command = new CreateDeploymentCommand(params);
-
-  try {
-    await apiGateway.send(command);
-    logger.debugSuccess(`Successfully deployed resource: ${restApiId}`);
-  } catch (err) {
-    logger.debugError("Error", err);
-    throw new Error(err);
-  }
-};
-
+/**
+ * Exports `deployPollingRoute()`
+ * @param {String} restApiId The id referring to the API Gateway
+ * @param {String} region A constant destructured from the CLI user's answers in `deploy.js`. Like "us-east-2".
+ * @param {String} apiGatewayName A constant created in `deploy.js`, is `beekeeper-${PROFILE_NAME}-apigateway`
+ * @param {String} dynamoName Constant initialized in `deploy.js`, looks like `beekeeper-${PROFILE_NAME}-ddb`
+ * @param {String} roleArn Amazon resource number for the kitchen sink role returned by `createRole()`
+ * @param {String} bucketObjectTld A public URL where the object in the S3 bucket is located, i.e. the waiting room URL.
+ * @param {String} stageName A constant "prod"
+ * @param {String} protectUrl A constant destructured from the CLI user's answers in `deploy.js`. Like "https://www.example.com".
+ * @returns {String} A URL that the waiting room can poll to see if the user's token is in the DB `https://${restApiId}.execute-api.${region}.amazonaws.com/${stageName}/${pollingResourceName}`;
+ */
 module.exports = async (
   restApiId,
   region,
@@ -277,9 +322,6 @@ module.exports = async (
     bucketObjectTld,
     protectUrl
   );
-
-  // stage resource and deploy
-  await deployResource(apiGateway, restApiId, stageName);
 
   // Stage polling URL
   return `https://${restApiId}.execute-api.${region}.amazonaws.com/${stageName}/${pollingResourceName}`;

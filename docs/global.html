@@ -1,23 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="utf-8">
-    <title>JSDoc: Global</title>
-
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
+    <title>Global - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
 <body>
 
-<div id="main">
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
 
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addPostLambdaEventPermission.html">addPostLambdaEventPermission</a><ul class='methods'><li data-type='method'><a href="module-addPostLambdaEventPermission.html#~addLambdaPermission">addLambdaPermission</a></li><li data-type='method'><a href="module-addPostLambdaEventPermission.html#~createTarget">createTarget</a></li></ul></li><li><a href="module-config.html">config</a></li><li><a href="module-createRole.html">createRole</a><ul class='methods'><li data-type='method'><a href="module-createRole.html#~addPermissions">addPermissions</a></li><li data-type='method'><a href="module-createRole.html#~attachPolicy">attachPolicy</a></li><li data-type='method'><a href="module-createRole.html#~createRole">createRole</a></li></ul></li><li><a href="module-deploy.html">deploy</a></li><li><a href="module-deployApiGateway.html">deployApiGateway</a><ul class='methods'><li data-type='method'><a href="module-deployApiGateway.html#~createApiGateway">createApiGateway</a></li><li data-type='method'><a href="module-deployApiGateway.html#~createResource">createResource</a></li><li data-type='method'><a href="module-deployApiGateway.html#~getResources">getResources</a></li><li data-type='method'><a href="module-deployApiGateway.html#~mainPutMethodRequest">mainPutMethodRequest</a></li><li data-type='method'><a href="module-deployApiGateway.html#~setIntegrationRequest">setIntegrationRequest</a></li><li data-type='method'><a href="module-deployApiGateway.html#~setIntegrationResponse">setIntegrationResponse</a></li><li data-type='method'><a href="module-deployApiGateway.html#~setMethodResponse">setMethodResponse</a></li></ul></li><li><a href="module-deployClientCheckRoute.html">deployClientCheckRoute</a><ul class='methods'><li data-type='method'><a href="module-deployClientCheckRoute.html#~createResource">createResource</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~deployResource">deployResource</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~getResources">getResources</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~putMethodRequest">putMethodRequest</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~setIntegrationRequest">setIntegrationRequest</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~setIntegrationResponse">setIntegrationResponse</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~setMethodResponse">setMethodResponse</a></li></ul></li><li><a href="module-deployCloudwatchEvent.html">deployCloudwatchEvent</a><ul class='methods'><li data-type='method'><a href="module-deployCloudwatchEvent.html#~createCloudWatchEventRule">createCloudWatchEventRule</a></li><li data-type='method'><a href="module-deployCloudwatchEvent.html#~createDLQ">createDLQ</a></li><li data-type='method'><a href="module-deployCloudwatchEvent.html#~getArn">getArn</a></li></ul></li><li></li><li><a href="module-destroy.html">destroy</a></li><li><a href="module-destroyApiGateway.html">destroyApiGateway</a><ul class='methods'><li data-type='method'><a href="module-destroyApiGateway.html#~destroyRestApi">destroyRestApi</a></li><li data-type='method'><a href="module-destroyApiGateway.html#~getApiId">getApiId</a></li></ul></li><li><a href="module-destroyCloudwatchEvent.html">destroyCloudwatchEvent</a><ul class='methods'><li data-type='method'><a href="module-destroyCloudwatchEvent.html#~destroyCloudwatchEvent">destroyCloudwatchEvent</a></li><li data-type='method'><a href="module-destroyCloudwatchEvent.html#~destroyCloudwatchTarget">destroyCloudwatchTarget</a></li></ul></li><li><a href="module-destroyDynamo.html">destroyDynamo</a><ul class='methods'><li data-type='method'><a href="module-destroyDynamo.html#~destroyTable">destroyTable</a></li></ul></li><li><a href="module-destroyLambda.html">destroyLambda</a><ul class='methods'><li data-type='method'><a href="module-destroyLambda.html#~destroyLambda">destroyLambda</a></li></ul></li><li><a href="module-destroyRole.html">destroyRole</a><ul class='methods'><li data-type='method'><a href="module-destroyRole.html#~destroyRole">destroyRole</a></li><li data-type='method'><a href="module-destroyRole.html#~detachPermissions">detachPermissions</a></li><li data-type='method'><a href="module-destroyRole.html#~detachPolicy">detachPolicy</a></li></ul></li><li><a href="module-destroyS3.html">destroyS3</a><ul class='methods'><li data-type='method'><a href="module-destroyS3.html#~deleteBucket">deleteBucket</a></li><li data-type='method'><a href="module-destroyS3.html#~deleteBucketObjects">deleteBucketObjects</a></li><li data-type='method'><a href="module-destroyS3.html#~listBucketObjects">listBucketObjects</a></li></ul></li><li><a href="module-destroySQS.html">destroySQS</a><ul class='methods'><li data-type='method'><a href="module-destroySQS.html#~destroyQueue">destroyQueue</a></li><li data-type='method'><a href="module-destroySQS.html#~getQueueUrl">getQueueUrl</a></li></ul></li><li><a href="module-init.html">init</a></li><li><a href="module-logger.html">logger</a><ul class='methods'><li data-type='method'><a href="module-logger.html#~debugError">debugError</a></li><li data-type='method'><a href="module-logger.html#~debugSuccess">debugSuccess</a></li><li data-type='method'><a href="module-logger.html#~error">error</a></li><li data-type='method'><a href="module-logger.html#~failDeploy">failDeploy</a></li><li data-type='method'><a href="module-logger.html#~help">help</a></li><li data-type='method'><a href="module-logger.html#~highlight">highlight</a></li></ul></li><li><a href="module-promptQuestions.html">promptQuestions</a><ul class='methods'><li data-type='method'><a href="module-promptQuestions.html#~promptQuestions">promptQuestions</a></li></ul></li><li><a href="module-retry.html">retry</a></li><li><a href="module-setRate.html">setRate</a><ul class='methods'><li data-type='method'><a href="module-setRate.html#~getLambdaConfig">getLambdaConfig</a></li><li data-type='method'><a href="module-setRate.html#~updateLambdaConfig">updateLambdaConfig</a></li><li data-type='method'><a href="module-setRate.html#~validateRate">validateRate</a></li></ul></li><li><a href="module-toggle.html">toggle</a><ul class='methods'><li data-type='method'><a href="module-toggle.html#~getLambdaConfig">getLambdaConfig</a></li><li data-type='method'><a href="module-toggle.html#~updateLambdaConfig">updateLambdaConfig</a></li></ul></li><li><a href="module-utilities.html">utilities</a><ul class='methods'><li data-type='method'><a href="module-utilities.html#~createFile">createFile</a></li><li data-type='method'><a href="module-utilities.html#~fileExists">fileExists</a></li><li data-type='method'><a href="module-utilities.html#~getContentType">getContentType</a></li><li data-type='method'><a href="module-utilities.html#~getFilePaths">getFilePaths</a></li><li data-type='method'><a href="module-utilities.html#~readFile">readFile</a></li><li data-type='method'><a href="module-utilities.html#~validateInitRan">validateInitRan</a></li><li data-type='method'><a href="module-utilities.html#~validateProfileName">validateProfileName</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#createDynamo">createDynamo</a></li></ul>
+</nav>
+
+<div id="main">
+    
     <h1 class="page-title">Global</h1>
+    
 
     
 
@@ -28,18 +44,18 @@
 
 <header>
     
-        <h2></h2>
+        <h2>
+        
+        </h2>
         
     
 </header>
 
 <article>
-    <div class="container-overview">
     
+        <div class="container-overview">
         
-
-        
-
+            
 
 <dl class="details">
 
@@ -77,10 +93,13 @@
 </dl>
 
 
+
+
+            
+
+            
         
-    
-    </div>
-
+        </div>
     
 
     
@@ -88,8 +107,10 @@
     
 
     
-
     
+    
+
+     
 
     
 
@@ -103,17 +124,62 @@
 
     
 
-    
-    <h4 class="name" id="debugError"><span class="type-signature"></span>debugError<span class="signature">(msg)</span><span class="type-signature"> &rarr; {undefined}</span></h4>
-    
+    <h4 class="name" id="createDynamo"><span class="type-signature">(async) </span>createDynamo<span class="signature">(dynamodb, dynamoName)</span><span class="type-signature"> &rarr; {String}</span></h4>
 
     
 
 
 
-<div class="description">
-    <p>Outputs bold yellow text with a red &quot;X&quot; when running DEGUG=name [COMMAND] in the terminal</p>
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployDynamo.js.html">aws/deploy/deployDynamo.js</a>, <a href="aws_deploy_deployDynamo.js.html#line16">line 16</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Function that creates the DynamoDB with one attribute, a string &quot;usertoken&quot; and leaves the provisioned Throupt as default at 5 for both Read and Write capacity units.</p>
 </div>
+
+
 
 
 
@@ -148,7 +214,30 @@
 
         <tr>
             
-                <td class="name"><code>msg</code></td>
+                <td class="name"><code>dynamodb</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">DynamoDBClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like 'new DynamoDBClient({ region })`</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
             
 
             <td class="type">
@@ -164,57 +253,13 @@
 
             
 
-            <td class="description last"><p>A string of text</p></td>
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
         </tr>
 
     
     </tbody>
 </table>
 
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_logger.js.html">utils/logger.js</a>, <a href="utils_logger.js.html#line63">line 63</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
 
 
 
@@ -233,172 +278,21 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    <p>Returns the ARN of a TableDescription</p>
+</div>
 
 
-<dl>
+
+<dl class="param-type">
     <dt>
         Type
     </dt>
     <dd>
         
-<span class="param-type">undefined</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="debugSuccess"><span class="type-signature"></span>debugSuccess<span class="signature">(msg)</span><span class="type-signature"> &rarr; {undefined}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Outputs bold text with a green arrow when running DEGUG=name [COMMAND] in the terminal.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>msg</code></td>
-            
-
-            <td class="type">
-            
-                
 <span class="param-type">String</span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>A string of text</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_logger.js.html">utils/logger.js</a>, <a href="utils_logger.js.html#line54">line 54</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">undefined</span>
-
-
     </dd>
 </dl>
 
@@ -406,391 +300,67 @@
 
 
 
-
-
         
             
 
     
 
-    
-    <h4 class="name" id="error"><span class="type-signature"></span>error<span class="signature">(args)</span><span class="type-signature"> &rarr; {undefined}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Outputs a thick red &quot;X&quot;, followed by bold yellow text</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>args</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Takes nearly anything that you would pass into console.log</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_logger.js.html">utils/logger.js</a>, <a href="utils_logger.js.html#line39">line 39</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">undefined</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="failDeploy"><span class="type-signature"></span>failDeploy<span class="signature">()</span><span class="type-signature"> &rarr; {undefined}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Outputs bold yellow text with a red &quot;X&quot; if any part of the aws deployment failed.</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_logger.js.html">utils/logger.js</a>, <a href="utils_logger.js.html#line71">line 71</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">undefined</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="help"><span class="type-signature"></span>help<span class="signature">()</span><span class="type-signature"> &rarr; {undefined}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Triggered by entering an invalid command. Outputs possible valid commands.</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_logger.js.html">utils/logger.js</a>, <a href="utils_logger.js.html#line81">line 81</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">undefined</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
     <h4 class="name" id="module:addPostLambdaEventPermission"><span class="type-signature"></span>module:addPostLambdaEventPermission<span class="signature">(region, lambdaName, sourceArn, cronJobName, postLambdaArn)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_addPostLambdaEventPermission.js.html">aws/deploy/addPostLambdaEventPermission.js</a>, <a href="aws_deploy_addPostLambdaEventPermission.js.html#line79">line 79</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
     <p>Exports addPostLambdaEventPermission</p>
 </div>
+
+
 
 
 
@@ -945,52 +515,6 @@
 
 
 
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_deploy_addPostLambdaEventPermission.js.html">aws/deploy/addPostLambdaEventPermission.js</a>, <a href="aws_deploy_addPostLambdaEventPermission.js.html#line79">line 79</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
 
 
 
@@ -1009,55 +533,14 @@
 
     
 
-    
     <h4 class="name" id="module:config"><span class="type-signature"></span>module:config<span class="signature">()</span><span class="type-signature"></span></h4>
-    
 
     
-
-
-
-<div class="description">
-    <p>Iterates through every profile in the user-answers.json file and logs the contents of each to the console.</p>
-</div>
-
-
-
-
-
-
-
-
-
 
 
 
 
 <dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 
     
     <dt class="tag-source">Source:</dt>
@@ -1071,7 +554,49 @@
     
 
     
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 </dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Iterates through every profile in the user-answers.json file and logs the contents of each to the console.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1100,6 +625,185 @@
 
 
 
+        
+            
+
+    
+
+    <h4 class="name" id="module:createRole"><span class="type-signature"></span>module:createRole<span class="signature">(region, roleName)</span><span class="type-signature"> &rarr; {String}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_createRole.js.html">aws/deploy/createRole.js</a>, <a href="aws_deploy_createRole.js.html#line110">line 110</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Exports createRole.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>region</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant destructured from the CLI user's answers in deploy.js. Like &quot;us-east-2&quot;.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>roleName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Made in deploy.js: <code>beekeeper-${PROFILE_NAME}-master-role</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A constant Amazon Resource Number uniquely identifying the role. It is needed by many other modules called in deploy.js because AWS services often need to be associated with a role containing their permissions.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
 
 
         
@@ -1107,17 +811,62 @@
 
     
 
-    
     <h4 class="name" id="module:deploy"><span class="type-signature"></span>module:deploy<span class="signature">(profileName)</span><span class="type-signature"> &rarr; {undefined}</span></h4>
-    
 
     
 
 
 
-<div class="description">
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="commands_deploy.js.html">commands/deploy.js</a>, <a href="commands_deploy.js.html#line38">line 38</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
     <p>The deploy command combines all of the deploy modules and invokes them with the required parameters.</p>
 </div>
+
+
 
 
 
@@ -1180,36 +929,55 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">undefined</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="module:deployApiGateway"><span class="type-signature"></span>module:deployApiGateway<span class="signature">(region, apiGatewayName, preLambdaArn, stageName)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+
 <dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="commands_deploy.js.html">commands/deploy.js</a>, <a href="commands_deploy.js.html#line38">line 38</a>
+        <a href="aws_deploy_deployApiGateway.js.html">aws/deploy/deployApiGateway.js</a>, <a href="aws_deploy_deployApiGateway.js.html#line252">line 252</a>
     </li></ul></dd>
     
 
@@ -1218,7 +986,167 @@
     
 
     
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 </dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Exports <code>deployApiGateway()</code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>region</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant destructured from the CLI user's answers in <code>deploy.js</code>. Like &quot;us-east-2&quot;.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>apiGatewayName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant created in <code>deploy.js</code>, is <code>beekeeper-${PROFILE_NAME}-apigateway</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>preLambdaArn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Amazon resource name of the Lambda we need the &quot;/beekeeper&quot; resource of this API Gateway to trigger.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>stageName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant initialized in <code>deploy.js</code>, is &quot;prod&quot;</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
 
 
 
@@ -1237,15 +1165,19 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    <p>An object with two properties, the restApiId refers to the API Gateway and the stageBeekeeperUrl. The restApiId is needed by other modules to add additional resources. The stageBeekeeperUrl is the URL we build and give to our user: this is the URL they will send out to their users and which redirects to the waiting room.</p>
+</div>
 
 
-<dl>
+
+<dl class="param-type">
     <dt>
         Type
     </dt>
     <dd>
         
-<span class="param-type">undefined</span>
+<span class="param-type">Object</span>
 
 
     </dd>
@@ -1255,6 +1187,300 @@
 
 
 
+        
+            
+
+    
+
+    <h4 class="name" id="module:deployClientCheckRoute"><span class="type-signature"></span>module:deployClientCheckRoute<span class="signature">(restApiId, region, apiGatewayName, dynamoName, roleArn, stageName, protectUrl)</span><span class="type-signature"> &rarr; {String}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployClientCheckRoute.js.html">aws/deploy/deployClientCheckRoute.js</a>, <a href="aws_deploy_deployClientCheckRoute.js.html#line282">line 282</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Exports <code>deployClientCheckRoute()</code></p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>restApiId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The id referring to the API Gateway</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>region</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant destructured from the CLI user's answers in <code>deploy.js</code>. Like &quot;us-east-2&quot;.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>apiGatewayName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant created in <code>deploy.js</code>, is <code>beekeeper-${PROFILE_NAME}-apigateway</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized in <code>deploy.js</code>, looks like <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>roleArn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Amazon resource number for the kitchen sink role returned by <code>createRole()</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>stageName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant &quot;prod&quot;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>protectUrl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant destructured from the CLI user's answers in <code>deploy.js</code>. Like &quot;https://www.example.com&quot;.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A URL that the final destination can use to check that a given user didn't skip the waiting room, looks like <code>https://${restApiId}.execute-api.${region}.amazonaws.com/${stageName}/${clientCheckResourceName}</code>;</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
 
 
         
@@ -1262,17 +1488,447 @@
 
     
 
+    <h4 class="name" id="module:deployCloudwatchEvent"><span class="type-signature"></span>module:deployCloudwatchEvent<span class="signature">(region, postLambdaArn, cronJobName)</span><span class="type-signature"> &rarr; {String}</span></h4>
+
     
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployCloudwatchEvent.js.html">aws/deploy/deployCloudwatchEvent.js</a>, <a href="aws_deploy_deployCloudwatchEvent.js.html#line68">line 68</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Exports deployCloudwatchEvent</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>region</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant destructured from the CLI user's answers in <code>deploy.js</code>. Like &quot;us-east-2&quot;.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>postLambdaArn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A Amazon Resource Number referring to the post queue Lambda we need to put this cloudwatch rule on.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cronJobName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Initialized in <code>deploy.js</code>, looks like <code>beekeeper-${PROFILE_NAME}-cloudwatcheventcron</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Returns a Amazon Resource Number identifying this rule we just created.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="module:deployCloudwatchEvent"><span class="type-signature"></span>module:deployCloudwatchEvent<span class="signature">(region, dlqName)</span><span class="type-signature"> &rarr; {String}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployDlq.js.html">aws/deploy/deployDlq.js</a>, <a href="aws_deploy_deployDlq.js.html#line73">line 73</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Exports deployDlq</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>region</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant destructured from the CLI user's answers in <code>deploy.js</code>. Like &quot;us-east-2&quot;.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dlqName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized in <code>deploy.js</code>, looks like <code>beekeeper-${PROFILE_NAME}-dlq</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Returns the ARN that refers to the DLQ created by this module.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id="module:destroy"><span class="type-signature"></span>module:destroy<span class="signature">(profileName)</span><span class="type-signature"> &rarr; {undefined}</span></h4>
-    
 
     
 
 
 
-<div class="description">
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="commands_destroy.js.html">commands/destroy.js</a>, <a href="commands_destroy.js.html#line33">line 33</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
     <p>The destroy command combines all of the destroy modules and invokes them with the required parameters.</p>
 </div>
+
+
 
 
 
@@ -1335,50 +1991,6 @@
 
 
 
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="commands_destroy.js.html">commands/destroy.js</a>, <a href="commands_destroy.js.html#line33">line 33</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
 
 
 
@@ -1394,7 +2006,7 @@
         
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -1410,24 +2022,67 @@
 
 
 
-
-
         
             
 
     
 
-    
     <h4 class="name" id="module:destroyApiGateway"><span class="type-signature"></span>module:destroyApiGateway<span class="signature">(region, apiName)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_destroy_destroyApiGateway.js.html">aws/destroy/destroyApiGateway.js</a>, <a href="aws_destroy_destroyApiGateway.js.html#line58">line 58</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
     <p>Exports destroyApiGateway</p>
 </div>
+
+
 
 
 
@@ -1513,52 +2168,6 @@
 
 
 
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyApiGateway.js.html">aws/destroy/destroyApiGateway.js</a>, <a href="aws_destroy_destroyApiGateway.js.html#line58">line 58</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
 
 
 
@@ -1577,17 +2186,62 @@
 
     
 
-    
     <h4 class="name" id="module:destroyCloudwatchEvent"><span class="type-signature"></span>module:destroyCloudwatchEvent<span class="signature">(region, name)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_destroy_destroyCloudwatchEvent.js.html">aws/destroy/destroyCloudwatchEvent.js</a>, <a href="aws_destroy_destroyCloudwatchEvent.js.html#line57">line 57</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
     <p>Exports destroyCloudwatchEvent</p>
 </div>
+
+
 
 
 
@@ -1673,52 +2327,6 @@
 
 
 
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyCloudwatchEvent.js.html">aws/destroy/destroyCloudwatchEvent.js</a>, <a href="aws_destroy_destroyCloudwatchEvent.js.html#line57">line 57</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
 
 
 
@@ -1737,17 +2345,62 @@
 
     
 
-    
     <h4 class="name" id="module:destroyDynamo"><span class="type-signature"></span>module:destroyDynamo<span class="signature">(region, tableName)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_destroy_destroyDynamo.js.html">aws/destroy/destroyDynamo.js</a>, <a href="aws_destroy_destroyDynamo.js.html#line36">line 36</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
     <p>Exports destroyDynamo</p>
 </div>
+
+
 
 
 
@@ -1833,52 +2486,6 @@
 
 
 
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyDynamo.js.html">aws/destroy/destroyDynamo.js</a>, <a href="aws_destroy_destroyDynamo.js.html#line36">line 36</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
 
 
 
@@ -1897,17 +2504,62 @@
 
     
 
-    
     <h4 class="name" id="module:destroyLambda"><span class="type-signature"></span>module:destroyLambda<span class="signature">(region, lambdaName)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_destroy_destroyLambda.js.html">aws/destroy/destroyLambda.js</a>, <a href="aws_destroy_destroyLambda.js.html#line34">line 34</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
     <p>Exports destroyLambda</p>
 </div>
+
+
 
 
 
@@ -1993,52 +2645,6 @@
 
 
 
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyLambda.js.html">aws/destroy/destroyLambda.js</a>, <a href="aws_destroy_destroyLambda.js.html#line34">line 34</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
 
 
 
@@ -2057,17 +2663,62 @@
 
     
 
-    
     <h4 class="name" id="module:destroyRole"><span class="type-signature"></span>module:destroyRole<span class="signature">(region, roleName)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_destroy_destroyRole.js.html">aws/destroy/destroyRole.js</a>, <a href="aws_destroy_destroyRole.js.html#line83">line 83</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
     <p>Exports destroyRole</p>
 </div>
+
+
 
 
 
@@ -2153,52 +2804,6 @@
 
 
 
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyRole.js.html">aws/destroy/destroyRole.js</a>, <a href="aws_destroy_destroyRole.js.html#line83">line 83</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
 
 
 
@@ -2217,17 +2822,62 @@
 
     
 
-    
     <h4 class="name" id="module:destroyS3"><span class="type-signature"></span>module:destroyS3<span class="signature">(region, bucketName)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_destroy_destroyS3.js.html">aws/destroy/destroyS3.js</a>, <a href="aws_destroy_destroyS3.js.html#line86">line 86</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
     <p>Exports destroyS3</p>
 </div>
+
+
 
 
 
@@ -2313,52 +2963,6 @@
 
 
 
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyS3.js.html">aws/destroy/destroyS3.js</a>, <a href="aws_destroy_destroyS3.js.html#line86">line 86</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
 
 
 
@@ -2377,17 +2981,62 @@
 
     
 
-    
     <h4 class="name" id="module:destroySQS"><span class="type-signature"></span>module:destroySQS<span class="signature">(region, queueName)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_destroy_destroySQS.js.html">aws/destroy/destroySQS.js</a>, <a href="aws_destroy_destroySQS.js.html#line60">line 60</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
     <p>Exports destroySQS</p>
 </div>
+
+
 
 
 
@@ -2473,52 +3122,6 @@
 
 
 
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroySQS.js.html">aws/destroy/destroySQS.js</a>, <a href="aws_destroy_destroySQS.js.html#line60">line 60</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
 
 
 
@@ -2537,15 +3140,58 @@
 
     
 
-    
     <h4 class="name" id="module:init"><span class="type-signature"></span>module:init<span class="signature">()</span><span class="type-signature"> &rarr; {undefined}</span></h4>
-    
 
     
 
 
 
-<div class="description">
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="commands_init.js.html">commands/init.js</a>, <a href="commands_init.js.html#line22">line 22</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
     <p>Exports the init function.</p>
 </div>
 
@@ -2561,48 +3207,6 @@
 
 
 
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="commands_init.js.html">commands/init.js</a>, <a href="commands_init.js.html#line22">line 22</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
 
 
 
@@ -2620,7 +3224,7 @@
         
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -2636,23 +3240,64 @@
 
 
 
-
-
         
             
 
     
 
-    
-    <h4 class="name" id="module:retry"><span class="type-signature"></span>module:retry<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
-    
+    <h4 class="name" id="module:logger"><span class="type-signature"></span>module:logger<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
 
 
-<div class="description">
-    <p>Exports the retry function.</p>
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_logger.js.html">utils/logger.js</a>, <a href="utils_logger.js.html#line25">line 25</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Exports the logger function.</p>
 </div>
 
 
@@ -2664,48 +3309,6 @@
 
 
 
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_retry.js.html">utils/retry.js</a>, <a href="utils_retry.js.html#line25">line 25</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
 
 
 
@@ -2726,7 +3329,112 @@
         
 
 
-<dl>
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="module:retry"><span class="type-signature"></span>module:retry<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_retry.js.html">utils/retry.js</a>, <a href="utils_retry.js.html#line25">line 25</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Exports the retry function.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -2742,24 +3450,67 @@
 
 
 
-
-
         
             
 
     
 
-    
     <h4 class="name" id="module:setRate"><span class="type-signature"></span>module:setRate<span class="signature">(profileName, newRate)</span><span class="type-signature"> &rarr; {undefined}</span></h4>
-    
 
     
 
 
 
-<div class="description">
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="commands_setRate.js.html">commands/setRate.js</a>, <a href="commands_setRate.js.html#line92">line 92</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
     <p>Exports the setRate function.</p>
 </div>
+
+
 
 
 
@@ -2845,50 +3596,6 @@
 
 
 
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="commands_setRate.js.html">commands/setRate.js</a>, <a href="commands_setRate.js.html#line92">line 92</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
 
 
 
@@ -2904,7 +3611,7 @@
         
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -2920,24 +3627,67 @@
 
 
 
-
-
         
             
 
     
 
-    
     <h4 class="name" id="module:toggle"><span class="type-signature"></span>module:toggle<span class="signature">(onOff)</span><span class="type-signature"> &rarr; {function}</span></h4>
-    
 
     
 
 
 
-<div class="description">
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="commands_toggle.js.html">commands/toggle.js</a>, <a href="commands_toggle.js.html#line79">line 79</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
     <p>Exports the onOff function.</p>
 </div>
+
+
 
 
 
@@ -3000,50 +3750,6 @@
 
 
 
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="commands_toggle.js.html">commands/toggle.js</a>, <a href="commands_toggle.js.html#line79">line 79</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
 
 
 
@@ -3063,7 +3769,7 @@
 
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -3076,8 +3782,6 @@
 </dl>
 
     
-
-
 
 
 
@@ -3094,19 +3798,21 @@
 
 
 
+    
+    
 </div>
-
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addPostLambdaEventPermission.html">addPostLambdaEventPermission</a></li><li><a href="module-config.html">config</a></li><li><a href="module-createRole.html">createRole</a></li><li><a href="module-deploy.html">deploy</a></li><li><a href="module-destroy.html">destroy</a></li><li><a href="module-destroyApiGateway.html">destroyApiGateway</a></li><li><a href="module-destroyCloudwatchEvent.html">destroyCloudwatchEvent</a></li><li><a href="module-destroyDynamo.html">destroyDynamo</a></li><li><a href="module-destroyLambda.html">destroyLambda</a></li><li><a href="module-destroyRole.html">destroyRole</a></li><li><a href="module-destroyS3.html">destroyS3</a></li><li><a href="module-destroySQS.html">destroySQS</a></li><li><a href="module-init.html">init</a></li><li><a href="module-promptQuestions.html">promptQuestions</a></li><li><a href="module-retry.html">retry</a></li><li><a href="module-setRate.html">setRate</a></li><li><a href="module-toggle.html">toggle</a></li><li><a href="module-utilities.html">utilities</a></li></ul><h3>Namespaces</h3><ul><li><a href="logger.html">logger</a></li></ul><h3>Global</h3><ul><li><a href="global.html#debugError">debugError</a></li><li><a href="global.html#debugSuccess">debugSuccess</a></li><li><a href="global.html#error">error</a></li><li><a href="global.html#failDeploy">failDeploy</a></li><li><a href="global.html#help">help</a></li></ul>
-</nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sat May 01 2021 07:30:43 GMT-0700 (Pacific Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Mon May 03 2021 08:50:18 GMT-0500 (Central Daylight Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
 </body>
 </html>

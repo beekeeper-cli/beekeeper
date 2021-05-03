@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>aws/deploy/deployClientCheckRoute.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addPostLambdaEventPermission.html">addPostLambdaEventPermission</a><ul class='methods'><li data-type='method'><a href="module-addPostLambdaEventPermission.html#~addLambdaPermission">addLambdaPermission</a></li><li data-type='method'><a href="module-addPostLambdaEventPermission.html#~createTarget">createTarget</a></li></ul></li><li><a href="module-config.html">config</a></li><li><a href="module-createRole.html">createRole</a><ul class='methods'><li data-type='method'><a href="module-createRole.html#~addPermissions">addPermissions</a></li><li data-type='method'><a href="module-createRole.html#~attachPolicy">attachPolicy</a></li><li data-type='method'><a href="module-createRole.html#~createRole">createRole</a></li></ul></li><li><a href="module-deploy.html">deploy</a></li><li><a href="module-deployApiGateway.html">deployApiGateway</a><ul class='methods'><li data-type='method'><a href="module-deployApiGateway.html#~createApiGateway">createApiGateway</a></li><li data-type='method'><a href="module-deployApiGateway.html#~createResource">createResource</a></li><li data-type='method'><a href="module-deployApiGateway.html#~getResources">getResources</a></li><li data-type='method'><a href="module-deployApiGateway.html#~mainPutMethodRequest">mainPutMethodRequest</a></li><li data-type='method'><a href="module-deployApiGateway.html#~setIntegrationRequest">setIntegrationRequest</a></li><li data-type='method'><a href="module-deployApiGateway.html#~setIntegrationResponse">setIntegrationResponse</a></li><li data-type='method'><a href="module-deployApiGateway.html#~setMethodResponse">setMethodResponse</a></li></ul></li><li><a href="module-deployClientCheckRoute.html">deployClientCheckRoute</a><ul class='methods'><li data-type='method'><a href="module-deployClientCheckRoute.html#~createResource">createResource</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~deployResource">deployResource</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~getResources">getResources</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~putMethodRequest">putMethodRequest</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~setIntegrationRequest">setIntegrationRequest</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~setIntegrationResponse">setIntegrationResponse</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~setMethodResponse">setMethodResponse</a></li></ul></li><li><a href="module-deployCloudwatchEvent.html">deployCloudwatchEvent</a><ul class='methods'><li data-type='method'><a href="module-deployCloudwatchEvent.html#~createCloudWatchEventRule">createCloudWatchEventRule</a></li></ul></li><li><a href="module-deployDlq.html">deployDlq</a><ul class='methods'><li data-type='method'><a href="module-deployDlq.html#~createDLQ">createDLQ</a></li><li data-type='method'><a href="module-deployDlq.html#~getArn">getArn</a></li></ul></li><li><a href="module-deployDynamo.html">deployDynamo</a><ul class='methods'><li data-type='method'><a href="module-deployDynamo.html#~createDynamo">createDynamo</a></li></ul></li><li><a href="module-deployPollingRoute.html">deployPollingRoute</a><ul class='methods'><li data-type='method'><a href="module-deployPollingRoute.html#~createResource">createResource</a></li><li data-type='method'><a href="module-deployPollingRoute.html#~getResources">getResources</a></li><li data-type='method'><a href="module-deployPollingRoute.html#~putMethodRequest">putMethodRequest</a></li><li data-type='method'><a href="module-deployPollingRoute.html#~setIntegrationRequest">setIntegrationRequest</a></li><li data-type='method'><a href="module-deployPollingRoute.html#~setIntegrationResponse">setIntegrationResponse</a></li><li data-type='method'><a href="module-deployPollingRoute.html#~setMethodResponse">setMethodResponse</a></li></ul></li><li><a href="module-deployPollingS3Object.html">deployPollingS3Object</a><ul class='methods'><li data-type='method'><a href="module-deployPollingS3Object.html#~uploadToS3">uploadToS3</a></li></ul></li><li><a href="module-deployPostLambda.html">deployPostLambda</a><ul class='methods'><li data-type='method'><a href="module-deployPostLambda.html#~createPostLambda">createPostLambda</a></li><li data-type='method'><a href="module-deployPostLambda.html#~setLambdaConcurrency">setLambdaConcurrency</a></li></ul></li><li><a href="module-deployPreLambda.html">deployPreLambda</a><ul class='methods'><li data-type='method'><a href="module-deployPreLambda.html#~addLambdaPermission">addLambdaPermission</a></li><li data-type='method'><a href="module-deployPreLambda.html#~createPreLambda">createPreLambda</a></li></ul></li><li><a href="module-deployS3.html">deployS3</a><ul class='methods'><li data-type='method'><a href="module-deployS3.html#~createBucket">createBucket</a></li><li data-type='method'><a href="module-deployS3.html#~uploadToS3">uploadToS3</a></li></ul></li><li><a href="module-deploySqs.html">deploySqs</a><ul class='methods'><li data-type='method'><a href="module-deploySqs.html#~createSQS">createSQS</a></li></ul></li><li><a href="module-destroy.html">destroy</a></li><li><a href="module-destroyApiGateway.html">destroyApiGateway</a><ul class='methods'><li data-type='method'><a href="module-destroyApiGateway.html#~destroyRestApi">destroyRestApi</a></li><li data-type='method'><a href="module-destroyApiGateway.html#~getApiId">getApiId</a></li></ul></li><li><a href="module-destroyCloudwatchEvent.html">destroyCloudwatchEvent</a><ul class='methods'><li data-type='method'><a href="module-destroyCloudwatchEvent.html#~destroyCloudwatchEvent">destroyCloudwatchEvent</a></li><li data-type='method'><a href="module-destroyCloudwatchEvent.html#~destroyCloudwatchTarget">destroyCloudwatchTarget</a></li></ul></li><li><a href="module-destroyDynamo.html">destroyDynamo</a><ul class='methods'><li data-type='method'><a href="module-destroyDynamo.html#~destroyTable">destroyTable</a></li></ul></li><li><a href="module-destroyLambda.html">destroyLambda</a><ul class='methods'><li data-type='method'><a href="module-destroyLambda.html#~destroyLambda">destroyLambda</a></li></ul></li><li><a href="module-destroyRole.html">destroyRole</a><ul class='methods'><li data-type='method'><a href="module-destroyRole.html#~destroyRole">destroyRole</a></li><li data-type='method'><a href="module-destroyRole.html#~detachPermissions">detachPermissions</a></li><li data-type='method'><a href="module-destroyRole.html#~detachPolicy">detachPolicy</a></li></ul></li><li><a href="module-destroyS3.html">destroyS3</a><ul class='methods'><li data-type='method'><a href="module-destroyS3.html#~deleteBucket">deleteBucket</a></li><li data-type='method'><a href="module-destroyS3.html#~deleteBucketObjects">deleteBucketObjects</a></li><li data-type='method'><a href="module-destroyS3.html#~listBucketObjects">listBucketObjects</a></li></ul></li><li><a href="module-destroySQS.html">destroySQS</a><ul class='methods'><li data-type='method'><a href="module-destroySQS.html#~destroyQueue">destroyQueue</a></li><li data-type='method'><a href="module-destroySQS.html#~getQueueUrl">getQueueUrl</a></li></ul></li><li><a href="module-init.html">init</a></li><li><a href="module-logger.html">logger</a><ul class='methods'><li data-type='method'><a href="module-logger.html#~debugError">debugError</a></li><li data-type='method'><a href="module-logger.html#~debugSuccess">debugSuccess</a></li><li data-type='method'><a href="module-logger.html#~error">error</a></li><li data-type='method'><a href="module-logger.html#~failDeploy">failDeploy</a></li><li data-type='method'><a href="module-logger.html#~help">help</a></li><li data-type='method'><a href="module-logger.html#~highlight">highlight</a></li></ul></li><li><a href="module-promptQuestions.html">promptQuestions</a><ul class='methods'><li data-type='method'><a href="module-promptQuestions.html#~promptQuestions">promptQuestions</a></li></ul></li><li><a href="module-retry.html">retry</a></li><li><a href="module-setRate.html">setRate</a><ul class='methods'><li data-type='method'><a href="module-setRate.html#~getLambdaConfig">getLambdaConfig</a></li><li data-type='method'><a href="module-setRate.html#~updateLambdaConfig">updateLambdaConfig</a></li><li data-type='method'><a href="module-setRate.html#~validateRate">validateRate</a></li></ul></li><li><a href="module-toggle.html">toggle</a><ul class='methods'><li data-type='method'><a href="module-toggle.html#~getLambdaConfig">getLambdaConfig</a></li><li data-type='method'><a href="module-toggle.html#~updateLambdaConfig">updateLambdaConfig</a></li></ul></li><li><a href="module-utilities.html">utilities</a><ul class='methods'><li data-type='method'><a href="module-utilities.html#~createFile">createFile</a></li><li data-type='method'><a href="module-utilities.html#~fileExists">fileExists</a></li><li data-type='method'><a href="module-utilities.html#~getContentType">getContentType</a></li><li data-type='method'><a href="module-utilities.html#~getFilePaths">getFilePaths</a></li><li data-type='method'><a href="module-utilities.html#~readFile">readFile</a></li><li data-type='method'><a href="module-utilities.html#~validateInitRan">validateInitRan</a></li><li data-type='method'><a href="module-utilities.html#~validateProfileName">validateProfileName</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">aws/deploy/deployClientCheckRoute.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Exports an async function that creates the "/client" resource with a GET method on it. This is the endpoint our users can hit to verify that one of their users hasn't skipped the waiting room. That request from the final destination to here will have the cookie, which has the token. This endpoint takes that token and checks the DB to see if it is there.
+ * @module deployClientCheckRoute
+ */
+
+const {
+  APIGatewayClient,
+  GetResourcesCommand,
+  CreateResourceCommand,
+  PutMethodCommand,
+  PutIntegrationCommand,
+  PutIntegrationResponseCommand,
+  PutMethodResponseCommand,
+  CreateDeploymentCommand,
+} = require("@aws-sdk/client-api-gateway");
+const logger = require("../../utils/logger")("dev");
+
+/**
+ * Function which gets the id of the root resource "/" of the API Gateway originally created in `deployApiGateway()`
+ * @param {APIGatewayClient} apiGateway Looks like `new APIGatewayClient({ region });`
+ * @param {String} restApiId ID refering to the API Gateway. Was returned from `deployApiGateway()`
+ * @param {String} apiGatewayName A constant from `deploy.js`, looks like `beekeeper-${PROFILE_NAME}-apigateway`
+ * @returns {String} An id which refers to the root resource of the API Gateway, i.e. "/"
+ */
+const getResources = async (apiGateway, restApiId, apiGatewayName) => {
+  const params = {
+    restApiId,
+  };
+
+  const command = new GetResourcesCommand(params);
+
+  try {
+    const result = await apiGateway.send(command);
+    const { id: resourceParentId } = result.items.find(
+      (item) => item.path === "/"
+    );
+    logger.debugSuccess(
+      `Successfully retrieved API root resource ('/') for: ${apiGatewayName}`
+    );
+    return resourceParentId;
+  } catch (err) {
+    logger.debugError("Error", err);
+    throw new Error(err);
+  }
+};
+
+/**
+ * Creates a subresource "/client" of root
+ * @param {APIGatewayClient} apiGateway Looks like `new APIGatewayClient({ region })`
+ * @param {String} restApiId The string returned from `createApiGateway()`
+ * @param {String} resourceParentId The id of the root resource returned from `getResources();`
+ * @param {String} resourceName A constant "client"
+ * @returns {String} A resourceId referring to this new resource
+ */
+const createResource = async (
+  apiGateway,
+  restApiId,
+  resourceParentId,
+  resourceName
+) => {
+  const params = {
+    restApiId,
+    parentId: resourceParentId,
+    pathPart: resourceName,
+  };
+
+  const command = new CreateResourceCommand(params);
+
+  try {
+    const { id: resourceId } = await apiGateway.send(command);
+    logger.debugSuccess(`Successfully retrieved resource id for: ${resourceName}`);
+    return resourceId;
+  } catch (err) {
+    logger.debugError("Error", err);
+    throw new Error(err);
+  }
+};
+
+/**
+ * Our "/client" endpoint has one method it handles, a GET request. This function creates it and customizes a header for the request named `cookie` so that it can be grabbed off the request at the next stage.
+ * @param {APIGatewayClient} apiGateway Looks like new `APIGatewayClient({ region })`
+ * @param {String} restApiId The string returned from `createApiGateway()`
+ * @param {String} clientCheckResourceId Id referring to the "/client" resource returned from `createResource()`
+ * @param {String} clientCheckResourceName A constant "client"
+ */
+const putMethodRequest = async (
+  apiGateway,
+  restApiId,
+  clientCheckResourceId,
+  clientCheckResourceName
+) => {
+  const params = {
+    restApiId,
+    httpMethod: "GET",
+    resourceId: clientCheckResourceId,
+    authorizationType: "NONE",
+    requestParameters: {
+      "method.request.header.cookie": false,
+    },
+  };
+
+  const command = new PutMethodCommand(params);
+
+  try {
+    await apiGateway.send(command);
+    logger.debugSuccess(
+      `Successfully set request method for resource: ${clientCheckResourceName}`
+    );
+  } catch (err) {
+    logger.debugError("Error", err);
+    throw new Error(err);
+  }
+};
+
+/**
+ * Instead of triggering a Lambda, this resource uses a template to access the `cookie` value off the request headers and then performs a direct query of the DB to see if the token exists.
+ * @param {APIGatewayClient} apiGateway Looks like `new APIGatewayClient({ region })`
+ * @param {String} clientCheckResourceId Id referring to the the "/client" resource we created.
+ * @param {String} restApiId The string returned from `createApiGateway()`
+ * @param {String} dynamoDbUri Uri that references the DynamoDB
+ * @param {String} clientCheckResourceName Constant is "client"
+ * @param {String} roleArn Amazon resource number for the kitchen sink role returned by `createRole()`
+ * @param {String} dynamoName Constant initialized in `deploy.js`, looks like `beekeeper-${PROFILE_NAME}-ddb`
+ */
+const setIntegrationRequest = async (
+  apiGateway,
+  clientCheckResourceId,
+  restApiId,
+  dynamoDbUri,
+  clientCheckResourceName,
+  roleArn,
+  dynamoName
+) => {
+  const params = {
+    httpMethod: "GET",
+    resourceId: clientCheckResourceId,
+    restApiId,
+    type: "AWS",
+    integrationHttpMethod: "POST",
+    contentHandling: "CONVERT_TO_TEXT",
+    passthroughBehavior: "WHEN_NO_TEMPLATES",
+    credentials: roleArn,
+    timeoutInMillis: 29000,
+    uri: dynamoDbUri,
+    requestTemplates: {
+      "application/json": `#set ($string = $input.params('cookie'))\n#set ($s = $string.split(\"=\"))\n{\n  \"TableName\": \"${dynamoName}\",\n  \"KeyConditionExpression\": \"usertoken = :v1\",\n  \"ExpressionAttributeValues\": {\n      \":v1\": {\n          \"S\": \"$s.get(1)\"\n      }\n  }\n}`,
+    },
+  };
+
+  const command = new PutIntegrationCommand(params);
+
+  try {
+    await apiGateway.send(command);
+    logger.debugSuccess(
+      `Successfully set integration request for resource: ${clientCheckResourceName}`
+    );
+  } catch (err) {
+    logger.debugError("Error", err);
+    throw new Error(err);
+  }
+};
+
+/**
+ * Creates the Integration Response stage of the API Gateway and makes customizations. We add specific headers to the response to allow CORS and since credentials are being sent with the original request to this resource, we have to specifically interpolate the URL we want the browswer to allow for Access-Control-Allow-Origin. We also use a template to take the response from the DB and construct an object to send back to the client with one property "allow" that will be a boolean.
+ * @param {APIGatewayClient} apiGateway Looks like `new APIGatewayClient({ region })`
+ * @param {String} clientCheckResourceId Id referring to the the "/client" resource we created.
+ * @param {String} restApiId The string returned from `createApiGateway()`
+ * @param {String} clientCheckResourceName Constant is "client"
+ * @param {String} protectUrl A constant destructured from the CLI user's answers in `deploy.js`. Like "https://www.example.com".
+ */
+const setIntegrationResponse = async (
+  apiGateway,
+  clientCheckResourceId,
+  restApiId,
+  clientCheckResourceName,
+  protectUrl
+) => {
+  const params = {
+    httpMethod: "GET",
+    resourceId: clientCheckResourceId,
+    restApiId,
+    statusCode: "200",
+    responseParameters: {
+      "method.response.header.Access-Control-Allow-Credentials": "'true'",
+      "method.response.header.Access-Control-Allow-Headers": "'*'",
+      "method.response.header.Access-Control-Allow-Methods": "'*'",
+      "method.response.header.Access-Control-Allow-Origin": `'${protectUrl}'`,
+    },
+    responseTemplates: {
+      "application/json":
+        `#set($inputRoot = $input.path(\'$\'))\n#if($inputRoot.Count > 0)\n{\n"allow": $inputRoot.Items[0].allow.BOOL\n}\n#else\n{\n"allow": false\n}\n#end`,
+    },
+  };
+
+  const command = new PutIntegrationResponseCommand(params);
+
+  try {
+    await apiGateway.send(command);
+    logger.debugSuccess(
+      `Successfully set integration response for resource: ${clientCheckResourceName}`
+    );
+  } catch (err) {
+    logger.debugError("Error", err);
+    throw new Error(err);
+  }
+};
+
+/**
+ * Creates the Method Response stage. Of note is the creation of headers for CORS purposes. The values start out as false when creating them, but are changed in `setIntegrationResponse()`
+ * @param {APIGatewayClient} apiGateway Looks like `new APIGatewayClient({ region })`
+ * @param {String} clientCheckResourceId Id referring to the the "/client" resource we created.
+ * @param {String} restApiId The string returned from `createApiGateway()`
+ * @param {String} clientCheckResourceName Constant is "client"
+ */
+const setMethodResponse = async (
+  apiGateway,
+  clientCheckResourceId,
+  restApiId,
+  clientCheckResourceName
+) => {
+  const params = {
+    httpMethod: "GET",
+    resourceId: clientCheckResourceId,
+    restApiId,
+    statusCode: "200",
+    responseParameters: {
+      "method.response.header.Access-Control-Allow-Credentials": false,
+      "method.response.header.Access-Control-Allow-Headers": false,
+      "method.response.header.Access-Control-Allow-Methods": false,
+      "method.response.header.Access-Control-Allow-Origin": false,
+    },
+  };
+
+  const command = new PutMethodResponseCommand(params);
+
+  try {
+    await apiGateway.send(command);
+    logger.debugSuccess(
+      `Successfully set method response for resource: ${clientCheckResourceName}`
+    );
+  } catch (err) {
+    logger.debugError("Error", err);
+    throw new Error(err);
+  }
+};
+
+/**
+ * Now that the API Gateway was created and all resources and their methods are added, we deploy the API Gateway.
+ * @param {APIGatewayClient} apiGateway Looks like `new APIGatewayClient({ region })`
+ * @param {String} restApiId The string returned from `createApiGateway()`
+ * @param {String} stageName A constant "prod"
+ */
+const deployResource = async (apiGateway, restApiId, stageName) => {
+  const params = {
+    restApiId,
+    stageDescription: "production client check endpoint",
+    stageName,
+  };
+
+  const command = new CreateDeploymentCommand(params);
+
+  try {
+    await apiGateway.send(command);
+    logger.debugSuccess(`Successfully deployed resource: ${restApiId}`);
+  } catch (err) {
+    logger.debugError("Error", err);
+    throw new Error(err);
+  }
+};
+
+/**
+ * Exports `deployClientCheckRoute()`
+ * @param {String} restApiId The id referring to the API Gateway
+ * @param {String} region A constant destructured from the CLI user's answers in `deploy.js`. Like "us-east-2".
+ * @param {String} apiGatewayName A constant created in `deploy.js`, is `beekeeper-${PROFILE_NAME}-apigateway`
+ * @param {String} dynamoName Constant initialized in `deploy.js`, looks like `beekeeper-${PROFILE_NAME}-ddb`
+ * @param {String} roleArn Amazon resource number for the kitchen sink role returned by `createRole()`
+ * @param {String} stageName A constant "prod"
+ * @param {String} protectUrl A constant destructured from the CLI user's answers in `deploy.js`. Like "https://www.example.com".
+ * @returns {String} A URL that the final destination can use to check that a given user didn't skip the waiting room, looks like `https://${restApiId}.execute-api.${region}.amazonaws.com/${stageName}/${clientCheckResourceName}`;
+ */
+module.exports = async (
+  restApiId,
+  region,
+  apiGatewayName,
+  dynamoName,
+  roleArn,
+  stageName,
+  protectUrl
+) => {
+  // Create an API Gateway client service object
+  const apiGateway = new APIGatewayClient({ region });
+
+  // Get root resource ('/')
+  const resourceParentId = await getResources(
+    apiGateway,
+    restApiId,
+    apiGatewayName
+  );
+
+  // Create Client Check Resource
+  const clientCheckResourceName = "client";
+  const clientCheckResourceId = await createResource(
+    apiGateway,
+    restApiId,
+    resourceParentId,
+    clientCheckResourceName
+  );
+
+  // Setup Method Request
+  await putMethodRequest(
+    apiGateway,
+    restApiId,
+    clientCheckResourceId,
+    clientCheckResourceName
+  );
+
+  // Setup Integration Request
+  const dynamoDbUri = `arn:aws:apigateway:${region}:dynamodb:action/Query`;
+  await setIntegrationRequest(
+    apiGateway,
+    clientCheckResourceId,
+    restApiId,
+    dynamoDbUri,
+    clientCheckResourceName,
+    roleArn,
+    dynamoName
+  );
+
+  // Setup Method Response
+  await setMethodResponse(
+    apiGateway,
+    clientCheckResourceId,
+    restApiId,
+    clientCheckResourceName
+  );
+
+  // Setup Integration Response
+  await setIntegrationResponse(
+    apiGateway,
+    clientCheckResourceId,
+    restApiId,
+    clientCheckResourceName,
+    protectUrl
+  );
+
+  // stage resource and deploy
+  await deployResource(apiGateway, restApiId, stageName);
+
+  // Client Check URL
+  return `https://${restApiId}.execute-api.${region}.amazonaws.com/${stageName}/${clientCheckResourceName}`;
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Mon May 03 2021 10:29:51 GMT-0500 (Central Daylight Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

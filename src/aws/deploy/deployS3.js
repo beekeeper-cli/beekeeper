@@ -1,3 +1,7 @@
+/**
+ * Exports an async function that deploys our S3 bucket which holds our waiting rooms assets
+ * @module deployS3
+ */
 const {
   S3Client,
   PutObjectCommand,
@@ -7,6 +11,12 @@ const logger = require("../../utils/logger")("dev");
 const { getFilePaths, getContentType } = require("../../utils/utilities");
 const fs = require("fs");
 
+/**
+ * Function creates the S3 bucket
+ * @param {S3Client} s3 Looks like `new S3Client({ region })`
+ * @param {String} bucketName Constant looks like `beekeeper-${PROFILE_NAME}-s3`
+ * @returns {String} Current implementation is not using this return value.
+ */
 const createBucket = async (s3, bucketName) => {
   const params = { Bucket: bucketName };
   const command = new CreateBucketCommand(params);
@@ -21,6 +31,13 @@ const createBucket = async (s3, bucketName) => {
   }
 };
 
+/**
+ * Function uploads a given asset for the S3 bucket. This is called with a loop that iterates through every file in the directory holding the S3 assets.
+ * @param {S3Client} s3 Looks like `new S3Client({ region })`
+ * @param {String} bucketName Constant looks like `beekeeper-${PROFILE_NAME}-s3`
+ * @param {String} directoryPath Constant that is the path of the folder holding all S3 assets
+ * @param {String} filePath The path of a given asset inside the S3 directory
+ */
 const uploadToS3 = async (s3, bucketName, directoryPath, filePath) => {
   const keyName = filePath.split(`${directoryPath}/`)[1];
   const extension = keyName.split(".").slice(-1)[0];
@@ -45,6 +62,13 @@ const uploadToS3 = async (s3, bucketName, directoryPath, filePath) => {
   }
 };
 
+/**
+ * Exports deployS3
+ * @param {String} region A constant destructured from the CLI user's answers in deploy.js. Like "us-east-2".
+ * @param {String} bucketName Constant looks like `beekeeper-${PROFILE_NAME}-s3`
+ * @param {String} directoryPath Constant that is the path of the folder holding all S3 assets
+ * @returns {String} A manually constructed string that represents the public URL of the S3 Bucket.
+ */
 module.exports = async (region, bucketName, directoryPath) => {
   // Create an S3 client service object
   const s3 = new S3Client({ region });

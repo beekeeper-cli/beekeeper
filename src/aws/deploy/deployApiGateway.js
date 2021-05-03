@@ -1,3 +1,8 @@
+/**
+ * Exports an async function that deploys our REST API Gateway, as opposed to HTTP API Gateway (AWS distinctions). We add one subresource, "/beekeeper" and customize it to handle GET requests. The "/beekeeper" resource handles first time visitors. We have more resources to create but separate those concerns into other modules.
+ * @module deployApiGateway
+ */
+
 const {
   APIGatewayClient,
   CreateRestApiCommand,
@@ -10,6 +15,13 @@ const {
 } = require("@aws-sdk/client-api-gateway");
 const logger = require("../../utils/logger")("dev");
 
+
+/**
+ * Creates the API Gateway and the root "/" resource. The first step of deploying an API Gateway, before you can add resources and methods to it, is to create the API Gateway itself.
+ * @param {APIGatewayClient} apiGateway Looks like `new APIGatewayClient({ region });`
+ * @param {String} apiGatewayName A constant from `deploy.js`, looks like `beekeeper-${PROFILE_NAME}-apigateway`
+ * @returns {String} A restApiId used to refer to the API Gateway.
+ */
 const createApiGateway = async (apiGateway, apiGatewayName) => {
   const params = {
     name: apiGatewayName,
@@ -31,6 +43,13 @@ const createApiGateway = async (apiGateway, apiGatewayName) => {
   }
 };
 
+/**
+ * Now we query AWS for the id of the root resource `"/"` on the API Gateway we previously created. We need this because we need to add further subresources to it.
+ * @param {APIGatewayClient} apiGateway Looks like `new APIGatewayClient({ region })`
+ * @param {String} restApiId The string returned from `createApiGateway()`
+ * @param {String} apiGatewayName A constant from deploy.js, looks like `beekeeper-${PROFILE_NAME}-apigateway`
+ * @returns {String} An id which refers to the root resource of the API Gateway, i.e. "/"
+ */
 const getResources = async (apiGateway, restApiId, apiGatewayName) => {
   const params = {
     restApiId,
@@ -51,23 +70,31 @@ const getResources = async (apiGateway, restApiId, apiGatewayName) => {
   }
 };
 
+/**
+ * Creates a subresource "/beekeeper" of root
+ * @param {APIGatewayClient} apiGateway Looks like `new APIGatewayClient({ region })`
+ * @param {String} restApiId The string returned from `createApiGateway()`
+ * @param {String} resourceParentId The id of the root resource returned from `getResources();`
+ * @param {String} mainResourceName A constant: "beekeeper"
+ * @returns {String} A resourceId referring to this new resource
+ */
 const createResource = async (
   apiGateway,
   restApiId,
   resourceParentId,
-  resourceName
+  mainResourceName
 ) => {
   const params = {
     restApiId,
     parentId: resourceParentId,
-    pathPart: resourceName,
+    pathPart: mainResourceName,
   };
 
   const command = new CreateResourceCommand(params);
 
   try {
     const { id: resourceId } = await apiGateway.send(command);
-    logger.debugSuccess(`Successfully retrieved resource id for: ${resourceName}`);
+    logger.debugSuccess(`Successfully retrieved resource id for: ${mainResourceName}`);
     return resourceId;
   } catch (err) {
     logger.debugError("Error", err);
@@ -75,6 +102,13 @@ const createResource = async (
   }
 };
 
+/**
+ * Our "/beekeeper" endpoint has one method it handles, a GET request. This function creates it.
+ * @param {APIGatewayClient} apiGateway Looks like new `APIGatewayClient({ region })`
+ * @param {String} restApiId The string returned from `createApiGateway()`
+ * @param {String} mainResourceId The id of the resource returned from `createResource();`
+ * @param {String} mainResourceName A constant: "beekeeper"
+ */
 const mainPutMethodRequest = async (
   apiGateway,
   restApiId,
@@ -101,6 +135,14 @@ const mainPutMethodRequest = async (
   }
 };
 
+/**
+ * Crates and customizes the Integration Request stage. For us, that means triggering a Lambda and setting this stage as "AWS_PROXY", which means the incoming request will be forwarded in its entirety to the Lambda.
+ * @param {APIGatewayClient} apiGateway Looks like `new APIGatewayClient({ region })`
+ * @param {String} mainResourceId The id referring to the "/beekeeper" resource
+ * @param {String} restApiId The string returned from `createApiGateway()`
+ * @param {String} lambdaUri Something we build that refers to the Lambda we want to trigger, looks like `arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/${preLambdaArn}/invocations`;
+ * @param {String} mainResourceName A constant: "beekeeper"
+ */
 const setIntegrationRequest = async (
   apiGateway,
   mainResourceId,
@@ -133,6 +175,13 @@ const setIntegrationRequest = async (
   }
 };
 
+/**
+ * Creates the Integration Response stage. Since the prior stage, the Integration Request stage, specified this process to be AWS_PROXY, there is nothing to customize at this Integration Response stage, just set it up. I.e. the response from the Lambda will be passed through in its entirety.
+ * @param {APIGatewayClient} apiGateway Looks like `new APIGatewayClient({ region })`
+ * @param {String} mainResourceId The id referring to the "/beekeeper" resource
+ * @param {String} restApiId The string returned from `createApiGateway()` 
+ * @param {String} mainResourceName A constant: "beekeeper"
+ */
 const setIntegrationResponse = async (
   apiGateway,
   mainResourceId,
@@ -159,6 +208,13 @@ const setIntegrationResponse = async (
   }
 };
 
+/**
+ * Creates the Method Response stage. Nothing special is customized in our case. The entire response from the Lambda is forwarded to the client as the API Gateway's response to the original request.
+ * @param {APIGatewayClient} apiGateway Looks like `new APIGatewayClient({ region })`
+ * @param {String} mainResourceId The id referring to the "/beekeeper" resource
+ * @param {String} restApiId The string returned from `createApiGateway()` 
+ * @param {String} mainResourceName A constant: "beekeeper" 
+ */
 const setMethodResponse = async (
   apiGateway,
   mainResourceId,
@@ -185,6 +241,14 @@ const setMethodResponse = async (
   }
 };
 
+/**
+ * Exports `deployApiGateway()`.
+ * @param {String} region A constant destructured from the CLI user's answers in `deploy.js`. Like "us-east-2".
+ * @param {String} apiGatewayName A constant created in `deploy.js`, is `beekeeper-${PROFILE_NAME}-apigateway`
+ * @param {String} preLambdaArn Amazon resource name of the Lambda we need the "/beekeeper" resource of this API Gateway to trigger.
+ * @param {String} stageName A constant initialized in `deploy.js`, is "prod"
+ * @returns {Object} An object with two properties, the restApiId refers to the API Gateway and the stageBeekeeperUrl. The restApiId is needed by other modules to add additional resources. The stageBeekeeperUrl is the URL we build and give to our user: this is the URL they will send out to their users and which redirects to the waiting room.
+ */
 module.exports = async (region, apiGatewayName, preLambdaArn, stageName) => {
   // Create an API Gateway client service object
   const apiGateway = new APIGatewayClient({ region });

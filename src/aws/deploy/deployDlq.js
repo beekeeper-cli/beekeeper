@@ -1,3 +1,8 @@
+/**
+ * Exports an async function that creates a dead letter queue (DLQ)
+ * @module deployDlq
+ */
+
 const {
   SQSClient,
   CreateQueueCommand,
@@ -5,6 +10,12 @@ const {
 } = require("@aws-sdk/client-sqs");
 const logger = require("../../utils/logger")("dev");
 
+/**
+ * Creates the DLQ.
+ * @param {SQSClient} sqs looks like `new SQSClient({ region });`
+ * @param {String} dlqName Constant initialized in `deploy.js`, looks like `beekeeper-${PROFILE_NAME}-dlq`
+ * @returns {String} A URL referring to the created DLQ
+ */
 const createDLQ = async (sqs, dlqName) => {
   const params = {
     QueueName: dlqName,
@@ -27,6 +38,12 @@ const createDLQ = async (sqs, dlqName) => {
   }
 };
 
+/**
+ * Once the DLQ is created, this function can now get ARN of it.
+ * @param {SQSClient} sqs looks like `new SQSClient({ region });`
+ * @param {String} dlqUrl URL that was returned from `createDLQ()`
+ * @returns {String} An Amazon Resource Name that refers to the DLQ
+ */
 const getArn = async (sqs, dlqUrl) => {
   const params = {
     QueueUrl: dlqUrl,
@@ -47,6 +64,12 @@ const getArn = async (sqs, dlqUrl) => {
   }
 };
 
+/**
+ * Exports deployDlq
+ * @param {String} region A constant destructured from the CLI user's answers in `deploy.js`. Like "us-east-2".
+ * @param {String} dlqName Constant initialized in `deploy.js`, looks like `beekeeper-${PROFILE_NAME}-dlq`
+ * @returns {String} Returns the ARN that refers to the DLQ created by this module.
+ */
 module.exports = async (region, dlqName) => {
   // Create an SQS client service object
   const sqs = new SQSClient({ region });

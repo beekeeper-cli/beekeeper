@@ -1,0 +1,2013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>deployClientCheckRoute - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addPostLambdaEventPermission.html">addPostLambdaEventPermission</a><ul class='methods'><li data-type='method'><a href="module-addPostLambdaEventPermission.html#~addLambdaPermission">addLambdaPermission</a></li><li data-type='method'><a href="module-addPostLambdaEventPermission.html#~createTarget">createTarget</a></li></ul></li><li><a href="module-config.html">config</a></li><li><a href="module-createRole.html">createRole</a><ul class='methods'><li data-type='method'><a href="module-createRole.html#~addPermissions">addPermissions</a></li><li data-type='method'><a href="module-createRole.html#~attachPolicy">attachPolicy</a></li><li data-type='method'><a href="module-createRole.html#~createRole">createRole</a></li></ul></li><li><a href="module-deploy.html">deploy</a></li><li><a href="module-deployApiGateway.html">deployApiGateway</a><ul class='methods'><li data-type='method'><a href="module-deployApiGateway.html#~createApiGateway">createApiGateway</a></li><li data-type='method'><a href="module-deployApiGateway.html#~createResource">createResource</a></li><li data-type='method'><a href="module-deployApiGateway.html#~getResources">getResources</a></li><li data-type='method'><a href="module-deployApiGateway.html#~mainPutMethodRequest">mainPutMethodRequest</a></li><li data-type='method'><a href="module-deployApiGateway.html#~setIntegrationRequest">setIntegrationRequest</a></li><li data-type='method'><a href="module-deployApiGateway.html#~setIntegrationResponse">setIntegrationResponse</a></li><li data-type='method'><a href="module-deployApiGateway.html#~setMethodResponse">setMethodResponse</a></li></ul></li><li><a href="module-deployClientCheckRoute.html">deployClientCheckRoute</a><ul class='methods'><li data-type='method'><a href="module-deployClientCheckRoute.html#~createResource">createResource</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~deployResource">deployResource</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~getResources">getResources</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~putMethodRequest">putMethodRequest</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~setIntegrationRequest">setIntegrationRequest</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~setIntegrationResponse">setIntegrationResponse</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~setMethodResponse">setMethodResponse</a></li></ul></li><li><a href="module-deployCloudwatchEvent.html">deployCloudwatchEvent</a><ul class='methods'><li data-type='method'><a href="module-deployCloudwatchEvent.html#~createCloudWatchEventRule">createCloudWatchEventRule</a></li></ul></li><li><a href="module-deployDlq.html">deployDlq</a><ul class='methods'><li data-type='method'><a href="module-deployDlq.html#~createDLQ">createDLQ</a></li><li data-type='method'><a href="module-deployDlq.html#~getArn">getArn</a></li></ul></li><li><a href="module-deployDynamo.html">deployDynamo</a><ul class='methods'><li data-type='method'><a href="module-deployDynamo.html#~createDynamo">createDynamo</a></li></ul></li><li><a href="module-deployPollingRoute.html">deployPollingRoute</a><ul class='methods'><li data-type='method'><a href="module-deployPollingRoute.html#~createResource">createResource</a></li><li data-type='method'><a href="module-deployPollingRoute.html#~getResources">getResources</a></li><li data-type='method'><a href="module-deployPollingRoute.html#~putMethodRequest">putMethodRequest</a></li><li data-type='method'><a href="module-deployPollingRoute.html#~setIntegrationRequest">setIntegrationRequest</a></li><li data-type='method'><a href="module-deployPollingRoute.html#~setIntegrationResponse">setIntegrationResponse</a></li><li data-type='method'><a href="module-deployPollingRoute.html#~setMethodResponse">setMethodResponse</a></li></ul></li><li><a href="module-deployPollingS3Object.html">deployPollingS3Object</a><ul class='methods'><li data-type='method'><a href="module-deployPollingS3Object.html#~uploadToS3">uploadToS3</a></li></ul></li><li><a href="module-deployPostLambda.html">deployPostLambda</a><ul class='methods'><li data-type='method'><a href="module-deployPostLambda.html#~createPostLambda">createPostLambda</a></li><li data-type='method'><a href="module-deployPostLambda.html#~setLambdaConcurrency">setLambdaConcurrency</a></li></ul></li><li><a href="module-deployPreLambda.html">deployPreLambda</a><ul class='methods'><li data-type='method'><a href="module-deployPreLambda.html#~addLambdaPermission">addLambdaPermission</a></li><li data-type='method'><a href="module-deployPreLambda.html#~createPreLambda">createPreLambda</a></li></ul></li><li><a href="module-deployS3.html">deployS3</a><ul class='methods'><li data-type='method'><a href="module-deployS3.html#~createBucket">createBucket</a></li><li data-type='method'><a href="module-deployS3.html#~uploadToS3">uploadToS3</a></li></ul></li><li><a href="module-deploySqs.html">deploySqs</a><ul class='methods'><li data-type='method'><a href="module-deploySqs.html#~createSQS">createSQS</a></li></ul></li><li><a href="module-destroy.html">destroy</a></li><li><a href="module-destroyApiGateway.html">destroyApiGateway</a><ul class='methods'><li data-type='method'><a href="module-destroyApiGateway.html#~destroyRestApi">destroyRestApi</a></li><li data-type='method'><a href="module-destroyApiGateway.html#~getApiId">getApiId</a></li></ul></li><li><a href="module-destroyCloudwatchEvent.html">destroyCloudwatchEvent</a><ul class='methods'><li data-type='method'><a href="module-destroyCloudwatchEvent.html#~destroyCloudwatchEvent">destroyCloudwatchEvent</a></li><li data-type='method'><a href="module-destroyCloudwatchEvent.html#~destroyCloudwatchTarget">destroyCloudwatchTarget</a></li></ul></li><li><a href="module-destroyDynamo.html">destroyDynamo</a><ul class='methods'><li data-type='method'><a href="module-destroyDynamo.html#~destroyTable">destroyTable</a></li></ul></li><li><a href="module-destroyLambda.html">destroyLambda</a><ul class='methods'><li data-type='method'><a href="module-destroyLambda.html#~destroyLambda">destroyLambda</a></li></ul></li><li><a href="module-destroyRole.html">destroyRole</a><ul class='methods'><li data-type='method'><a href="module-destroyRole.html#~destroyRole">destroyRole</a></li><li data-type='method'><a href="module-destroyRole.html#~detachPermissions">detachPermissions</a></li><li data-type='method'><a href="module-destroyRole.html#~detachPolicy">detachPolicy</a></li></ul></li><li><a href="module-destroyS3.html">destroyS3</a><ul class='methods'><li data-type='method'><a href="module-destroyS3.html#~deleteBucket">deleteBucket</a></li><li data-type='method'><a href="module-destroyS3.html#~deleteBucketObjects">deleteBucketObjects</a></li><li data-type='method'><a href="module-destroyS3.html#~listBucketObjects">listBucketObjects</a></li></ul></li><li><a href="module-destroySQS.html">destroySQS</a><ul class='methods'><li data-type='method'><a href="module-destroySQS.html#~destroyQueue">destroyQueue</a></li><li data-type='method'><a href="module-destroySQS.html#~getQueueUrl">getQueueUrl</a></li></ul></li><li><a href="module-init.html">init</a></li><li><a href="module-logger.html">logger</a><ul class='methods'><li data-type='method'><a href="module-logger.html#~debugError">debugError</a></li><li data-type='method'><a href="module-logger.html#~debugSuccess">debugSuccess</a></li><li data-type='method'><a href="module-logger.html#~error">error</a></li><li data-type='method'><a href="module-logger.html#~failDeploy">failDeploy</a></li><li data-type='method'><a href="module-logger.html#~help">help</a></li><li data-type='method'><a href="module-logger.html#~highlight">highlight</a></li></ul></li><li><a href="module-promptQuestions.html">promptQuestions</a><ul class='methods'><li data-type='method'><a href="module-promptQuestions.html#~promptQuestions">promptQuestions</a></li></ul></li><li><a href="module-retry.html">retry</a></li><li><a href="module-setRate.html">setRate</a><ul class='methods'><li data-type='method'><a href="module-setRate.html#~getLambdaConfig">getLambdaConfig</a></li><li data-type='method'><a href="module-setRate.html#~updateLambdaConfig">updateLambdaConfig</a></li><li data-type='method'><a href="module-setRate.html#~validateRate">validateRate</a></li></ul></li><li><a href="module-toggle.html">toggle</a><ul class='methods'><li data-type='method'><a href="module-toggle.html#~getLambdaConfig">getLambdaConfig</a></li><li data-type='method'><a href="module-toggle.html#~updateLambdaConfig">updateLambdaConfig</a></li></ul></li><li><a href="module-utilities.html">utilities</a><ul class='methods'><li data-type='method'><a href="module-utilities.html#~createFile">createFile</a></li><li data-type='method'><a href="module-utilities.html#~fileExists">fileExists</a></li><li data-type='method'><a href="module-utilities.html#~getContentType">getContentType</a></li><li data-type='method'><a href="module-utilities.html#~getFilePaths">getFilePaths</a></li><li data-type='method'><a href="module-utilities.html#~readFile">readFile</a></li><li data-type='method'><a href="module-utilities.html#~validateInitRan">validateInitRan</a></li><li data-type='method'><a href="module-utilities.html#~validateProfileName">validateProfileName</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">deployClientCheckRoute</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+            
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+                <div class="description usertext"><p>Exports an async function that creates the &quot;/client&quot; resource with a GET method on it. This is the endpoint our users can hit to verify that one of their users hasn't skipped the waiting room. That request from the final destination to here will have the cookie, which has the token. This endpoint takes that token and checks the DB to see if it is there.</p></div>
+            
+
+            
+                
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployClientCheckRoute.js.html">aws/deploy/deployClientCheckRoute.js</a>, <a href="aws_deploy_deployClientCheckRoute.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+                
+
+    
+
+    <h4 class="name" id="module:deployClientCheckRoute"><span class="type-signature"></span>(require("deployClientCheckRoute"))<span class="signature">(restApiId, region, apiGatewayName, dynamoName, roleArn, stageName, protectUrl)</span><span class="type-signature"> &rarr; {String}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployClientCheckRoute.js.html">aws/deploy/deployClientCheckRoute.js</a>, <a href="aws_deploy_deployClientCheckRoute.js.html#line282">line 282</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Exports <code>deployClientCheckRoute()</code></p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>restApiId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The id referring to the API Gateway</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>region</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant destructured from the CLI user's answers in <code>deploy.js</code>. Like &quot;us-east-2&quot;.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>apiGatewayName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant created in <code>deploy.js</code>, is <code>beekeeper-${PROFILE_NAME}-apigateway</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized in <code>deploy.js</code>, looks like <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>roleArn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Amazon resource number for the kitchen sink role returned by <code>createRole()</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>stageName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant &quot;prod&quot;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>protectUrl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant destructured from the CLI user's answers in <code>deploy.js</code>. Like &quot;https://www.example.com&quot;.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A URL that the final destination can use to check that a given user didn't skip the waiting room, looks like <code>https://${restApiId}.execute-api.${region}.amazonaws.com/${stageName}/${clientCheckResourceName}</code>;</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="~createResource"><span class="type-signature">(async, inner) </span>createResource<span class="signature">(apiGateway, restApiId, resourceParentId, resourceName)</span><span class="type-signature"> &rarr; {String}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployClientCheckRoute.js.html">aws/deploy/deployClientCheckRoute.js</a>, <a href="aws_deploy_deployClientCheckRoute.js.html#line55">line 55</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Creates a subresource &quot;/client&quot; of root</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>apiGateway</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">APIGatewayClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like <code>new APIGatewayClient({ region })</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>restApiId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The string returned from <code>createApiGateway()</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>resourceParentId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The id of the root resource returned from <code>getResources();</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>resourceName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant &quot;client&quot;</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A resourceId referring to this new resource</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~deployResource"><span class="type-signature">(async, inner) </span>deployResource<span class="signature">(apiGateway, restApiId, stageName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployClientCheckRoute.js.html">aws/deploy/deployClientCheckRoute.js</a>, <a href="aws_deploy_deployClientCheckRoute.js.html#line253">line 253</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Now that the API Gateway was created and all resources and their methods are added, we deploy the API Gateway.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>apiGateway</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">APIGatewayClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like <code>new APIGatewayClient({ region })</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>restApiId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The string returned from <code>createApiGateway()</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>stageName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant &quot;prod&quot;</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~getResources"><span class="type-signature">(async, inner) </span>getResources<span class="signature">(apiGateway, restApiId, apiGatewayName)</span><span class="type-signature"> &rarr; {String}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployClientCheckRoute.js.html">aws/deploy/deployClientCheckRoute.js</a>, <a href="aws_deploy_deployClientCheckRoute.js.html#line25">line 25</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Function which gets the id of the root resource &quot;/&quot; of the API Gateway originally created in <code>deployApiGateway()</code></p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>apiGateway</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">APIGatewayClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like <code>new APIGatewayClient({ region });</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>restApiId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID refering to the API Gateway. Was returned from <code>deployApiGateway()</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>apiGatewayName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant from <code>deploy.js</code>, looks like <code>beekeeper-${PROFILE_NAME}-apigateway</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>An id which refers to the root resource of the API Gateway, i.e. &quot;/&quot;</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~putMethodRequest"><span class="type-signature">(async, inner) </span>putMethodRequest<span class="signature">(apiGateway, restApiId, clientCheckResourceId, clientCheckResourceName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployClientCheckRoute.js.html">aws/deploy/deployClientCheckRoute.js</a>, <a href="aws_deploy_deployClientCheckRoute.js.html#line86">line 86</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Our &quot;/client&quot; endpoint has one method it handles, a GET request. This function creates it and customizes a header for the request named <code>cookie</code> so that it can be grabbed off the request at the next stage.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>apiGateway</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">APIGatewayClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like new <code>APIGatewayClient({ region })</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>restApiId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The string returned from <code>createApiGateway()</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clientCheckResourceId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Id referring to the &quot;/client&quot; resource returned from <code>createResource()</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clientCheckResourceName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant &quot;client&quot;</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~setIntegrationRequest"><span class="type-signature">(async, inner) </span>setIntegrationRequest<span class="signature">(apiGateway, clientCheckResourceId, restApiId, dynamoDbUri, clientCheckResourceName, roleArn, dynamoName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployClientCheckRoute.js.html">aws/deploy/deployClientCheckRoute.js</a>, <a href="aws_deploy_deployClientCheckRoute.js.html#line125">line 125</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Instead of triggering a Lambda, this resource uses a template to access the <code>cookie</code> value off the request headers and then performs a direct query of the DB to see if the token exists.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>apiGateway</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">APIGatewayClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like <code>new APIGatewayClient({ region })</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clientCheckResourceId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Id referring to the the &quot;/client&quot; resource we created.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>restApiId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The string returned from <code>createApiGateway()</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoDbUri</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Uri that references the DynamoDB</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clientCheckResourceName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant is &quot;client&quot;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>roleArn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Amazon resource number for the kitchen sink role returned by <code>createRole()</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized in <code>deploy.js</code>, looks like <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~setIntegrationResponse"><span class="type-signature">(async, inner) </span>setIntegrationResponse<span class="signature">(apiGateway, clientCheckResourceId, restApiId, clientCheckResourceName, protectUrl)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployClientCheckRoute.js.html">aws/deploy/deployClientCheckRoute.js</a>, <a href="aws_deploy_deployClientCheckRoute.js.html#line171">line 171</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Creates the Integration Response stage of the API Gateway and makes customizations. We add specific headers to the response to allow CORS and since credentials are being sent with the original request to this resource, we have to specifically interpolate the URL we want the browswer to allow for Access-Control-Allow-Origin. We also use a template to take the response from the DB and construct an object to send back to the client with one property &quot;allow&quot; that will be a boolean.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>apiGateway</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">APIGatewayClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like <code>new APIGatewayClient({ region })</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clientCheckResourceId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Id referring to the the &quot;/client&quot; resource we created.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>restApiId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The string returned from <code>createApiGateway()</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clientCheckResourceName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant is &quot;client&quot;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>protectUrl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant destructured from the CLI user's answers in <code>deploy.js</code>. Like &quot;https://www.example.com&quot;.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~setMethodResponse"><span class="type-signature">(async, inner) </span>setMethodResponse<span class="signature">(apiGateway, clientCheckResourceId, restApiId, clientCheckResourceName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployClientCheckRoute.js.html">aws/deploy/deployClientCheckRoute.js</a>, <a href="aws_deploy_deployClientCheckRoute.js.html#line215">line 215</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Creates the Method Response stage. Of note is the creation of headers for CORS purposes. The values start out as false when creating them, but are changed in <code>setIntegrationResponse()</code></p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>apiGateway</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">APIGatewayClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like <code>new APIGatewayClient({ region })</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clientCheckResourceId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Id referring to the the &quot;/client&quot; resource we created.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>restApiId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The string returned from <code>createApiGateway()</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clientCheckResourceName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant is &quot;client&quot;</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Mon May 03 2021 10:29:51 GMT-0500 (Central Daylight Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>
