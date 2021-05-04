@@ -48,6 +48,32 @@ const updateLambdaConfig = async (lambda, lambdaName, environment, rate) => {
 }
 
 /**
+ * Function sets a reserce concurrency amount of Lambdas for post-queue and uses the rate to determine it, keeping in mind there are a specific number of loops happening in the post Lambda code in its index.js that together work out to be the rate desired.
+ * @param {LambdaClient} lambda Looks like `new LambdaClient({ region })`
+ * @param {String} lambdaName A constant `beekeeper-${PROFILE_NAME}-postlambda`
+ * @param {Number} rate A constant destructured from answers in the CLI, used by the frontend JavaScript to show dynamic information to the user in waiting room.
+ */
+const setLambdaConcurrency = async (lambda, lambdaName, rate) => {
+  // Assumption for now is rate is requests per minute, and one lambda does 10 messages per minute pursuant to CloudFront cronjob
+  const reserveAmount = 1 + Math.floor(rate / 1500);
+
+  const params = {
+    FunctionName: lambdaName,
+    ReservedConcurrentExecutions: reserveAmount,
+  };
+
+  const command = new PutFunctionConcurrencyCommand(params);
+
+  try {
+    await lambda.send(command);
+    logger.debugSuccess(`Successfully set LambdaReserveConcurrency: ${reserveAmount}`);
+  } catch (err) {
+    logger.debugError("Error", err);
+    throw new Error(err);
+  }
+};
+
+/**
  * Gets the current configuration object of the postLambda.
  * @param {LambdaClient} lambda LambdaClient
  * @param {string} lambdaName The name of the postLambda
@@ -107,6 +133,7 @@ module.exports = async (profileName, newRate) => {
     validateRate(newRate);
     const { Environment:environment } = await getLambdaConfig(lambda, POST_LAMBDA_NAME);
     await updateLambdaConfig(lambda, POST_LAMBDA_NAME, environment, newRate);
+    await setLambdaConcurrency(lambda, POST_LAMBDA_NAME, newRate);
     logger.highlight(`${chalk.green.bold("✔")} Successfully set postLambda rate to ${newRate}`);
 
     profiles[profileName].RATE = newRate;
