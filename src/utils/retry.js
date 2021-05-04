@@ -41,7 +41,7 @@ module.exports = async (func) => {
           break;
         default:
           retry = true;
-          console.log("retry attempt: ", retries);
+          console.log(" retry attempt: ", retries);
           break;
       }
 
