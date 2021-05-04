@@ -67,11 +67,11 @@
       * Outputs bold yellow text with a red "X" if any part of the aws deployment failed.
       * @returns {undefined}
       */
-     failDeploy: () => {
+     failDeploy: (profileName) => {
        console.log("");
        console.log(`${chalk.red("✖")} ${chalk.yellow.bold("Failed to deploy waiting room infrastructure")}`);
        console.log("");
-       console.log(`Please enter ${chalk.yellow.bold('beekeeper destroy')} and then enter ${chalk.yellow.bold('beekeeper deploy')} after 60 seconds`);
+       console.log(`Please enter ${chalk.yellow.bold(`beekeeper destroy ${profileName}`)} and then enter ${chalk.yellow.bold(`beekeeper deploy ${profileName}`)} after 60 seconds`);
      },
      /**
       * Triggered by entering an invalid command. Outputs possible valid commands.

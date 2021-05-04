@@ -180,9 +180,11 @@ module.exports = async (profileName) => {
     console.log("");
     console.log(`Here's your waiting room URL: ${chalk.yellow.bold(stageBeekeeperUrl)}`);
     console.log(`Here's the client check endpoint: ${chalk.yellow.bold(clientCheckUrl)}`);
+    console.log("");
+    console.log(`Note: If you encounter a 500 error when visiting the wait room it is because AWS sometimes takes time to stand up the infrastructure. Rather than waiting for it to resolve, it is usually faster to simply destroy and re-deploy again`);
   } catch (err) {
     spinner.fail("Failed to deployed API Gateway")
-    logger.failDeploy();
+    logger.failDeploy(PROFILE_NAME);
     return;
   }
 }
