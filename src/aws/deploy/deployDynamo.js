@@ -30,8 +30,8 @@ const createDynamo = async (dynamodb, dynamoName) => {
     ],
     TableName: dynamoName,
     ProvisionedThroughput: {
-      ReadCapacityUnits: 5,
-      WriteCapacityUnits: 5,
+      ReadCapacityUnits: 100,
+      WriteCapacityUnits: 100,
     },
   };
   const command = new CreateTableCommand(params);

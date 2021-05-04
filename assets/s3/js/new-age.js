@@ -25,7 +25,7 @@ const COLOR_CODES = {
   }
 };
 
-const waitLine = parseInt(window.location.search.split('=')[1], 16) || 1;
+const waitLine = parseInt(window.location.search.split('=')[1], 10) || 1;
 const numOfMinutes = Math.ceil(waitLine / RATE);
 let currentDate = new Date();
 let waitDisplay = document.querySelector('#wait-display');
