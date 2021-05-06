@@ -91,10 +91,9 @@ module.exports = (onOff) => {
   
     const PRE_LAMBDA_NAME = `beekeeper-${profileName}-prelambda`;
     const { REGION } = profiles[profileName];
-  
+    
     // Create a Lambda client service object
-    const lambda = new LambdaClient({ REGION });
-  
+    const lambda = new LambdaClient({ region: REGION });
     try {
       const { Environment:environment } = await getLambdaConfig(lambda, PRE_LAMBDA_NAME);
       await updateLambdaConfig(lambda, PRE_LAMBDA_NAME, environment, WAITROOM_ON);
