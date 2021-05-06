@@ -44,6 +44,7 @@ module.exports = async (profileName) => {
   if (!validProfileName) return;
 
   const {[profileName] : { PROFILE_NAME, WAITING_ROOM_NAME, REGION, PROTECT_URL, RATE }} = profiles;
+
   const S3_NAME = `beekeeper-${PROFILE_NAME}-s3`
   const DLQ_NAME = `beekeeper-${PROFILE_NAME}-dlq`
   const SQS_NAME = `beekeeper-${PROFILE_NAME}-sqs`
@@ -67,7 +68,7 @@ module.exports = async (profileName) => {
     spinner.succeed("Successfully created IAM role")
   } catch (err) {
     spinner.fail("Failed to create IAM role")
-    logger.failDeploy();
+    logger.failDeploy(PROFILE_NAME);
     return;
   }
 
@@ -79,7 +80,7 @@ module.exports = async (profileName) => {
     spinner.succeed("Successfully deployed S3 bucket")
   } catch (err) {
     spinner.fail("Failed to deploy S3 bucket")
-    logger.failDeploy();
+    logger.failDeploy(PROFILE_NAME);
     return;
   }
 
@@ -91,7 +92,7 @@ module.exports = async (profileName) => {
     spinner.succeed("Successfully deployed DLQ")
   } catch (err) {
     spinner.fail("Failed to deployed DLQ")
-    logger.failDeploy();
+    logger.failDeploy(PROFILE_NAME);
     return;
   }
 
@@ -103,7 +104,7 @@ module.exports = async (profileName) => {
     spinner.succeed("Successfully deployed SQS")
   } catch (err) {
     spinner.fail("Failed to deployed SQS")
-    logger.failDeploy();
+    logger.failDeploy(PROFILE_NAME);
     return;
   }
 
@@ -115,7 +116,7 @@ module.exports = async (profileName) => {
     spinner.succeed("Successfully deployed DynamoDB")
   } catch (err) {
     spinner.fail("Failed to deployed DynamoDB")
-    logger.failDeploy();
+    logger.failDeploy(PROFILE_NAME);
     return;
   }
 
@@ -135,7 +136,7 @@ module.exports = async (profileName) => {
     spinner.succeed("Successfully deployed post-lambda")
   } catch (err) {
     spinner.fail("Failed to deployed post-lambda")
-    logger.failDeploy();
+    logger.failDeploy(PROFILE_NAME);
     return;
   }
 
@@ -148,7 +149,7 @@ module.exports = async (profileName) => {
     spinner.succeed("Successfully deployed pre-lambda")
   } catch (err) {
     spinner.fail("Failed to deployed pre-lambda")
-    logger.failDeploy();
+    logger.failDeploy(PROFILE_NAME);
     return;
   }
 
