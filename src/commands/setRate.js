@@ -127,7 +127,7 @@ module.exports = async (profileName, newRate) => {
   const { REGION } = profiles[profileName];
 
   // Create a Lambda client service object
-  const lambda = new LambdaClient({ REGION });
+  const lambda = new LambdaClient({ region: REGION });
 
   try {
     validateRate(newRate);
