@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="vendor/simple-line-icons/css/simple-line-icons.css">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 
   <!-- Custom styles -->
@@ -30,12 +31,15 @@
   <header class="masthead">
     <div class="container h-100">
       <div class="honeypot-message">
-        <p>Waiting room provided by Beekeeper</p>
+        <div class="back-logo">
+          <img src="./img/graphic_color.png" alt="beekeeper-logo" style="height: 80px;">
+          <p>Powered by Beekeeper</p>
+        </div>
       </div>
-      <div class="row h-100">
-        <div class="col-lg-7 my-auto">
+      <div class="row h-75">
+        <div class="col-lg-7 my-auto" style="padding:35px;">
           <div class="header-content mx-auto">
-            <h1 class="mb-2">You're in a waiting room for:</h1>
+            <h1 class="back-shadow mb-2">You're in a waiting room for:</h1>
             <h2 id="display-name" class="brand-name ml-3"></h2>
           </div>
         </div>
@@ -49,7 +53,7 @@
           </div>
         </div>
 
-        <h3 id="wait-display"></h3>
+        <h3 id="wait-display" style="padding:30px;"></h3>
         <p class="safari-message mt-5">This waiting room uses cookies. If you're using Safari, enable them or use a different browser (visit original URL again, not this URL).</p>
       </div>
     </div>

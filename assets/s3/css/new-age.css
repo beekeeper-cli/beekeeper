@@ -158,7 +158,8 @@ header.masthead {
   padding-bottom: 100px;
   color: white;
   background: url("../img/bg-pattern.png"), #7b4397;
-  background: url("../img/bg-pattern.png"), linear-gradient(to left, #7b4397, #dc2430);
+  background: url("../img/honey_comb.png"), linear-gradient(to left, #000000, #203E5F);
+
 }
 
 header.masthead .header-content {
@@ -442,7 +443,9 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active, footer ul li 
 
 .safari-message {
   /* text-align: center !important; */
-  color: goldenrod;
+  color:#FFCC00;
+  opacity: 0.3;
+  padding: 0 25px;
 }
 
 #wait-message {
@@ -508,4 +511,57 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 48px;
+}
+
+/* Custom CSS */
+.back-shadow {
+  text-shadow: white 0 0 200px;
+  font-family: 'Rubik', sans-serif;
+}
+
+.honeypot-message {
+  display: flex;
+  padding-top: 20px;
+}
+
+.honeypot-message p {
+  padding-top: 15px;
+  padding-right: 10px;
+  padding-bottom: 0px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 300;
+}
+
+.back-logo {
+  display: flex;
+  align-items: center;
+  padding: 0px 10px 0px 0;
+  background-color: rgba(255, 255, 255, 0.06);
+  border-radius: 25px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 300;
+}
+
+.check-status {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 300;
+}
+
+#wait-display {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 300;
+  font-size: 1.5em;
+  padding-top: 25px;
+}
+
+#display-name {
+  color: #FFCC00;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 300;
+}
+
+@media (max-width: 991px) { 
+  .masthead {
+    height: 100vh;
+  }
 }
