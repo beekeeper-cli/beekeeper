@@ -530,14 +530,15 @@ body {
   padding-bottom: 0px;
   font-family: 'Rubik', sans-serif;
   font-weight: 300;
+  text-shadow: black 0 0 50px;
 }
 
 .back-logo {
   display: flex;
   align-items: center;
   padding: 0px 10px 0px 0;
-  background-color: rgba(255, 255, 255, 0.06);
-  border-radius: 25px;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 50px;
   font-family: 'Rubik', sans-serif;
   font-weight: 300;
 }
