@@ -175,12 +175,12 @@ header.masthead {
   color: white;
   background: url("../img/bg-pattern.png"), #7b4397;
   background: url("../img/honey_comb.png"), linear-gradient(to left, #000000, #203E5F);
-
+  height: 100%;
 }
 
 header.masthead .header-content {
   max-width: 500px;
-  margin-bottom: 100px;
+  /* margin-bottom: 100px; */
   text-align: center;
 }
 
@@ -454,6 +454,7 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active, footer ul li 
   color:#FFCC00;
   opacity: 0.5;
   padding: 0 25px;
+  text-align: center;
 }
 
 #wait-message {
@@ -558,11 +559,22 @@ body {
   font-weight: 300;
   font-size: 1.5em;
   padding-top: 25px;
+  text-align: center;
+  margin: 0 auto;
 }
 
 #display-name {
   color: #FFCC00;
   font-weight: 300;
+}
+
+#timer {
+  display: flex;
+  justify-content: center;
+}
+
+.device-container {
+  text-align: center;
 }
 
 @media (max-width: 991px) { 
