@@ -1,4 +1,4 @@
-![Beekeeper Header](https://i.imgur.com/KwXD7hk.png)
+![Beekeeper Header](https://i.imgur.com/WWwmLWT.png)
 
 ## Overview
 Beekeeper is open-sourced Backend as a Service (BaaS) built to handle bursty traffic from one-off events like sale or promotion.  Set up a virtual virtual waitroom in a few minutes, and tear it down in seconds.
