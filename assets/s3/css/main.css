@@ -79,14 +79,12 @@ section h2 {
   border-color: rgba(34, 34, 34, 0.05);
   background-color: white;
   transition: all .35s;
-  /* font-family: 'Catamaran', 'Helvetica', 'Arial', 'sans-serif'; */
   font-weight: 200;
   letter-spacing: 1px;
 }
 
 #mainNav .navbar-brand {
   color: #fdcc52;
-  /* font-family: 'Catamaran', 'Helvetica', 'Arial', 'sans-serif'; */
   font-weight: 200;
   letter-spacing: 1px;
 }
@@ -103,7 +101,6 @@ section h2 {
 
 #mainNav .navbar-nav > li > a {
   font-size: 11px;
-  /* font-family: 'Lato', 'Helvetica', 'Arial', 'sans-serif'; */
   letter-spacing: 2px;
   text-transform: uppercase;
 }
@@ -458,6 +455,7 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active, footer ul li 
 
 #wait-message {
   display: none;
+  font-family: 'ralewayRegular';
 }
 
 /* Timer stuff */
