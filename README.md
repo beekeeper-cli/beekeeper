@@ -9,7 +9,7 @@ There is a difference between the infrastructure needed for normal business acti
 
 ### Beekeeper Architecture
 
-![Beekeeper architecture](https://i.imgur.com/WGXQ99J.png)
+![Beekeeper architecture](https://i.imgur.com/mssNhan.png)
 
 ## The Team
 **[Ryan Schaul](https://example.com)** *Software Engineer* Chicago, IL
@@ -51,7 +51,7 @@ The `init` command will prompt for the following information:
 
 The following components will be created on your aws account:
 
-- 5 IAM roles
+- A master IAM role
 - S3 Bucket with all needed html/css/js
 - SQS with dead letter queue (DLQ) attached
 - DynamoDB table
