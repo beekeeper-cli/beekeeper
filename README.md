@@ -1,4 +1,4 @@
-![Beekeeper Header](https://i.imgur.com/KwXD7hk.png)
+![Beekeeper Header](https://i.imgur.com/WWwmLWT.png)
 
 ## Overview
 Beekeeper is open-sourced Backend as a Service (BaaS) built to handle bursty traffic from one-off events like sale or promotion.  Set up a virtual virtual waitroom in a few minutes, and tear it down in seconds.
@@ -9,7 +9,7 @@ There is a difference between the infrastructure needed for normal business acti
 
 ### Beekeeper Architecture
 
-![Beekeeper architecture](https://i.imgur.com/WGXQ99J.png)
+![Beekeeper architecture](https://i.imgur.com/mssNhan.png)
 
 ## The Team
 **[Ryan Schaul](https://example.com)** *Software Engineer* Chicago, IL
@@ -51,7 +51,7 @@ The `init` command will prompt for the following information:
 
 The following components will be created on your aws account:
 
-- 5 IAM roles
+- A master IAM role
 - S3 Bucket with all needed html/css/js
 - SQS with dead letter queue (DLQ) attached
 - DynamoDB table
