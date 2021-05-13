@@ -1,6 +1,6 @@
 {
   "name": "beekeeper-cli",
-  "version": "1.0.2",
+  "version": "1.1.2",
   "description": "Open-sourced infrastructure as a service virtual waiting room.",
   "main": "cli.js",
   "bin": {
