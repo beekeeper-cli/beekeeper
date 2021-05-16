@@ -1,79 +1,61 @@
 const END_POINT = process.env.END_POINT;
-const https = require('https');
+const https = require("https");
 const AWS = require("aws-sdk");
 AWS.config.update({ region: process.env.REGION });
-const dbClient = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+const dbClient = new AWS.DynamoDB({ apiVersion: "2012-08-10" });
 const TABLE_NAME = process.env.TABLE_NAME;
-
-function average(tests) {
-    let sums = tests.reduce((sum, test) => {
-        return sum + test
-    }, 0);
-
-    return sums / tests.length
-}
-
-function stdDev(tests, mean) {
-    let sumOfDiffs = tests.reduce((sqrSum, test) => {
-        return sqrSum + (test - mean)**2;
-    }, 0);
-
-    return Math.sqrt(sumOfDiffs / (tests.length - 1));
-}
+const {average, stdDev} = require('./stats');
 
 function getTime(url) {
-    return new Promise((resolve, reject) => {
-        https.get(url, (response) => {
-            if (response.statusCode != 200) {
-                reject('Invalid status code <' + response.statusCode + '>');
-            }
-            resolve(Date.now());
-        });
+  return new Promise((resolve, reject) => {
+    https.get(url, (response) => {
+      if (response.statusCode != 200) {
+        reject("Invalid status code <" + response.statusCode + ">");
+      }
+      resolve(Date.now());
     });
+  });
 }
 
 // now to program the "usual" way
 // all you need to do is use async functions and await
 // for functions returning promises
 async function endpointTest() {
-    let tests = [];
+  let tests = [];
 
-    try {
-        for (let idx = 0; idx < 20; idx++) {
+  try {
+    for (let idx = 0; idx < 20; idx++) {
+      let start = Date.now();
+      let end = await getTime(END_POINT);
 
-            let start = Date.now()
-            let end = await getTime(END_POINT)
-
-            tests.push(end - start);
-        }
-
-    } catch (error) {
-        console.error('ERROR:');
-        console.error(error);
-    } finally {
-        return tests;
+      tests.push(end - start);
     }
+  } catch (error) {
+    console.error("ERROR:");
+    console.error(error);
+  } finally {
+    return tests;
+  }
 }
 
 async function runTests() {
-    let res = await endpointTest();
+  let res = await endpointTest();
 
-    let mean = average(res);
-    let dev = stdDev(res, mean);
+  let mean = average(res);
+  let dev = stdDev(res, mean);
 
-    console.log({mean, dev});
-    return { mean, dev };
+  return { mean, dev };
 }
 
 const writeStats = async (stats) => {
-    let params = {
-        TableName: TABLE_NAME,
-        Item: {
-            'stat': {S: 'summary'},
-            'average': {N: `${stats.mean}`},
-            'stdDev': {N: `${stats.dev}`}
-        }
-    }    
+  let params = {
+    TableName: TABLE_NAME,
+    Item: {
+      stat: { S: "summary" },
+      average: { N: `${stats.mean}` },
+      stdDev: { N: `${stats.dev}` },
+    },
+  };
 
   try {
     let res = await dbClient.putItem(params).promise();
@@ -85,37 +67,40 @@ const writeStats = async (stats) => {
 
 const getStats = async () => {
   let params = {
-      TableName: TABLE_NAME,
-      Key: {
-          'stat': {S: 'summary'}
-      }
-  }
-    
+    TableName: TABLE_NAME,
+    Key: {
+      stat: { S: "summary" },
+    },
+  };
+
   try {
     let res = await dbClient.getItem(params).promise();
     return res;
   } catch (e) {
     console.log(e);
   }
-}
-
-
-exports.handler = async () => {
-    let oldStats = await getStats();
-    
-    if (oldStats.Item === undefined) {
-        let stats = await runTests().then(data => data);
-    
-        await writeStats(stats);
-        
-    } else {
-      console.log(oldStats.Item)
-    }
 };
 
+function passesCheck(stats, healthCheck) {
+  let upperLimit = Number(stats.average.N) + 3 * Number(stats.stdDev.N);
 
-// TableName: 'CUSTOMER_LIST',
-//   Item: {
-//     'CUSTOMER_ID' : {N: '001'},
-//     'CUSTOMER_NAME' : {S: 'Richard Roe'}
-//   }
+  return healthCheck.mean < upperLimit;
+}
+
+exports.handler = async () => {
+  let oldStats = await getStats();
+
+  // run an endpoint test and if the average is greater
+  // than (average + 3x dev) of baseline perform a throttle
+
+  if (oldStats.Item === undefined) {
+    let stats = await runTests().then((data) => data);
+
+    await writeStats(stats);
+  } else {
+    let healthCheck = await runTests();
+    let passed = passesCheck(oldStats.Item, healthCheck);
+    console.log("healthCheck ", healthCheck);
+    console.log("passed ", passed);
+  }
+};
