@@ -106,3 +106,11 @@ exports.handler = async () => {
     if (!passed) { throttleRate() }
   }
 };
+
+/*
+Need some logic to determine if lambda has been throttled in the past
+Could do this with another write to the database or with altering the database
+Maybe need a way to throttle up as well after rate has been throttled down
+
+
+*/
