@@ -5,6 +5,7 @@ AWS.config.update({ region: process.env.REGION });
 const dbClient = new AWS.DynamoDB({ apiVersion: "2012-08-10" });
 const TABLE_NAME = process.env.TABLE_NAME;
 const {average, stdDev} = require('./stats');
+const throttleRate = require('./throttle');
 
 function getTime(url) {
   return new Promise((resolve, reject) => {
@@ -102,5 +103,6 @@ exports.handler = async () => {
     let passed = passesCheck(oldStats.Item, healthCheck);
     console.log("healthCheck ", healthCheck);
     console.log("passed ", passed);
+    if (!passed) { throttleRate() }
   }
 };
