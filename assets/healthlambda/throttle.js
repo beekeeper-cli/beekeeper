@@ -20,7 +20,7 @@ const getPostLambdaConfig = async () => {
 
 // set new configuration with reduced rate
 const setPostLambdaConfig = async (environment) => {
-  let throttledRate = Number(environment.Variables.RATE) * 0.5;
+  let throttledRate = Math.ceil(Number(environment.Variables.RATE) * 0.5);
   environment.Variables.RATE = throttledRate.toString();
 
   const params = {
@@ -37,7 +37,7 @@ const setPostLambdaConfig = async (environment) => {
 }
 
 
-
+// export function to handler
 module.exports = async () => {
   const { Environment: environment } = await getPostLambdaConfig();
 
