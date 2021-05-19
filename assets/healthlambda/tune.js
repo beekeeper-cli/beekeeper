@@ -1,9 +1,21 @@
-const { DeleteBackupCommand } = require("@aws-sdk/client-dynamodb");
 const AWS = require("aws-sdk");
 AWS.config.update({ region: process.env.REGION });
 const FUNC_NAME = process.env.FUNC_NAME;
 const lambda = new AWS.Lambda({apiVersion: '2015-03-31'});
 const { writeTune, getTune } = require('./dynamo');
+
+// dynamo parser
+const parseTune = (tune) => {
+  Object.keys(tune.Item).forEach(obj => {
+    let [key, value] = Object.entries(tune.Item[obj])[0]
+
+    if (key === 'S') {
+      tune.Item[obj] = value;
+    } else if (key === 'N') {
+      tune.Item[obj] = Number(value);
+    }
+  });
+}
 
 // get current configuration
 const getPostLambdaConfig = async () => {
@@ -37,71 +49,79 @@ const setPostLambdaConfig = async (environment) => {
   }
 }
 
-const performTune = async (passed, pastTune, environment) => {
-  let { initial, last } = pastTune;
-  let elapsed = (Date.now() - Number(last.N)) / 1000
-  let current = Number(environment.Variables.RATE)
+const setTune = async (current, environment) => {
 
-  if (elapsed < 120) { return } 
-
-  if (passed && (Number(initial.N) > current)) {
-  // increase rate
-    environment.Variables.RATE = (current + 1).toString(); // maybe need better logic here
-
-
-  } else { // decrese rate
-    let throttledRate = Math.ceil(current * 0.5);
-    environment.Variables.RATE = throttledRate.toString();
+  environment.Variables.RATE = current.toString()
+  
+  try {
+    await setPostLambdaConfig(environment); 
+  } catch (e) {
+    console.log(e);
   }
-
-  setPostLambdaConfig(environment)
 }
 
-const tuneUp = async (current, environment) => {
-  environment.Variables.RATE = (current + 1).toString()
-  setPostLambdaConfig(environment)
+const tuneUp = (initial, current) => {
+  return Math.ceil(current + (initial - current) * 0.5);
 }
 
-const tuneDown = async (current, environment) => {
-  let throttledRate = Math.ceil(current * 0.5);
-  environment.Variables.RATE = throttledRate.toString();
-  setPostLambdaConfig(environment)
+const tuneDown = (current) => {
+  return Math.ceil(current * 0.5);
 }
-// Item: {
-//   stat: { S: "tune" },
-//   initial: { N: `${tuneStats.initial}` },
-//   current: { N: `${tuneStats.current}` },
-//   last: { N: `${tuneStats.now}`}
-// }
 
 
 // export function to handler
 module.exports = async (passed) => {
   const { Environment: environment } = await getPostLambdaConfig();
   const pastTune = await getTune();
-  let { initial, last } = pastTune;
-  let elapsed = (Date.now() - Number(last.N)) / 1000
-  let current = Number(environment.Variables.RATE)
+  
+  // if a tune has not been performed create a pastTune object else parse the past tune
+  if (pastTune.Item === undefined) {
+    const rate = Number(environment.Variables.RATE);
+
+    pastTune.Item = { 
+      initial: rate,
+      current: rate,
+      last: Date.now()
+    }
+  } else {
+    parseTune(pastTune)
+  }
+
+  let { initial, last, current } = pastTune.Item;
+  let elapsed = (Date.now() - last) / 1000;
 
   if (elapsed < 120) { return } 
 
   // if a tune has been done in the past check on the status of passed variable
+
   // if passed is true and rate is less than initial
-  if (pastTune.Item !== undefined) {
+  if (!passed) {
+
+    current = tuneDown(current);
+    last = Date.now()
+    await setTune(current, environment);
+
+  } else if (current < initial) {
     
     //conditions for tuning up
-    tuneUp(current, environment);
-
-    // conditions for tuning down
-    tuneDown(current, environment);
-
-  } else if (!passed) {
-    tuneDown(pastTune, environment);
+    current = tuneUp(current, environment);
+    last = Date.now()
+    await setTune(current, environment);
   }
 
+  writeTune({initial, last, current})
 }
 
 /*
+
+If it fails tune down and record the new rate
+If it passes and current rate is less than initial rate tune up
+
+If there is no pastTune write the current settings to a tune
+
+
+
+
 
 If tune has occured in last two minutes break do not perform tune
 
