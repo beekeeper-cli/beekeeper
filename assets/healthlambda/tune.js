@@ -33,8 +33,8 @@ const getPostLambdaConfig = async () => {
 }
 
 // set new configuration with reduced rate
-const setPostLambdaConfig = async (environment) => {
-  
+const setPostLambdaConfig = async (current, environment) => {
+  environment.Variables.RATE = current.toString()
 
   const params = {
     FunctionName: FUNC_NAME,
@@ -43,18 +43,7 @@ const setPostLambdaConfig = async (environment) => {
 
   try {
     await lambda.updateFunctionConfiguration(params).promise();
-    console.log(`postLambda rate throttled to ${throttledRate}`);
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-const setTune = async (current, environment) => {
-
-  environment.Variables.RATE = current.toString()
-  
-  try {
-    await setPostLambdaConfig(environment); 
+    console.log(`postLambda rate throttled to ${current}`);
   } catch (e) {
     console.log(e);
   }
@@ -72,44 +61,44 @@ const tuneDown = (current) => {
 // export function to handler
 module.exports = async (passed) => {
   const { Environment: environment } = await getPostLambdaConfig();
-  const pastTune = await getTune();
+  const tuneStat = await getTune();
   
-  // if a tune has not been performed create a pastTune object else parse the past tune
-  if (pastTune.Item === undefined) {
+  // if a tune has not been performed create a tuneStat object else parse the past tune
+  if (tuneStat.Item === undefined) {
     const rate = Number(environment.Variables.RATE);
 
-    pastTune.Item = { 
+    tuneStat.Item = { 
       initial: rate,
       current: rate,
       last: Date.now()
     }
   } else {
-    parseTune(pastTune)
+    parseTune(tuneStat)
   }
+  
+  console.log("parsedStat", tuneStat)
 
-  let { initial, last, current } = pastTune.Item;
-  let elapsed = (Date.now() - last) / 1000;
+  let { initial, last, current } = tuneStat.Item;
+  // let elapsed = (Date.now() - last) / 1000;
 
-  if (elapsed < 120) { return } 
+  // if (elapsed < 120) { return } 
 
   // if a tune has been done in the past check on the status of passed variable
 
   // if passed is true and rate is less than initial
   if (!passed) {
-
     current = tuneDown(current);
-    last = Date.now()
-    await setTune(current, environment);
+    last = Date.now();
+    await setPostLambdaConfig(current, environment);
 
   } else if (current < initial) {
-    
     //conditions for tuning up
-    current = tuneUp(current, environment);
+    current = tuneUp(current, initial);
     last = Date.now()
-    await setTune(current, environment);
+    await setPostLambdaConfig(current, environment);
   }
 
-  writeTune({initial, last, current})
+  await writeTune({initial, last, current});
 }
 
 /*
