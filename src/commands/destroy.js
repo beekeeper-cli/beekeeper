@@ -13,6 +13,7 @@ const destroyRole = require("../aws/destroy/destroyRole");
 const destroyLambda = require("../aws/destroy/destroyLambda");
 const destroySQS = require("../aws/destroy/destroySQS");
 const destroyDynamo = require("../aws/destroy/destroyDynamo");
+const destroyAutoScaling = require("../aws/destroy/destroyAutoScaling");
 const destroyCloudwatchEvent = require("../aws/destroy/destroyCloudwatchEvent");
 const destroyS3 = require("../aws/destroy/destroyS3");
 const destroyApiGateway = require("../aws/destroy/destroyApiGateway");
@@ -48,6 +49,8 @@ module.exports = async (profileName) => {
   const PRE_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-prelambda`
   const ROLE_NAME = `beekeeper-${PROFILE_NAME}-master-role`
   const CRON_JOB_NAME = `beekeeper-${PROFILE_NAME}-cloudwatcheventcron`
+  const AUTO_SCALE_WRITE_NAME = `beekeeper-${PROFILE_NAME}-autoscale-write`
+  const AUTO_SCALE_READ_NAME = `beekeeper-${PROFILE_NAME}-autoscale-read`
   const spinner = ora();
   let warn = false;
 
@@ -101,6 +104,7 @@ module.exports = async (profileName) => {
 
   try {
     spinner.start("Destroying DynamoDB")
+    // await destroyAutoScaling(REGION, DYNAMO_NAME, AUTO_SCALE_WRITE_NAME, AUTO_SCALE_READ_NAME);
     await destroyDynamo(REGION, DYNAMO_NAME);
     spinner.succeed("Successfully destroyed DynamoDB")
   } catch (err) {
