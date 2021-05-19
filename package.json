@@ -56,6 +56,7 @@
   "homepage": "https://github.com/beekeeper-cli/beekeeper#readme",
   "dependencies": {
     "@aws-sdk/client-api-gateway": "^3.13.0",
+    "@aws-sdk/client-application-auto-scaling": "^3.16.0",
     "@aws-sdk/client-cloudwatch-events": "^3.13.0",
     "@aws-sdk/client-dynamodb": "^3.12.0",
     "@aws-sdk/client-iam": "^3.13.0",

@@ -22,6 +22,7 @@ const deployPollingRoute = require("../aws/deploy/deployPollingRoute");
 const deployClientCheckRoute = require("../aws/deploy/deployClientCheckRoute");
 const deployPollingS3Object = require("../aws/deploy/deployPollingS3Object");
 const addPostLambdaEventPermission = require("../aws/deploy/addPostLambdaEventPermission");
+const deployAutoScaling = require("../aws/deploy/deployAutoScaling");
 
 const ANSWERS_FILE_PATH = path.join(__dirname, "..", "config", "user-answers.json");
 const S3_ASSET_PATH = path.join(__dirname, "..", "..", "assets", "s3");
@@ -54,6 +55,8 @@ module.exports = async (profileName) => {
   const PRE_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-prelambda`
   const ROLE_NAME = `beekeeper-${PROFILE_NAME}-master-role`
   const CRON_JOB_NAME = `beekeeper-${PROFILE_NAME}-cloudwatcheventcron`
+  const AUTO_SCALE_WRITE_NAME = `beekeeper-${PROFILE_NAME}-autoscale-write`
+  const AUTO_SCALE_READ_NAME = `beekeeper-${PROFILE_NAME}-autoscale-read`
   const STAGE_NAME = `prod`;
   const spinner = ora();
 
@@ -113,6 +116,8 @@ module.exports = async (profileName) => {
   try {
     spinner.start("Deploying DynamoDB")
     dbArn = await deployDynamo(REGION, DYNAMO_NAME);
+    // add dynamodb autoscaling
+    await deployAutoScaling(REGION, DYNAMO_NAME, AUTO_SCALE_WRITE_NAME, AUTO_SCALE_READ_NAME);
     spinner.succeed("Successfully deployed DynamoDB")
   } catch (err) {
     spinner.fail("Failed to deployed DynamoDB")
