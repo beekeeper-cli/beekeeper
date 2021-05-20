@@ -19,7 +19,7 @@ There is a difference between the infrastructure needed for normal business acti
 
 **[Justin Zeng](https://www.justinzeng.com)** *Software Engineer* • Los Angeles, CA
 
-**[Aaron Crane](https://example.com)** *Software Engineer* • San Francisco, CA
+**[Aaron Crane](https://aaroncrn.com)** *Software Engineer* • San Francisco, CA
 
 ## Getting Started
 ### Prerequisites
