@@ -27,7 +27,7 @@ module.exports = async () => {
     [answers.PROFILE_NAME]: answers
   }
 
-  if (length === 5) {
+  if (length === 6) {
     let fileFound = await fileExists(ANSWERS_FILE_PATH);
 
     if(!fileFound) {

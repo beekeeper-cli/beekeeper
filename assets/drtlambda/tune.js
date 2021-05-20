@@ -4,7 +4,7 @@ const FUNC_NAME = process.env.FUNC_NAME;
 const lambda = new AWS.Lambda({apiVersion: '2015-03-31'});
 const { writeTune, getTune } = require('./dynamo');
 
-// dynamo parser
+// dynamo object parser
 const parseTune = (tune) => {
   Object.keys(tune.Item).forEach(obj => {
     let [key, value] = Object.entries(tune.Item[obj])[0]
@@ -50,13 +50,12 @@ const setPostLambdaConfig = async (current, environment) => {
 }
 
 const tuneUp = (initial, current) => {
-  return Math.ceil(current + (initial - current) * 0.5);
+  return Math.ceil(current + (initial - current) * 0.25);
 }
 
 const tuneDown = (current) => {
   return Math.ceil(current * 0.5);
 }
-
 
 // export function to handler
 module.exports = async (passed) => {
@@ -75,13 +74,11 @@ module.exports = async (passed) => {
   } else {
     parseTune(tuneStat)
   }
-  
-  console.log("parsedStat", tuneStat)
 
   let { initial, last, current } = tuneStat.Item;
-  // let elapsed = (Date.now() - last) / 1000;
+  let elapsed = (Date.now() - last) / 1000;
 
-  // if (elapsed < 120) { return } 
+  if (elapsed < 120) { return } 
 
   // if a tune has been done in the past check on the status of passed variable
 

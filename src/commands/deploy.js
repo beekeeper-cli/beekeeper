@@ -23,12 +23,15 @@ const deployClientCheckRoute = require("../aws/deploy/deployClientCheckRoute");
 const deployPollingS3Object = require("../aws/deploy/deployPollingS3Object");
 const addPostLambdaEventPermission = require("../aws/deploy/addPostLambdaEventPermission");
 const deployAutoScaling = require("../aws/deploy/deployAutoScaling");
+const deployDRTLambda = require("../aws/deploy/deployDRTLambda");
+const addDRTLambdaEventPermission = require("../aws/deploy/addDRTLambdaEventPermission");
 
 const ANSWERS_FILE_PATH = path.join(__dirname, "..", "config", "user-answers.json");
 const S3_ASSET_PATH = path.join(__dirname, "..", "..", "assets", "s3");
 const POST_LAMBDA_ASSET = path.join(__dirname, "..", "..", "assets", "postlambda", 'index.js.zip');
 const PRE_LAMBDA_ASSET = path.join(__dirname, "..", "..", "assets", "prelambda", 'index.js.zip');
 const POLL_FILE_PATH = path.join(__dirname, "..", "..", "assets", "s3", 'polling.js');
+const DRT_LAMBDA_ASSET = path.join(__dirname, "..", "..", "assets", "drtlambda", 'Archive.zip');
 
 /**
  * The deploy command combines all of the deploy modules and invokes them with the required parameters. 
@@ -44,7 +47,7 @@ module.exports = async (profileName) => {
   const validProfileName = validateProfileName(profileName, profiles, "deploy");
   if (!validProfileName) return;
 
-  const {[profileName] : { PROFILE_NAME, WAITING_ROOM_NAME, REGION, PROTECT_URL, RATE }} = profiles;
+  const {[profileName] : { PROFILE_NAME, WAITING_ROOM_NAME, REGION, PROTECT_URL, RATE, DRT }} = profiles;
 
   const S3_NAME = `beekeeper-${PROFILE_NAME}-s3`
   const DLQ_NAME = `beekeeper-${PROFILE_NAME}-dlq`
@@ -53,6 +56,7 @@ module.exports = async (profileName) => {
   const API_GATEWAY_NAME = `beekeeper-${PROFILE_NAME}-apigateway`
   const POST_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-postlambda`
   const PRE_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-prelambda`
+  const DRT_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-drtlambda`
   const ROLE_NAME = `beekeeper-${PROFILE_NAME}-master-role`
   const CRON_JOB_NAME = `beekeeper-${PROFILE_NAME}-cloudwatcheventcron`
   const AUTO_SCALE_WRITE_NAME = `beekeeper-${PROFILE_NAME}-autoscale-write`
@@ -153,9 +157,25 @@ module.exports = async (profileName) => {
 
     spinner.succeed("Successfully deployed pre-lambda")
   } catch (err) {
-    spinner.fail("Failed to deployed pre-lambda")
+    spinner.fail("Failed to deploy pre-lambda")
     logger.failDeploy(PROFILE_NAME);
     return;
+  }
+
+  // Deploy DRT Lambda
+  let drtLambdaArn;
+  if (DRT) {
+    try {
+      spinner.start("Deploying drt-lambda");
+      
+      drtLambdaArn = await deployDRTLambda(REGION, DRT_LAMBDA_NAME, POST_LAMBDA_NAME, DYNAMO_NAME, DRT_LAMBDA_ASSET, roleArn, PROTECT_URL);
+      await addDRTLambdaEventPermission(REGION, DRT_LAMBDA_NAME, eventArn, CRON_JOB_NAME, drtLambdaArn);
+
+      spinner.succeed("Successfully deployed drt-lambda");
+    } catch (err) {
+      spinner.fail("Failed to deploy drt-lambda")
+      logger.failDeploy(PROFILE_NAME);
+    }
   }
 
   // Deploy API Gateway + Waiting Room Route

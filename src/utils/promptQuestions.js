@@ -217,10 +217,16 @@ const promptQuestions = async () => {
       style: 'default',
       validate: value => value < 10 || value > 3000 ? `Please enter a number between 10 to 3,000` : true
     },
+    {
+      type: 'confirm',
+      name: 'DRT',
+      message: 'Enable Dynamic Rate Throttling:',
+      style: 'default'
+    },
   ];
 
   const onSubmit = (prompt) => {
-    return prompt.name === "RATE";
+    return prompt.name === "DRT";
   }
 
   const onCancel = () => {
@@ -234,7 +240,7 @@ const promptQuestions = async () => {
     console.log("");
 
     const response = await prompts(questions, {onSubmit, onCancel});
-    if (response.RATE) {
+    if (response.DRT) {
       console.log("");
       console.log(
         `Now enter ${chalk.yellow.bold(`beekeeper deploy ${response.PROFILE_NAME}`)} to deploy your waiting room infrastructure`
