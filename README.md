@@ -1,24 +1,25 @@
 ![Beekeeper Header](https://i.imgur.com/WWwmLWT.png)
 
 ## Overview
-Beekeeper is open-sourced Backend as a Service (BaaS) built to handle bursty traffic from one-off events like sale or promotion.  Set up a virtual virtual waitroom in a few minutes, and tear it down in seconds.
+Beekeeper is an open-sourced Backend as a Service (BaaS) built to handle bursty traffic from one-off events like a sale or promotion.
+. Set up a virtual waitroom in a few minutes, and tear it down in seconds.
 
 ![Beekeeper deploy](https://i.imgur.com/lja8wBi.png)
 
-There is a difference between the infrastructure needed for normal business activities and infrastructure needed for bursty traffic related to one-off events. An abrupt increase in website traffic can be the effect of many different causes. One such cause is an event like a Black Friday sale or similar promotion. If the existing infrastructure is unprepared the spike in traffic it may result in a Denial of Service. The desired service may be unavailable until traffic declines to a manageable level. Beekeeper is a fast and flexible solution to this bursty traffic.
+There is a difference between the infrastructure needed for normal business activities and infrastructure needed for bursty traffic related to one-off events. An abrupt increase in website traffic can be the effect of many different causes. One such cause is an event like a Black Friday sale or similar promotion. If the existing infrastructure is unprepared for a spike in traffic, it may result in a Denial of Service. The desired service may be unavailable until traffic declines to a manageable level. Beekeeper is a fast and flexible solution to this bursty traffic.
 
 ### Beekeeper Architecture
 
 ![Beekeeper architecture](https://i.imgur.com/mssNhan.png)
 
 ## The Team
-**[Ryan Schaul](https://example.com)** *Software Engineer* Chicago, IL
+**[Ryan Schaul](https://www.linkedin.com/in/ryan-schaul-87a922b5)** *Software Engineer* • Chicago, IL
 
-**[Ian Eustis](https://example.com)** *Software Engineer* Portland, OR
+**[Ian Eustis](https://eustisic.me)** *Software Engineer* • Portland, OR
 
-**[Justin Zeng](https://example.com)** *Software Engineer* Los Angeles, CA
+**[Justin Zeng](https://www.justinzeng.com)** *Software Engineer* • Los Angeles, CA
 
-**[Aaron Crane](https://example.com)** *Software Engineer* San Francisco, CA
+**[Aaron Crane](https://example.com)** *Software Engineer* • San Francisco, CA
 
 ## Getting Started
 ### Prerequisites
@@ -47,12 +48,12 @@ The `init` command will prompt for the following information:
 - Allowed users per minute - *the max amount of users that you want to allow onto your website per minute. The ideal amount differs greatly between websites, and its best to find your ideal traffic through load testing and tracking analytics. Beekeeper comfortably handles 10-3000 entries per minute*
 ---
 #### `beekeeper deploy <name>`
-*Builds custom files, uploads them to s3 buckets, and sets up the waitroom architecture on your aws account. Once its done, you are given two URLS; the waiting room URL is what you provide to your customers/viewers publicly, and the client check endpoint can optionally be added to your own back end to prevent people from skipping the queue.*
+*Builds custom files, uploads them to s3 buckets, and sets up the waitroom architecture on your AWS account. Once it's done, you are given two URLS; the waiting room URL is what you provide to your customers/viewers publicly, and the client check endpoint can optionally be added to your own backend to prevent people from skipping the queue.*
 
-The following components will be created on your aws account:
+The following components will be created on your AWS account:
 
 - A master IAM role
-- S3 Bucket with all needed html/css/js
+- S3 Bucket with all needed static assets (html/css/js/images)
 - SQS with dead letter queue (DLQ) attached
 - DynamoDB table
 - 2 lambdas
