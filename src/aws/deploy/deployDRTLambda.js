@@ -2,7 +2,7 @@
  const {
   LambdaClient,
   CreateFunctionCommand,
-  AddPermissionCommand,
+  PutFunctionConcurrencyCommand,
 } = require("@aws-sdk/client-lambda");
 const logger = require("../../utils/logger")("dev");
 const fs = require("fs");
@@ -11,7 +11,8 @@ const fs = require("fs");
 const createPreLambda = async (
   lambda,
   lambdaName,
-  sqsUrl,
+  consumerLambdaName,
+  dynamoName,
   code,
   roleArn,
   region,
@@ -22,10 +23,12 @@ const createPreLambda = async (
     Role: roleArn,
     Handler: "index.handler",
     Runtime: "nodejs12.x",
-    Description: "producerLambda",
+    Description: "Dynamic-Rate-Throttling-Lambda",
+    Timeout: 60,
     Environment: {
       Variables: {
-        TABLE_NAME: sqsUrl,
+        TABLE_NAME: dynamoName,
+        FUNC_NAME: consumerLambdaName,
         REGION: region,
         END_POINT: protectUrl,
       },
@@ -37,7 +40,7 @@ const createPreLambda = async (
 
   try {
     const { FunctionArn } = await lambda.send(command);
-    logger.debugSuccess(`Successfully created PreLambda: ${FunctionArn}`);
+    logger.debugSuccess(`Successfully created DRT Lambda: ${FunctionArn}`);
     return FunctionArn;
   } catch (err) {
     logger.debugError("Error", err);
@@ -45,33 +48,31 @@ const createPreLambda = async (
   }
 };
 
+const setLambdaConcurrency = async (lambda, lambdaName) => {
 
-const addLambdaPermission = async (lambda, lambdaName) => {
-  let params = {
-    Action: "lambda:InvokeFunction",
+  const params = {
     FunctionName: lambdaName,
-    Principal: "apigateway.amazonaws.com",
-    StatementId: `${Math.random().toString(16).substring(2)}`,
+    ReservedConcurrentExecutions: 1,
   };
-  const command = new AddPermissionCommand(params);
+
+  const command = new PutFunctionConcurrencyCommand(params);
 
   try {
     await lambda.send(command);
-    logger.debugSuccess(`Successfully added API Gateway permission to Lambda.`);
+    logger.debugSuccess(`Successfully set DRT-Concurrency: ${1}`);
   } catch (err) {
     logger.debugError("Error", err);
     throw new Error(err);
   }
 };
 
-
 module.exports = async (
   region,
   lambdaName,
-  sqsUrl,
+  consumerLambdaName,
+  dynamoName,
   asset,
   roleArn,
-  s3ObjectRootDomain,
   protectUrl
 ) => {
   let code = fs.readFileSync(asset);
@@ -83,16 +84,15 @@ module.exports = async (
   const lambdaArn = await createPreLambda(
     lambda,
     lambdaName,
-    sqsUrl,
+    consumerLambdaName,
+    dynamoName,
     code,
     roleArn,
     region,
-    s3ObjectRootDomain,
     protectUrl
   );
 
-  // Add API Gateway Permission (Solution to AWS Bug)
-  await addLambdaPermission(lambda, lambdaName);
+  await setLambdaConcurrency(lambda, lambdaName);
 
   return lambdaArn;
 };

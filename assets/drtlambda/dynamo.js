@@ -65,7 +65,7 @@ const writeTune = async (tuneStats) => {
       stat: { S: "tune" },
       initial: { N: `${tuneStats.initial}` },
       current: { N: `${tuneStats.current}` },
-      last: { N: `${tuneStats.now}`}
+      last: { N: `${tuneStats.last}`}
     },
   };
 
