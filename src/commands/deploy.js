@@ -25,6 +25,7 @@ const addPostLambdaEventPermission = require("../aws/deploy/addPostLambdaEventPe
 const deployAutoScaling = require("../aws/deploy/deployAutoScaling");
 const deployDRTLambda = require("../aws/deploy/deployDRTLambda");
 const addDRTLambdaEventPermission = require("../aws/deploy/addDRTLambdaEventPermission");
+const deployDRTTable = require("../aws/deploy/deployDRTTable");
 
 const ANSWERS_FILE_PATH = path.join(__dirname, "..", "config", "user-answers.json");
 const S3_ASSET_PATH = path.join(__dirname, "..", "..", "assets", "s3");
@@ -61,6 +62,7 @@ module.exports = async (profileName) => {
   const CRON_JOB_NAME = `beekeeper-${PROFILE_NAME}-cloudwatcheventcron`
   const AUTO_SCALE_WRITE_NAME = `beekeeper-${PROFILE_NAME}-autoscale-write`
   const AUTO_SCALE_READ_NAME = `beekeeper-${PROFILE_NAME}-autoscale-read`
+  const DRT_DYNAMO_NAME = `beekeeper-${PROFILE_NAME}-drtdb`
   const STAGE_NAME = `prod`;
   const spinner = ora();
 
@@ -167,8 +169,9 @@ module.exports = async (profileName) => {
   if (DRT) {
     try {
       spinner.start("Deploying drt-lambda");
-      
-      drtLambdaArn = await deployDRTLambda(REGION, DRT_LAMBDA_NAME, POST_LAMBDA_NAME, DYNAMO_NAME, DRT_LAMBDA_ASSET, roleArn, PROTECT_URL);
+
+      await deployDRTTable(REGION, DRT_DYNAMO_NAME) 
+      drtLambdaArn = await deployDRTLambda(REGION, DRT_LAMBDA_NAME, POST_LAMBDA_NAME, DRT_DYNAMO_NAME, DRT_LAMBDA_ASSET, roleArn, PROTECT_URL);
       await addDRTLambdaEventPermission(REGION, DRT_LAMBDA_NAME, eventArn, CRON_JOB_NAME, drtLambdaArn);
 
       spinner.succeed("Successfully deployed drt-lambda");

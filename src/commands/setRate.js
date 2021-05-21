@@ -6,7 +6,8 @@
 const {
   LambdaClient,
   UpdateFunctionConfigurationCommand,
-  GetFunctionConfigurationCommand
+  GetFunctionConfigurationCommand,
+  PutFunctionConcurrencyCommand
 } = require("@aws-sdk/client-lambda");
 const chalk = require("chalk");
 const path = require("path");
