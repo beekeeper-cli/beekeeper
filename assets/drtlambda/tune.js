@@ -76,9 +76,11 @@ module.exports = async (passed) => {
   }
 
   let { initial, last, current } = tuneStat.Item;
-  let elapsed = (Date.now() - last) / 1000;
 
-  if (elapsed < 120) { return } 
+  // need to add some logic to fix this to make it only execute once 
+  // let elapsed = (Date.now() - last) / 1000;
+
+  // if (elapsed < 120) { return } 
 
   // if a tune has been done in the past check on the status of passed variable
 

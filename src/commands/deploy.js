@@ -58,11 +58,11 @@ module.exports = async (profileName) => {
   const POST_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-postlambda`
   const PRE_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-prelambda`
   const DRT_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-drtlambda`
+  const DRT_DYNAMO_NAME = `beekeeper-${PROFILE_NAME}-drtdb`
   const ROLE_NAME = `beekeeper-${PROFILE_NAME}-master-role`
   const CRON_JOB_NAME = `beekeeper-${PROFILE_NAME}-cloudwatcheventcron`
   const AUTO_SCALE_WRITE_NAME = `beekeeper-${PROFILE_NAME}-autoscale-write`
   const AUTO_SCALE_READ_NAME = `beekeeper-${PROFILE_NAME}-autoscale-read`
-  const DRT_DYNAMO_NAME = `beekeeper-${PROFILE_NAME}-drtdb`
   const STAGE_NAME = `prod`;
   const spinner = ora();
 

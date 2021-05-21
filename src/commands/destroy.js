@@ -39,7 +39,7 @@ module.exports = async (profileName) => {
   const validProfileName = validateProfileName(profileName, profiles, "destroy");
   if (!validProfileName) return;
 
-  const {[profileName] : { PROFILE_NAME, REGION }} = profiles;
+  const {[profileName] : { PROFILE_NAME, REGION, DRT }} = profiles;
   const S3_NAME = `beekeeper-${PROFILE_NAME}-s3`
   const DLQ_NAME = `beekeeper-${PROFILE_NAME}-dlq`
   const SQS_NAME = `beekeeper-${PROFILE_NAME}-sqs`
@@ -47,6 +47,8 @@ module.exports = async (profileName) => {
   const API_GATEWAY_NAME = `beekeeper-${PROFILE_NAME}-apigateway`
   const POST_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-postlambda`
   const PRE_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-prelambda`
+  const DRT_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-drtlambda`
+  const DRT_DYNAMO_NAME = `beekeeper-${PROFILE_NAME}-drtdb`
   const ROLE_NAME = `beekeeper-${PROFILE_NAME}-master-role`
   const CRON_JOB_NAME = `beekeeper-${PROFILE_NAME}-cloudwatcheventcron`
   const AUTO_SCALE_WRITE_NAME = `beekeeper-${PROFILE_NAME}-autoscale-write`
@@ -137,6 +139,18 @@ module.exports = async (profileName) => {
   } catch (err) {
     warn = true;
     spinner.warn("Warning: (API Gateway) " + err.message.split(":")[0])
+  }
+
+  if (DRT) {
+    try {
+      spinner.start("Destroying Dynamic Rate Throttling")
+      await destroyDynamo(REGION, DRT_DYNAMO_NAME)
+      await destroyLambda(REGION, DRT_LAMBDA_NAME)
+      spinner.succeed("Successfully destroyed Dynamic Rate Throttling")
+    } catch (err) {
+      warn = true;
+      spinner.warn("Warning: (Dynamic Rate Throttling) " + err.message.split(":")[0])
+    }
   }
 
   console.log("")
