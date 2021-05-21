@@ -61,6 +61,7 @@ module.exports = async (profileName) => {
   const DRT_DYNAMO_NAME = `beekeeper-${PROFILE_NAME}-drtdb`
   const ROLE_NAME = `beekeeper-${PROFILE_NAME}-master-role`
   const CRON_JOB_NAME = `beekeeper-${PROFILE_NAME}-cloudwatcheventcron`
+  const DRT_CRON_JOB_NAME = `beekeeper-${PROFILE_NAME}-drtcloudwatcheventcron`
   const AUTO_SCALE_WRITE_NAME = `beekeeper-${PROFILE_NAME}-autoscale-write`
   const AUTO_SCALE_READ_NAME = `beekeeper-${PROFILE_NAME}-autoscale-read`
   const STAGE_NAME = `prod`;
@@ -171,8 +172,11 @@ module.exports = async (profileName) => {
       spinner.start("Deploying drt-lambda");
 
       await deployDRTTable(REGION, DRT_DYNAMO_NAME) 
+
       drtLambdaArn = await deployDRTLambda(REGION, DRT_LAMBDA_NAME, POST_LAMBDA_NAME, DRT_DYNAMO_NAME, DRT_LAMBDA_ASSET, roleArn, PROTECT_URL);
-      await addDRTLambdaEventPermission(REGION, DRT_LAMBDA_NAME, eventArn, CRON_JOB_NAME, drtLambdaArn);
+
+      let drtEventArn = await deployCloudwatchEvent(REGION, drtLambdaArn, DRT_CRON_JOB_NAME);
+      await addDRTLambdaEventPermission(REGION, DRT_LAMBDA_NAME, drtEventArn, DRT_CRON_JOB_NAME, drtLambdaArn);
 
       spinner.succeed("Successfully deployed drt-lambda");
     } catch (err) {

@@ -240,7 +240,7 @@ const promptQuestions = async () => {
     console.log("");
 
     const response = await prompts(questions, {onSubmit, onCancel});
-    if (response.DRT) {
+    if (response.DRT !== undefined) {
       console.log("");
       console.log(
         `Now enter ${chalk.yellow.bold(`beekeeper deploy ${response.PROFILE_NAME}`)} to deploy your waiting room infrastructure`
