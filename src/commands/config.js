@@ -32,5 +32,6 @@ module.exports = async () => {
     console.log(`${chalk.green.bold("✔")} ${chalk.bold("Region: ")} ${profile.REGION}`);
     console.log(`${chalk.green.bold("✔")} ${chalk.bold("Protected URL: ")} ${profile.PROTECT_URL}`);
     console.log(`${chalk.green.bold("✔")} ${chalk.bold("Users allowed to enter per minute: ")} ${profile.RATE}`);
+    console.log(`${chalk.green.bold("✔")} ${chalk.bold("Dynamic Rate Throttling enabled: ")} ${profile.DRT}`);
   })
 };
