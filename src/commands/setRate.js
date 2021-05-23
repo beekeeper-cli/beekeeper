@@ -103,8 +103,8 @@ const getLambdaConfig = async (lambda, lambdaName) => {
  */
 
 const validateRate = (rate) => {
-  if (rate < 10 || rate > 3000) {
-    logger.error(`Rate ${rate} is outside of range 10 - 3000.`)
+  if (rate < 10) {
+    logger.error(`Rate ${rate} must be greater than 10.`)
     throw new Error("InvalidRate");
   }
 }
@@ -124,7 +124,7 @@ module.exports = async (profileName, newRate) => {
   const validProfileName = validateProfileName(profileName, profiles, "set-rate");
   if (!validProfileName) return;
 
-  const POST_LAMBDA_NAME = `beekeeper-${profileName}-postlambda`;
+  const TRIGGER_LAMBDA_NAME = `beekeeper-${profileName}-triggerlambda`;
   const { REGION } = profiles[profileName];
 
   // Create a Lambda client service object
@@ -132,9 +132,9 @@ module.exports = async (profileName, newRate) => {
 
   try {
     validateRate(newRate);
-    const { Environment:environment } = await getLambdaConfig(lambda, POST_LAMBDA_NAME);
-    await updateLambdaConfig(lambda, POST_LAMBDA_NAME, environment, newRate);
-    await setLambdaConcurrency(lambda, POST_LAMBDA_NAME, newRate);
+    const { Environment:environment } = await getLambdaConfig(lambda, TRIGGER_LAMBDA_NAME);
+    await updateLambdaConfig(lambda, TRIGGER_LAMBDA_NAME, environment, newRate);
+    await setLambdaConcurrency(lambda, TRIGGER_LAMBDA_NAME, newRate);
     logger.highlight(`${chalk.green.bold("✔")} Successfully set postLambda rate to ${newRate}`);
 
     profiles[profileName].RATE = newRate;

@@ -1,6 +1,6 @@
 /**
- * Exports an async function that adds the CRON job trigger to the post lambda and creates the post lambda as the target on the CRON job.
- * @module addPostLambdaEventPermission
+ * Exports an async function that adds the CRON job trigger to the trigger lambda and creates the trigger lambda as the target on the CRON job.
+ * @module addTriggerLambdaEventPermission
  */
 const {
   LambdaClient,
@@ -32,7 +32,7 @@ const addLambdaPermission = async (lambda, lambdaName, sourceArn) => {
 
   try {
     await lambda.send(command);
-    logger.debugSuccess(`Successfully added permission to postLambda.`);
+    logger.debugSuccess(`Successfully added permission to triggerLambda.`);
   } catch (err) {
     logger.debugError("Error", err);
     throw new Error(err);
@@ -40,18 +40,18 @@ const addLambdaPermission = async (lambda, lambdaName, sourceArn) => {
 };
 
 /**
- * Adds the post lambda as the target to the event bridge CRON job.
+ * Adds the trigger lambda as the target to the event bridge CRON job.
  * @param {CloudWatchEventsClient} cloudwatchEvent This is the cloudwatch event client.
  * @param {String} cronJobName This is the name of the CRON job.
- * @param {String} postLambdaArn This is the post lambda function arn.
+ * @param {String} triggerLambdaArn This is the trigger lambda function arn.
  * @returns {undefined}
  */
-const createTarget = async (cloudwatchEvent, cronJobName, postLambdaArn) => {
+const createTarget = async (cloudwatchEvent, cronJobName, triggerLambdaArn) => {
   const params = {
     Rule: cronJobName,
     Targets: [
       {
-        Arn: postLambdaArn,
+        Arn: triggerLambdaArn,
         Id: cronJobName,
       },
     ],
@@ -61,7 +61,7 @@ const createTarget = async (cloudwatchEvent, cronJobName, postLambdaArn) => {
 
   try {
     await cloudwatchEvent.send(command);
-    logger.debugSuccess(`Successfully created CloudWatchEvent Target: ${postLambdaArn}`);
+    logger.debugSuccess(`Successfully created CloudWatchEvent Target: ${triggerLambdaArn}`);
   } catch (err) {
     logger.debugError("Error", err);
     throw new Error(err);
@@ -69,17 +69,17 @@ const createTarget = async (cloudwatchEvent, cronJobName, postLambdaArn) => {
 };
 
 /**
- * Exports addPostLambdaEventPermission
+ * Exports addTriggerLambdaEventPermission
  * @param {String} region This is the region of where this AWS service is deployed.
- * @param {String} lambdaName This is the name of the post lambda function.
+ * @param {String} lambdaName This is the name of the trigger lambda function.
  * @param {String} sourceArn This is the Event Bridge CRON job arn.
  * @param {String} cronJobName This is the name of the CRON job.
- * @param {String} postLambdaArn This is the post lambda function arn.
+ * @param {String} triggerLambdaArn This is the trigger lambda function arn.
  */
-module.exports = async (region, lambdaName, sourceArn, cronJobName, postLambdaArn) => {
+module.exports = async (region, lambdaName, sourceArn, cronJobName, triggerLambdaArn) => {
   const lambda = new LambdaClient({ region });
   const cloudwatchEvent = new CloudWatchEventsClient({ region });
 
   await addLambdaPermission(lambda, lambdaName, sourceArn);
-  await createTarget(cloudwatchEvent, cronJobName, postLambdaArn);
+  await createTarget(cloudwatchEvent, cronJobName, triggerLambdaArn);
 };

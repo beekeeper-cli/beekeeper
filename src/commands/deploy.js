@@ -17,20 +17,23 @@ const deployDynamo = require("../aws/deploy/deployDynamo");
 const deployApiGateway = require("../aws/deploy/deployApiGateway");
 const deployPostLambda = require("../aws/deploy/deployPostLambda");
 const deployPreLambda = require('../aws/deploy/deployPreLambda');
+const deployTriggerLambda = require('../aws/deploy/deployTriggerLambda');
 const deployCloudwatchEvent = require('../aws/deploy/deployCloudwatchEvent');
 const deployPollingRoute = require("../aws/deploy/deployPollingRoute");
 const deployClientCheckRoute = require("../aws/deploy/deployClientCheckRoute");
 const deployPollingS3Object = require("../aws/deploy/deployPollingS3Object");
-const addPostLambdaEventPermission = require("../aws/deploy/addPostLambdaEventPermission");
+const addTriggerLambdaEventPermission = require("../aws/deploy/addTriggerLambdaEventPermission");
 const deployAutoScaling = require("../aws/deploy/deployAutoScaling");
 const deployDRTLambda = require("../aws/deploy/deployDRTLambda");
 const addDRTLambdaEventPermission = require("../aws/deploy/addDRTLambdaEventPermission");
 const deployDRTTable = require("../aws/deploy/deployDRTTable");
 
+
 const ANSWERS_FILE_PATH = path.join(__dirname, "..", "config", "user-answers.json");
 const S3_ASSET_PATH = path.join(__dirname, "..", "..", "assets", "s3");
 const POST_LAMBDA_ASSET = path.join(__dirname, "..", "..", "assets", "postlambda", 'index.js.zip');
 const PRE_LAMBDA_ASSET = path.join(__dirname, "..", "..", "assets", "prelambda", 'index.js.zip');
+const TRIGGER_LAMBDA_ASSET = path.join(__dirname, "..", "..", "assets", "triggerlambda", 'index.js.zip');
 const POLL_FILE_PATH = path.join(__dirname, "..", "..", "assets", "s3", 'polling.js');
 const DRT_LAMBDA_ASSET = path.join(__dirname, "..", "..", "assets", "drtlambda", 'Archive.zip');
 
@@ -57,6 +60,7 @@ module.exports = async (profileName) => {
   const API_GATEWAY_NAME = `beekeeper-${PROFILE_NAME}-apigateway`
   const POST_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-postlambda`
   const PRE_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-prelambda`
+  const TRIGGER_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-triggerlambda`
   const DRT_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-drtlambda`
   const DRT_DYNAMO_NAME = `beekeeper-${PROFILE_NAME}-drtdb`
   const ROLE_NAME = `beekeeper-${PROFILE_NAME}-master-role`
@@ -134,16 +138,19 @@ module.exports = async (profileName) => {
 
   // Deploy Post Lambda
   let postLambdaArn;
+  let triggerLambdaArn;
   let eventArn;
   try {
     spinner.start("Deploying post-lambda")
-    postLambdaArn = await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsUrl, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME, RATE);
+    postLambdaArn = await deployPostLambda(REGION, POST_LAMBDA_NAME, sqsUrl, POST_LAMBDA_ASSET, roleArn, DYNAMO_NAME);
+    triggerLambdaArn = await deployTriggerLambda(REGION, TRIGGER_LAMBDA_NAME, TRIGGER_LAMBDA_ASSET, roleArn, postLambdaArn, RATE)
+    
 
     // Deploy Cloudwatch Event Rules for Post Lambda (CRON)
-    eventArn = await deployCloudwatchEvent(REGION, postLambdaArn, CRON_JOB_NAME);
+    eventArn = await deployCloudwatchEvent(REGION, triggerLambdaArn, CRON_JOB_NAME);
     
     // Add event permission
-    await addPostLambdaEventPermission(REGION, POST_LAMBDA_NAME, eventArn, CRON_JOB_NAME, postLambdaArn);
+    await addTriggerLambdaEventPermission(REGION, TRIGGER_LAMBDA_NAME, eventArn, CRON_JOB_NAME, triggerLambdaArn);
 
     spinner.succeed("Successfully deployed post-lambda")
   } catch (err) {
@@ -173,7 +180,7 @@ module.exports = async (profileName) => {
 
       await deployDRTTable(REGION, DRT_DYNAMO_NAME) 
 
-      drtLambdaArn = await deployDRTLambda(REGION, DRT_LAMBDA_NAME, POST_LAMBDA_NAME, DRT_DYNAMO_NAME, DRT_LAMBDA_ASSET, roleArn, PROTECT_URL);
+      drtLambdaArn = await deployDRTLambda(REGION, DRT_LAMBDA_NAME, TRIGGER_LAMBDA_NAME, DRT_DYNAMO_NAME, DRT_LAMBDA_ASSET, roleArn, PROTECT_URL);
 
       let drtEventArn = await deployCloudwatchEvent(REGION, drtLambdaArn, DRT_CRON_JOB_NAME);
       await addDRTLambdaEventPermission(REGION, DRT_LAMBDA_NAME, drtEventArn, DRT_CRON_JOB_NAME, drtLambdaArn);
