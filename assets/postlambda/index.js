@@ -4,7 +4,7 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 const sqsClient = new AWS.SQS({ apiVersion: "2012-11-05" });
 const TABLE_NAME = process.env.TABLE_NAME;
 const SQS_URL = process.env.SQS_URL;
-const RATE = Number(process.env.RATE);
+// const RATE = Number(process.env.RATE);
 
 // use later maybe
 //ReceiveRequestAttemptId: `${Math.random().toString(16).substring(2)}`,
@@ -47,8 +47,9 @@ const deleteMessages = async (sqsClient, params) => {
   }
 };
 
-exports.handler = async function () {
+exports.handler = async function (event) {
   let count = 0;
+  let iterations = Number(event.iterations);
 
   do {
     let sqsData = await getBatch(sqsClient, queueParams);
@@ -91,5 +92,5 @@ exports.handler = async function () {
     await deleteMessages(sqsClient, deleteParams);
 
     count += 1;
-  } while (count < RATE);
+  } while (count < iterations);
 };

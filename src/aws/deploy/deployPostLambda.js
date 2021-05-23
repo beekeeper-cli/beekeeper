@@ -5,7 +5,7 @@
 const {
   LambdaClient,
   CreateFunctionCommand,
-  PutFunctionConcurrencyCommand,
+  // PutFunctionConcurrencyCommand,
 } = require("@aws-sdk/client-lambda");
 const logger = require("../../utils/logger")("dev");
 const fs = require("fs");
@@ -19,7 +19,6 @@ const fs = require("fs");
  * @param {String} roleArn Amazon resource number for the kitchen sink role returned by `createRole()`
  * @param {String} region A constant destructured from the CLI user's answers in `deploy.js`. Like "us-east-2".
  * @param {String} dynamoName Constant initialized in `deploy.js`, looks like `beekeeper-${PROFILE_NAME}-ddb`
- * @param {Number} rate A constant destructured from answers in the CLI, used by the frontend JavaScript to show dynamic information to the user in waiting room.
  * @returns {String} ARN of this Lambda
  */
 const createPostLambda = async (
@@ -30,9 +29,9 @@ const createPostLambda = async (
   roleArn,
   region,
   dynamoName,
-  rate
+  // rate
 ) => {
-  let RATE = (rate / 10).toString();
+  // let RATE = (rate / 10).toString();
   const params = {
     FunctionName: lambdaName,
     Role: roleArn,
@@ -45,7 +44,7 @@ const createPostLambda = async (
         SQS_URL: sqsUrl,
         REGION: region,
         TABLE_NAME: dynamoName,
-        RATE: RATE
+        // RATE: RATE
       },
     },
     Code: { ZipFile: code },
@@ -69,25 +68,25 @@ const createPostLambda = async (
  * @param {String} lambdaName A constant `beekeeper-${PROFILE_NAME}-postlambda`
  * @param {Number} rate A constant destructured from answers in the CLI, used by the frontend JavaScript to show dynamic information to the user in waiting room.
  */
-const setLambdaConcurrency = async (lambda, lambdaName, rate) => {
-  // Assumption for now is rate is requests per minute, and one lambda does 10 messages per minute pursuant to CloudFront cronjob
-  const reserveAmount = 1 + Math.floor(rate / 1500);
+// const setLambdaConcurrency = async (lambda, lambdaName) => {
+//   // Assumption for now is rate is requests per minute, and one lambda does 10 messages per minute pursuant to CloudFront cronjob
+//   // const reserveAmount = 1 + Math.floor(rate / 1500);
 
-  const params = {
-    FunctionName: lambdaName,
-    ReservedConcurrentExecutions: reserveAmount,
-  };
+//   const params = {
+//     FunctionName: lambdaName,
+//     // ReservedConcurrentExecutions: reserveAmount,
+//   };
 
-  const command = new PutFunctionConcurrencyCommand(params);
+//   const command = new PutFunctionConcurrencyCommand(params);
 
-  try {
-    await lambda.send(command);
-    logger.debugSuccess(`Successfully set LambdaReserveConcurrency: ${reserveAmount}`);
-  } catch (err) {
-    logger.debugError("Error", err);
-    throw new Error(err);
-  }
-};
+//   try {
+//     await lambda.send(command);
+//     logger.debugSuccess(`Successfully set LambdaReserveConcurrency: ${reserveAmount}`);
+//   } catch (err) {
+//     logger.debugError("Error", err);
+//     throw new Error(err);
+//   }
+// };
 
 /**
  * Exports deployPostLambda
@@ -97,7 +96,6 @@ const setLambdaConcurrency = async (lambda, lambdaName, rate) => {
  * @param {String} asset This is the path of the index.js.zip file holding the code for this Lambda
  * @param {String} roleArn Amazon resource number for the kitchen sink role returned by `createRole()`
  * @param {String} dynamoName Constant initialized in `deploy.js`, looks like `beekeeper-${PROFILE_NAME}-ddb`
- * @param {Number} rate A constant destructured from answers in the CLI, used by the frontend JavaScript to show dynamic information to the user in waiting room
  * @returns {String} Returns the ARN of the post queue Lambda
  */
 module.exports = async (
@@ -107,7 +105,7 @@ module.exports = async (
   asset,
   roleArn,
   dynamoName,
-  rate
+  // rate
 ) => {
   let code = fs.readFileSync(asset);
 
@@ -123,8 +121,8 @@ module.exports = async (
     roleArn,
     region,
     dynamoName,
-    rate
+    // rate
   );
-  await setLambdaConcurrency(lambda, lambdaName, rate);
+  // await setLambdaConcurrency(lambda, lambdaName, rate);
   return lambdaArn;
 };

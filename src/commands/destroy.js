@@ -47,12 +47,11 @@ module.exports = async (profileName) => {
   const API_GATEWAY_NAME = `beekeeper-${PROFILE_NAME}-apigateway`
   const POST_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-postlambda`
   const PRE_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-prelambda`
+  const TRIGGER_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-triggerlambda`
   const DRT_LAMBDA_NAME = `beekeeper-${PROFILE_NAME}-drtlambda`
   const DRT_DYNAMO_NAME = `beekeeper-${PROFILE_NAME}-drtdb`
   const ROLE_NAME = `beekeeper-${PROFILE_NAME}-master-role`
   const CRON_JOB_NAME = `beekeeper-${PROFILE_NAME}-cloudwatcheventcron`
-  const AUTO_SCALE_WRITE_NAME = `beekeeper-${PROFILE_NAME}-autoscale-write`
-  const AUTO_SCALE_READ_NAME = `beekeeper-${PROFILE_NAME}-autoscale-read`
   const spinner = ora();
   let warn = false;
 
@@ -71,6 +70,7 @@ module.exports = async (profileName) => {
   try {
     spinner.start("Destroying post-lambda")
     await destroyLambda(REGION, POST_LAMBDA_NAME);
+    await destroyLambda(REGION, TRIGGER_LAMBDA_NAME);
     spinner.succeed("Successfully destroyed post-lambda")
   } catch (err) {
     warn = true;
@@ -106,7 +106,6 @@ module.exports = async (profileName) => {
 
   try {
     spinner.start("Destroying DynamoDB")
-    // await destroyAutoScaling(REGION, DYNAMO_NAME, AUTO_SCALE_WRITE_NAME, AUTO_SCALE_READ_NAME);
     await destroyDynamo(REGION, DYNAMO_NAME);
     spinner.succeed("Successfully destroyed DynamoDB")
   } catch (err) {
