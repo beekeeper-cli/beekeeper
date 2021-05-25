@@ -4,13 +4,13 @@
 Beekeeper is an open-sourced Backend as a Service (BaaS) built to handle bursty traffic from one-off events like a sale or promotion.
 . Set up a virtual waitroom in a few minutes, and tear it down in seconds.
 
-![Beekeeper deploy](https://i.imgur.com/lja8wBi.png)
+![Beekeeper deploy](https://i.imgur.com/Y7tmgLd.png)
 
-There is a difference between the infrastructure needed for normal business activities and infrastructure needed for bursty traffic related to one-off events. An abrupt increase in website traffic can be the effect of many different causes. One such cause is an event like a Black Friday sale or similar promotion. If the existing infrastructure is unprepared for a spike in traffic, it may result in a Denial of Service. The desired service may be unavailable until traffic declines to a manageable level. Beekeeper is a fast and flexible solution to this bursty traffic.
+There is a difference between infrastructure needed for normal business activities and infrastructure needed for high traffic one-off events. An abrupt increase in website traffic can be the effect of many different causes. One such cause is an event like a Black Friday sale or similar promotion.  If the existing infrastructure is unprepared for the spike in traffic it may result in a Denial of Service. The desired service may be unavailable until traffic declines to a manageable level. Beekeeper is a fast and flexible solution to this bursty traffic.
 
 ### Beekeeper Architecture
 
-![Beekeeper architecture](https://i.imgur.com/mssNhan.png)
+![Beekeeper architecture](https://i.imgur.com/hSbN8DX.png)
 
 ## The Team
 **[Ryan Schaul](https://www.linkedin.com/in/ryan-schaul-87a922b5)** *Software Engineer* • Chicago, IL
@@ -38,14 +38,15 @@ npm install -g beekeeper-cli
 #### `beekeeper init`
 *creates a waitroom account, enabling the deploy, destroy, on, off, and set-rate commands.  `init` can be run multiple times to create mutiple accounts*
 
-![Beekeeper init](https://i.imgur.com/2Eyx4VW.png)
+![Beekeeper init](https://i.imgur.com/LkEmZki.png)
 
 The `init` command will prompt for the following information:
 - Profile name - *differentiates your various waitrooms from each other, and lets you choose which one to create, modify, or destroy.*
 - Waiting room name - *publicly displayed in the online waitroom, so it's best to choose something that describes what the waitroom is for, such as the name of your company so that your customers know that they're in the right place*
 - AWS region - *the aws region that you would like to place your waitroom in*
 - URL endpoint/protected URL - *the URL that you want to direct people to after they go through the waitroom.*
-- Allowed users per minute - *the max amount of users that you want to allow onto your website per minute. The ideal amount differs greatly between websites, and its best to find your ideal traffic through load testing and tracking analytics. Beekeeper comfortably handles 10-3000 entries per minute*
+- Allowed users per minute - *the max amount of users that you want to allow onto your website per minute. The ideal amount differs greatly between websites, and its best to find your ideal traffic through load testing and tracking analytics. Beekeeper allows a minimum of 10, and no set maximum*
+- Enable Dynamic Rate Throttling (DRT) - *beekeeper can do automatic health-checks of your website, and throttle the traffic to it if beekeeper detects that it has slowed down to an unhealthy level*
 ---
 #### `beekeeper deploy <name>`
 *Builds custom files, uploads them to s3 buckets, and sets up the waitroom architecture on your AWS account. Once it's done, you are given two URLS; the waiting room URL is what you provide to your customers/viewers publicly, and the client check endpoint can optionally be added to your own backend to prevent people from skipping the queue.*
@@ -56,10 +57,9 @@ The following components will be created on your AWS account:
 - S3 Bucket with all needed static assets (html/css/js/images)
 - SQS with dead letter queue (DLQ) attached
 - DynamoDB table
-- 2 lambdas
-- API Gateway
+- 3-4 lambdas (depending on if the DRT is enabled)
 - All required permissions
-- ![Beekeeper deploy](https://i.imgur.com/lja8wBi.png)
+- ![Beekeeper deploy](https://i.imgur.com/Y7tmgLd.png)
 ---
 #### `beekeeper destroy <name>`
 *Removes all of the aws components associated with the given name.  The URLs will no longer be valid*
@@ -79,5 +79,9 @@ The following components will be created on your AWS account:
 ---
 #### `beekeeper set-rate <name> <value>`
 *Changes the rate at which people are sent from the waitroom to the final destination. Must be an integer between 10-3000*
+
+---
+#### `DEGUB=dev beekeeper <command>`
+*Run a command in debug mode*
 
 ---
