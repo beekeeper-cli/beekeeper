@@ -18,7 +18,7 @@ const parseTune = (tune) => {
 }
 
 // get current configuration
-const getPostLambdaConfig = async () => {
+const getTriggerLambdaConfig = async () => {
   let config;
   const params = {
     FunctionName: FUNC_NAME
@@ -33,7 +33,7 @@ const getPostLambdaConfig = async () => {
 }
 
 // set new configuration with reduced rate
-const setPostLambdaConfig = async (current, environment) => {
+const setTriggerLambdaConfig = async (current, environment) => {
   environment.Variables.RATE = current.toString()
 
   const params = {
@@ -43,7 +43,7 @@ const setPostLambdaConfig = async (current, environment) => {
 
   try {
     await lambda.updateFunctionConfiguration(params).promise();
-    console.log(`postLambda rate throttled to ${current}`);
+    console.log(`triggerLambda rate throttled to ${current}`);
   } catch (e) {
     console.log(e);
   }
@@ -59,7 +59,7 @@ const tuneDown = (current) => {
 
 // export function to handler
 module.exports = async (passed) => {
-  const { Environment: environment } = await getPostLambdaConfig();
+  const { Environment: environment } = await getTriggerLambdaConfig();
   const tuneStat = await getTune();
   
   // if a tune has not been performed create a tuneStat object else parse the past tune
@@ -88,13 +88,13 @@ module.exports = async (passed) => {
   if (!passed) {
     current = tuneDown(current);
     last = Date.now();
-    await setPostLambdaConfig(current, environment);
+    await setTriggerLambdaConfig(current, environment);
 
   } else if (current < initial) {
     //conditions for tuning up
     current = tuneUp(current, initial);
     last = Date.now()
-    await setPostLambdaConfig(current, environment);
+    await setTriggerLambdaConfig(current, environment);
   }
 
   await writeTune({initial, last, current});
