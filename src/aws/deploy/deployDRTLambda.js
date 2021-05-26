@@ -1,4 +1,7 @@
-
+/**
+ * Exports an async function that deploys our DRT Lambda.
+ * @module deployDRTLambda
+ */
  const {
   LambdaClient,
   CreateFunctionCommand,
@@ -7,11 +10,22 @@
 const logger = require("../../utils/logger")("dev");
 const fs = require("fs");
 
-
+/**
+ * Function creates a DRT Lambda that performs health checks on the client endpoint and changest the RATE variable on the trigger lambda.
+ * @param {LambdaClient} lambda 
+ * @param {String} lambdaName 
+ * @param {String} triggerLambdaName 
+ * @param {String} dynamoName 
+ * @param {String} code 
+ * @param {String} roleArn 
+ * @param {String} region 
+ * @param {String} protectUrl 
+ * @returns {String} The ARN of the DRT lambda
+ */
 const createPreLambda = async (
   lambda,
   lambdaName,
-  consumerLambdaName,
+  triggerLambdaName,
   dynamoName,
   code,
   roleArn,
@@ -28,7 +42,7 @@ const createPreLambda = async (
     Environment: {
       Variables: {
         TABLE_NAME: dynamoName,
-        FUNC_NAME: consumerLambdaName,
+        FUNC_NAME: triggerLambdaName,
         REGION: region,
         END_POINT: protectUrl,
       },
@@ -48,6 +62,11 @@ const createPreLambda = async (
   }
 };
 
+/**
+ * Limits lambda concurrency to 1
+ * @param {LambdaClient} lambda 
+ * @param {String} lambdaName 
+ */
 const setLambdaConcurrency = async (lambda, lambdaName) => {
 
   const params = {
@@ -66,10 +85,21 @@ const setLambdaConcurrency = async (lambda, lambdaName) => {
   }
 };
 
+/**
+ * Exports deployDRTLambda
+ * @param {String} region 
+ * @param {String} lambdaName 
+ * @param {String} triggerLambdaName 
+ * @param {String} dynamoName 
+ * @param {String} asset 
+ * @param {String} roleArn 
+ * @param {String} protectUrl 
+ * @returns {String} Return ARN of DRT lambda
+ */
 module.exports = async (
   region,
   lambdaName,
-  consumerLambdaName,
+  triggerLambdaName,
   dynamoName,
   asset,
   roleArn,
@@ -84,7 +114,7 @@ module.exports = async (
   const lambdaArn = await createPreLambda(
     lambda,
     lambdaName,
-    consumerLambdaName,
+    triggerLambdaName,
     dynamoName,
     code,
     roleArn,

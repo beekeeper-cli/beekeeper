@@ -1,9 +1,18 @@
+/**
+ * Exports functions for interacting with the Beekeeper DynamoDB.
+ * @module dynamo
+ */
+
 const AWS = require("aws-sdk");
 AWS.config.update({ region: process.env.REGION });
 const dbClient = new AWS.DynamoDB({ apiVersion: "2012-08-10" });
 const TABLE_NAME = process.env.TABLE_NAME;
 
-// writes baseline stats to database
+/**
+ * Writes a stats object to the DynamoDB
+ * @param {{mean, stdDev}} stats 
+ * @returns {Object} response from DynamoDB
+ */
 const writeStats = async (stats) => {
   let params = {
     TableName: TABLE_NAME,
@@ -22,7 +31,10 @@ const writeStats = async (stats) => {
   }
 };
 
-// gets basesline states from db
+/**
+ * Gets the stats object from the DynamoDB
+ * @returns {Object} Returns a DynamoDB Item
+ */
 const getStats = async () => {
   let params = {
     TableName: TABLE_NAME,
@@ -39,7 +51,10 @@ const getStats = async () => {
   }
 };
 
-// get throttle stats to db
+/**
+ * Gets the tune object from the DynamoDB
+ * @returns {Object}
+ */
 const getTune = async () => {
   let params = {
     TableName: TABLE_NAME,
@@ -57,7 +72,11 @@ const getTune = async () => {
 };
 
 
-// write throttle stats from db
+/**
+ * Writes a tune to the DynamoDB
+ * @param {{initial, current, last}} tuneStats 
+ * @returns response from DynamoDB
+ */
 const writeTune = async (tuneStats) => {
   let params = {
     TableName: TABLE_NAME,
