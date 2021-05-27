@@ -1,5 +1,10 @@
 ![Beekeeper Header](https://i.imgur.com/WWwmLWT.png)
 
+[![website](https://img.shields.io/badge/website-beekeeper--cli.github.io-yellow)](https://beekeeper-cli.github.io)
+[![license](https://img.shields.io/github/license/beekeeper-cli/beekeeper)](https://github.com/beekeeper-cli/beekeeper)
+[![npm](https://img.shields.io/npm/v/beekeeper-cli)](https://www.npmjs.com/package/beekeeper-cli/)
+
+
 ## Overview
 Beekeeper is an open-sourced Backend as a Service (BaaS) built to handle bursty traffic from one-off events like a sale or promotion.
 . Set up a virtual waitroom in a few minutes, and tear it down in seconds.
@@ -59,7 +64,7 @@ The following components will be created on your AWS account:
 - 2 lambdas
 - API Gateway
 - All required permissions
-- ![Beekeeper deploy](https://i.imgur.com/lja8wBi.png)
+![Beekeeper deploy](https://i.imgur.com/lja8wBi.png)
 ---
 #### `beekeeper destroy <name>`
 *Removes all of the aws components associated with the given name.  The URLs will no longer be valid*
