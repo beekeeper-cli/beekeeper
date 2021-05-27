@@ -1,4 +1,7 @@
-
+/**
+ * Exports async function that adds a CloudWatch EventBridge trigger to the DRT lambda.
+ * @module addDRTLambdaEventPermission
+ */
  const {
   LambdaClient,
   AddPermissionCommand,
@@ -9,6 +12,13 @@ const {
 } = require("@aws-sdk/client-cloudwatch-events");
 const logger = require("../../utils/logger")("dev");
 
+/**
+ * Adds event bridge permission to lambda (CRON JOB)
+ * @param {LambdaClient} lambda This is the lambda client.
+ * @param {String} lambdaName This is the name of the lambda function.
+ * @param {String} sourceArn This is the Event Bridge CRON job arn.
+ * @returns {undefined}
+ */
 const addLambdaPermission = async (lambda, lambdaName, sourceArn) => {
   let params = {
     Action: "lambda:InvokeFunction",
@@ -29,6 +39,13 @@ const addLambdaPermission = async (lambda, lambdaName, sourceArn) => {
   }
 };
 
+/**
+ * Adds the drt lambda as the target to the event bridge CRON job.
+ * @param {CloudWatchEventsClient} cloudwatchEvent This is the cloudwatch event client.
+ * @param {String} cronJobName This is the name of the CRON job.
+ * @param {String} drtLambdaArn This is the DRT lambda function arn.
+ * @returns {undefined}
+ */
 const createTarget = async (cloudwatchEvent, cronJobName, drtLambdaArn) => {
   const params = {
     Rule: cronJobName,
@@ -51,6 +68,14 @@ const createTarget = async (cloudwatchEvent, cronJobName, drtLambdaArn) => {
   }
 };
 
+/**
+ * Exports addDRTLambdaEventPermission
+ * @param {String} region This is the region of where this AWS service is deployed.
+ * @param {String} lambdaName This is the name of the drt lambda function.
+ * @param {String} sourceArn This is the Event Bridge CRON job arn.
+ * @param {String} cronJobName This is the name of the CRON job.
+ * @param {String} drtLambdaArn This is the drt lambda function arn.
+ */
 module.exports = async (region, lambdaName, sourceArn, cronJobName, drtLambdaArn) => {
   const lambda = new LambdaClient({ region });
   const cloudwatchEvent = new CloudWatchEventsClient({ region });

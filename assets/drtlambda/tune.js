@@ -1,10 +1,18 @@
+/**
+ * Contains all the logic for changing the rate on the trigger lambda.
+ * @module tune
+ */
+
 const AWS = require("aws-sdk");
 AWS.config.update({ region: process.env.REGION });
 const FUNC_NAME = process.env.FUNC_NAME;
 const lambda = new AWS.Lambda({apiVersion: '2015-03-31'});
 const { writeTune, getTune } = require('./dynamo');
 
-// dynamo object parser
+/**
+ * Mutates a DynamoDB object into a usable format.
+ * @param {Object} tune 
+ */
 const parseTune = (tune) => {
   Object.keys(tune.Item).forEach(obj => {
     let [key, value] = Object.entries(tune.Item[obj])[0]
@@ -17,7 +25,10 @@ const parseTune = (tune) => {
   });
 }
 
-// get current configuration
+/**
+ * Gets the current configuration off the trigger lambda
+ * @returns {Object}
+ */
 const getTriggerLambdaConfig = async () => {
   let config;
   const params = {
@@ -32,7 +43,11 @@ const getTriggerLambdaConfig = async () => {
   return config;
 }
 
-// set new configuration with reduced rate
+/**
+ * Sets the environmental varialbe RATE on the Trigger lambda.
+ * @param {Number} current The rate to be set
+ * @param {Object} environment The configuration of the lambda
+ */
 const setTriggerLambdaConfig = async (current, environment) => {
   environment.Variables.RATE = current.toString()
 
@@ -49,15 +64,29 @@ const setTriggerLambdaConfig = async (current, environment) => {
   }
 }
 
+/**
+ * Calculates the new rate if the rate is increased. The rate is calculated as the current rate plus 25% of the difference between the initial rate and the current rate.
+ * @param {Number} initial 
+ * @param {Number} current 
+ * @returns {Number} The new higher rate
+ */
 const tuneUp = (initial, current) => {
   return Math.ceil(current + (initial - current) * 0.25);
 }
 
+/**
+ * Calculates the new rate if the rate is decreased.  The rate is calculated as 50% of the current rate rounded up.
+ * @param {Number} current rate 
+ * @returns {Number} The new lower rate
+ */
 const tuneDown = (current) => {
   return Math.ceil(current * 0.5);
 }
 
-// export function to handler
+/**
+ * Exports function for performing a tune on the Trigger lambda RATE.
+ * @param {Boolean} passed 
+ */
 module.exports = async (passed) => {
   const { Environment: environment } = await getTriggerLambdaConfig();
   const tuneStat = await getTune();
@@ -77,19 +106,13 @@ module.exports = async (passed) => {
 
   let { initial, last, current } = tuneStat.Item;
 
-  // need to add some logic to fix this to make it only execute once 
-  // let elapsed = (Date.now() - last) / 1000;
-
-  // if (elapsed < 120) { return } 
-
-  // if a tune has been done in the past check on the status of passed variable
-
-  // if passed is true and rate is less than initial
+  // if health check does not pass tune down
   if (!passed) {
     current = tuneDown(current);
     last = Date.now();
     await setTriggerLambdaConfig(current, environment);
-
+    
+  // if health check passes and rate is less than initial tune up
   } else if (current < initial) {
     //conditions for tuning up
     current = tuneUp(current, initial);
@@ -99,25 +122,3 @@ module.exports = async (passed) => {
 
   await writeTune({initial, last, current});
 }
-
-/*
-
-If it fails tune down and record the new rate
-If it passes and current rate is less than initial rate tune up
-
-If there is no pastTune write the current settings to a tune
-
-
-
-
-
-If tune has occured in last two minutes break do not perform tune
-
-pastTune true && passed false -> perform tune down and write to DB
-pastTune true && passed true -> 
-  if current rate is less than initial rate increase rate
-  if last tune time was less than 2 minutes ago don't change rate.
-pastTune false && passed true -> don't perform tune
-pastTune false && passed false -> perform tune down and write to DB
-
-*/

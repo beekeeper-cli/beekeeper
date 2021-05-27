@@ -1,3 +1,8 @@
+/**
+ * @module handler
+ * The handler function for the DRT lambda
+ */
+
 const END_POINT = process.env.END_POINT;
 const https = require("https");
 const AWS = require("aws-sdk");
@@ -6,6 +11,11 @@ const {average, stdDev} = require('./stats');
 const tuneRate = require('./tune');
 const { getStats, writeStats } = require('./dynamo');
 
+/**
+ * Returns a promise that resolves to a date if the GET request inside is successful.
+ * @param {*} url The url of the client endpoint
+ * @returns {Promise}
+ */
 function getTime(url) {
   return new Promise((resolve, reject) => {
     https.get(url, (response) => {
@@ -17,9 +27,10 @@ function getTime(url) {
   });
 }
 
-// now to program the "usual" way
-// all you need to do is use async functions and await
-// for functions returning promises
+/**
+ * Loops 20 times, running getTime, and returns an array of response times.
+ * @returns {Array} Returns an array of integers.
+ */
 async function endpointTest() {
   let tests = [];
 
@@ -38,6 +49,10 @@ async function endpointTest() {
   }
 }
 
+/**
+ * Calculates statistics on endpoint test and returns results in an object
+ * @returns {Object}
+ */
 async function runTests() {
   let res = await endpointTest();
 
@@ -56,9 +71,6 @@ function passesCheck(stats, healthCheck) {
 exports.handler = async () => {
   let oldStats = await getStats();
 
-  // run an endpoint test and if the average is greater
-  // than (average + 3x dev) of baseline perform a throttle
-
   if (oldStats.Item === undefined) {
     let stats = await runTests().then((data) => data);
 
@@ -71,10 +83,3 @@ exports.handler = async () => {
     tuneRate(passed);
   }
 };
-
-/*
-Need some logic to determine if lambda has been throttled in the past
-Could do this with another write to the database or with altering the database
-Maybe need a way to throttle up as well after rate has been throttled down
-
-*/

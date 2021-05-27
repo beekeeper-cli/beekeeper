@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>destroyApiGateway - Documentation</title>
+    <title>aws/deploy/deployDRTTable.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -32,665 +32,82 @@
 
 <div id="main">
     
-    <h1 class="page-title">destroyApiGateway</h1>
-    
-
-    
-
-
-
-
-<section>
-
-<header>
-    
-        
-            
-        
-            
-        
-    
-</header>
-
-<article>
-    
-        <div class="container-overview">
-        
-            
-                <div class="description usertext"><p>Exports an async function that tears down the API Gateway.</p></div>
-            
-
-            
-                
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyApiGateway.js.html">aws/destroy/destroyApiGateway.js</a>, <a href="aws_destroy_destroyApiGateway.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-                
-
-    
-
-    <h4 class="name" id="module:destroyApiGateway"><span class="type-signature"></span>(require("destroyApiGateway"))<span class="signature">(region, apiName)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyApiGateway.js.html">aws/destroy/destroyApiGateway.js</a>, <a href="aws_destroy_destroyApiGateway.js.html#line58">line 58</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Exports destroyApiGateway</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>region</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>This is the region of where this AWS service is deployed.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>apiName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>This is the name of the API Gateway</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-        
-        </div>
-    
-
-    
-
-    
-
-    
-    
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id="~destroyRestApi"><span class="type-signature">(async, inner) </span>destroyRestApi<span class="signature">(apiGateway, restApiId)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyApiGateway.js.html">aws/destroy/destroyApiGateway.js</a>, <a href="aws_destroy_destroyApiGateway.js.html#line39">line 39</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Tear down the API Gateway</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>apiGateway</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">APIGatewayClient</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>This is the API Gateway client.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>restApiId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>This is the API Gateway ID.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-    <div class="param-desc usertext">
-    
-        <p>Will throw an error if API Gateway fails to execute its command</p>
-    
-    </div>
-
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~getApiId"><span class="type-signature">(async, inner) </span>getApiId<span class="signature">(apiGateway, apiName)</span><span class="type-signature"> &rarr; {Number}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyApiGateway.js.html">aws/destroy/destroyApiGateway.js</a>, <a href="aws_destroy_destroyApiGateway.js.html#line19">line 19</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Retrieves the API Gateway ID</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>apiGateway</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">APIGatewayClient</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>This is the API Gateway client.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>apiName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>This is the name of the API Gateway</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-    <div class="param-desc usertext">
-    
-        <p>Will throw an error if API Gateway fails to execute its command</p>
-    
-    </div>
-
-
-    
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>This is the API Gateway ID</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Number</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <h1 class="page-title">aws/deploy/deployDRTTable.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Exports an async function that deploys the DynamoDB database
+ * @module deployDynamo
+ */
+ const {
+  DynamoDBClient,
+  CreateTableCommand,
+} = require("@aws-sdk/client-dynamodb");
+const logger = require("../../utils/logger")("dev");
+
+/**
+ * Function that creates the DynamoDB with one attribute, a string "usertoken" and leaves the provisioned Throupt as default at 5 for both Read and Write capacity units.
+ * @param {DynamoDBClient} dynamodb Looks like 'new DynamoDBClient({ region })`
+ * @param {String} dynamoName Constant initialized as `beekeeper-${PROFILE_NAME}-ddb`
+ * @returns {String} Returns the ARN of a TableDescription
+ */
+const createDynamo = async (dynamodb, dynamoName) => {
+  const params = {
+    AttributeDefinitions: [
+      {
+        AttributeName: "stat",
+        AttributeType: "S",
+      },
+    ],
+    KeySchema: [
+      {
+        AttributeName: "stat",
+        KeyType: "HASH",
+      },
+    ],
+    TableName: dynamoName,
+    ProvisionedThroughput: {
+      ReadCapacityUnits: 5,
+      WriteCapacityUnits: 5,
+    },
+  };
+  const command = new CreateTableCommand(params);
+
+  try {
+    const { TableDescription } = await dynamodb.send(command);
+    logger.debugSuccess(`Successfully created DynamoDB table: ${dynamoName}`);
+    return TableDescription.TableArn;
+  } catch (err) {
+    logger.debugError("Error", err);
+    throw new Error(err);
+  }
+};
+
+/**
+ * Exports deployDynamo
+ * @param {String} region A constant destructured from the CLI user's answers in `deploy.js`. Like "us-east-2".
+ * @param {String} dynamoName Constant initialized as `beekeeper-${PROFILE_NAME}-ddb`
+ * @returns {String} Returns the ARN of the table for the DynamoDB
+ */
+module.exports = async (region, dynamoName) => {
+  // Create an DDB client service object
+  const dynamodb = new DynamoDBClient({ region });
+
+  // Create DynamoDB
+  const tableArn = await createDynamo(dynamodb, dynamoName);
+
+  return tableArn;
+};
+</code></pre>
+        </article>
+    </section>
 
 
 

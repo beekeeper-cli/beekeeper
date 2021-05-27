@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>destroyApiGateway - Documentation</title>
+    <title>aws/deploy/addTriggerLambdaEventPermission.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -32,665 +32,104 @@
 
 <div id="main">
     
-    <h1 class="page-title">destroyApiGateway</h1>
-    
-
-    
-
-
-
-
-<section>
-
-<header>
-    
-        
-            
-        
-            
-        
-    
-</header>
-
-<article>
-    
-        <div class="container-overview">
-        
-            
-                <div class="description usertext"><p>Exports an async function that tears down the API Gateway.</p></div>
-            
-
-            
-                
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyApiGateway.js.html">aws/destroy/destroyApiGateway.js</a>, <a href="aws_destroy_destroyApiGateway.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-                
-
-    
-
-    <h4 class="name" id="module:destroyApiGateway"><span class="type-signature"></span>(require("destroyApiGateway"))<span class="signature">(region, apiName)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyApiGateway.js.html">aws/destroy/destroyApiGateway.js</a>, <a href="aws_destroy_destroyApiGateway.js.html#line58">line 58</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Exports destroyApiGateway</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>region</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>This is the region of where this AWS service is deployed.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>apiName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>This is the name of the API Gateway</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-        
-        </div>
-    
-
-    
-
-    
-
-    
-    
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id="~destroyRestApi"><span class="type-signature">(async, inner) </span>destroyRestApi<span class="signature">(apiGateway, restApiId)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyApiGateway.js.html">aws/destroy/destroyApiGateway.js</a>, <a href="aws_destroy_destroyApiGateway.js.html#line39">line 39</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Tear down the API Gateway</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>apiGateway</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">APIGatewayClient</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>This is the API Gateway client.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>restApiId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>This is the API Gateway ID.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-    <div class="param-desc usertext">
-    
-        <p>Will throw an error if API Gateway fails to execute its command</p>
-    
-    </div>
-
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~getApiId"><span class="type-signature">(async, inner) </span>getApiId<span class="signature">(apiGateway, apiName)</span><span class="type-signature"> &rarr; {Number}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aws_destroy_destroyApiGateway.js.html">aws/destroy/destroyApiGateway.js</a>, <a href="aws_destroy_destroyApiGateway.js.html#line19">line 19</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Retrieves the API Gateway ID</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>apiGateway</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">APIGatewayClient</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>This is the API Gateway client.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>apiName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>This is the name of the API Gateway</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-    <div class="param-desc usertext">
-    
-        <p>Will throw an error if API Gateway fails to execute its command</p>
-    
-    </div>
-
-
-    
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>This is the API Gateway ID</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Number</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <h1 class="page-title">aws/deploy/addTriggerLambdaEventPermission.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Exports an async function that adds the CRON job trigger to the trigger lambda and creates the trigger lambda as the target on the CRON job.
+ * @module addTriggerLambdaEventPermission
+ */
+const {
+  LambdaClient,
+  AddPermissionCommand,
+} = require("@aws-sdk/client-lambda");
+const {
+  CloudWatchEventsClient,
+  PutTargetsCommand,
+} = require("@aws-sdk/client-cloudwatch-events");
+const logger = require("../../utils/logger")("dev");
+
+/**
+ * Adds event bridge permission to lambda (CRON JOB)
+ * @param {LambdaClient} lambda This is the lambda client.
+ * @param {String} lambdaName This is the name of the lambda function.
+ * @param {String} sourceArn This is the Event Bridge CRON job arn.
+ * @returns {undefined}
+ */
+const addLambdaPermission = async (lambda, lambdaName, sourceArn) => {
+  let params = {
+    Action: "lambda:InvokeFunction",
+    FunctionName: lambdaName,
+    Principal: "events.amazonaws.com",
+    SourceArn: sourceArn,
+    StatementId: `${Math.random().toString(16).substring(2)}`,
+  };
+
+  const command = new AddPermissionCommand(params);
+
+  try {
+    await lambda.send(command);
+    logger.debugSuccess(`Successfully added permission to triggerLambda.`);
+  } catch (err) {
+    logger.debugError("Error", err);
+    throw new Error(err);
+  }
+};
+
+/**
+ * Adds the trigger lambda as the target to the event bridge CRON job.
+ * @param {CloudWatchEventsClient} cloudwatchEvent This is the cloudwatch event client.
+ * @param {String} cronJobName This is the name of the CRON job.
+ * @param {String} triggerLambdaArn This is the trigger lambda function arn.
+ * @returns {undefined}
+ */
+const createTarget = async (cloudwatchEvent, cronJobName, triggerLambdaArn) => {
+  const params = {
+    Rule: cronJobName,
+    Targets: [
+      {
+        Arn: triggerLambdaArn,
+        Id: cronJobName,
+      },
+    ],
+  };
+
+  const command = new PutTargetsCommand(params);
+
+  try {
+    await cloudwatchEvent.send(command);
+    logger.debugSuccess(`Successfully created CloudWatchEvent Target: ${triggerLambdaArn}`);
+  } catch (err) {
+    logger.debugError("Error", err);
+    throw new Error(err);
+  }
+};
+
+/**
+ * Exports addTriggerLambdaEventPermission
+ * @param {String} region This is the region of where this AWS service is deployed.
+ * @param {String} lambdaName This is the name of the trigger lambda function.
+ * @param {String} sourceArn This is the Event Bridge CRON job arn.
+ * @param {String} cronJobName This is the name of the CRON job.
+ * @param {String} triggerLambdaArn This is the trigger lambda function arn.
+ */
+module.exports = async (region, lambdaName, sourceArn, cronJobName, triggerLambdaArn) => {
+  const lambda = new LambdaClient({ region });
+  const cloudwatchEvent = new CloudWatchEventsClient({ region });
+
+  await addLambdaPermission(lambda, lambdaName, sourceArn);
+  await createTarget(cloudwatchEvent, cronJobName, triggerLambdaArn);
+};
+</code></pre>
+        </article>
+    </section>
 
 
 

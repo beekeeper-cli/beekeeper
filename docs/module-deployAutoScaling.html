@@ -1,0 +1,4037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>deployAutoScaling - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addDRTLambdaEventPermission.html">addDRTLambdaEventPermission</a><ul class='methods'><li data-type='method'><a href="module-addDRTLambdaEventPermission.html#~addLambdaPermission">addLambdaPermission</a></li><li data-type='method'><a href="module-addDRTLambdaEventPermission.html#~createTarget">createTarget</a></li></ul></li><li><a href="module-addTriggerLambdaEventPermission.html">addTriggerLambdaEventPermission</a><ul class='methods'><li data-type='method'><a href="module-addTriggerLambdaEventPermission.html#~addLambdaPermission">addLambdaPermission</a></li><li data-type='method'><a href="module-addTriggerLambdaEventPermission.html#~createTarget">createTarget</a></li></ul></li><li><a href="module-config.html">config</a></li><li><a href="module-createRole.html">createRole</a><ul class='methods'><li data-type='method'><a href="module-createRole.html#~addPermissions">addPermissions</a></li><li data-type='method'><a href="module-createRole.html#~attachPolicy">attachPolicy</a></li><li data-type='method'><a href="module-createRole.html#~createRole">createRole</a></li></ul></li><li><a href="module-deploy.html">deploy</a></li><li><a href="module-deployApiGateway.html">deployApiGateway</a><ul class='methods'><li data-type='method'><a href="module-deployApiGateway.html#~createApiGateway">createApiGateway</a></li><li data-type='method'><a href="module-deployApiGateway.html#~createResource">createResource</a></li><li data-type='method'><a href="module-deployApiGateway.html#~getResources">getResources</a></li><li data-type='method'><a href="module-deployApiGateway.html#~mainPutMethodRequest">mainPutMethodRequest</a></li><li data-type='method'><a href="module-deployApiGateway.html#~setIntegrationRequest">setIntegrationRequest</a></li><li data-type='method'><a href="module-deployApiGateway.html#~setIntegrationResponse">setIntegrationResponse</a></li><li data-type='method'><a href="module-deployApiGateway.html#~setMethodResponse">setMethodResponse</a></li></ul></li><li><a href="module-deployAutoScaling.html">deployAutoScaling</a><ul class='methods'><li data-type='method'><a href="module-deployAutoScaling.html#~createReadScalingPolicy">createReadScalingPolicy</a></li><li data-type='method'><a href="module-deployAutoScaling.html#~createWriteScalingPolicy">createWriteScalingPolicy</a></li><li data-type='method'><a href="module-deployAutoScaling.html#~destroyReadScalingPolicy">destroyReadScalingPolicy</a></li><li data-type='method'><a href="module-deployAutoScaling.html#~destroyReadScalingTarget">destroyReadScalingTarget</a></li><li data-type='method'><a href="module-deployAutoScaling.html#~destroyWriteScalingPolicy">destroyWriteScalingPolicy</a></li><li data-type='method'><a href="module-deployAutoScaling.html#~destroyWriteScalingTarget">destroyWriteScalingTarget</a></li><li data-type='method'><a href="module-deployAutoScaling.html#~registerScalableReads">registerScalableReads</a></li><li data-type='method'><a href="module-deployAutoScaling.html#~registerScalableWrites">registerScalableWrites</a></li></ul></li><li></li><li><a href="module-deployClientCheckRoute.html">deployClientCheckRoute</a><ul class='methods'><li data-type='method'><a href="module-deployClientCheckRoute.html#~createResource">createResource</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~deployResource">deployResource</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~getResources">getResources</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~putMethodRequest">putMethodRequest</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~setIntegrationRequest">setIntegrationRequest</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~setIntegrationResponse">setIntegrationResponse</a></li><li data-type='method'><a href="module-deployClientCheckRoute.html#~setMethodResponse">setMethodResponse</a></li></ul></li><li><a href="module-deployCloudwatchEvent.html">deployCloudwatchEvent</a><ul class='methods'><li data-type='method'><a href="module-deployCloudwatchEvent.html#~createCloudWatchEventRule">createCloudWatchEventRule</a></li></ul></li><li><a href="module-deployDlq.html">deployDlq</a><ul class='methods'><li data-type='method'><a href="module-deployDlq.html#~createDLQ">createDLQ</a></li><li data-type='method'><a href="module-deployDlq.html#~getArn">getArn</a></li></ul></li><li><a href="module-deployDRTLambda.html">deployDRTLambda</a><ul class='methods'><li data-type='method'><a href="module-deployDRTLambda.html#~createPreLambda">createPreLambda</a></li><li data-type='method'><a href="module-deployDRTLambda.html#~setLambdaConcurrency">setLambdaConcurrency</a></li></ul></li><li><a href="module-deployDynamo.html">deployDynamo</a><ul class='methods'><li data-type='method'><a href="module-deployDynamo.html#~createDynamo">createDynamo</a></li><li data-type='method'><a href="module-deployDynamo.html#~createDynamo">createDynamo</a></li></ul></li><li></li><li><a href="module-deployPollingRoute.html">deployPollingRoute</a><ul class='methods'><li data-type='method'><a href="module-deployPollingRoute.html#~createResource">createResource</a></li><li data-type='method'><a href="module-deployPollingRoute.html#~getResources">getResources</a></li><li data-type='method'><a href="module-deployPollingRoute.html#~putMethodRequest">putMethodRequest</a></li><li data-type='method'><a href="module-deployPollingRoute.html#~setIntegrationRequest">setIntegrationRequest</a></li><li data-type='method'><a href="module-deployPollingRoute.html#~setIntegrationResponse">setIntegrationResponse</a></li><li data-type='method'><a href="module-deployPollingRoute.html#~setMethodResponse">setMethodResponse</a></li></ul></li><li><a href="module-deployPollingS3Object.html">deployPollingS3Object</a><ul class='methods'><li data-type='method'><a href="module-deployPollingS3Object.html#~uploadToS3">uploadToS3</a></li></ul></li><li><a href="module-deployPostLambda.html">deployPostLambda</a><ul class='methods'><li data-type='method'><a href="module-deployPostLambda.html#~createPostLambda">createPostLambda</a></li></ul></li><li><a href="module-deployPreLambda.html">deployPreLambda</a><ul class='methods'><li data-type='method'><a href="module-deployPreLambda.html#~addLambdaPermission">addLambdaPermission</a></li><li data-type='method'><a href="module-deployPreLambda.html#~createPreLambda">createPreLambda</a></li></ul></li><li><a href="module-deployS3.html">deployS3</a><ul class='methods'><li data-type='method'><a href="module-deployS3.html#~createBucket">createBucket</a></li><li data-type='method'><a href="module-deployS3.html#~uploadToS3">uploadToS3</a></li></ul></li><li><a href="module-deploySqs.html">deploySqs</a><ul class='methods'><li data-type='method'><a href="module-deploySqs.html#~createSQS">createSQS</a></li></ul></li><li><a href="module-deployTriggerLambda.html">deployTriggerLambda</a></li><li><a href="module-destroy.html">destroy</a></li><li><a href="module-destroyApiGateway.html">destroyApiGateway</a><ul class='methods'><li data-type='method'><a href="module-destroyApiGateway.html#~destroyRestApi">destroyRestApi</a></li><li data-type='method'><a href="module-destroyApiGateway.html#~getApiId">getApiId</a></li></ul></li><li><a href="module-destroyCloudwatchEvent.html">destroyCloudwatchEvent</a><ul class='methods'><li data-type='method'><a href="module-destroyCloudwatchEvent.html#~destroyCloudwatchEvent">destroyCloudwatchEvent</a></li><li data-type='method'><a href="module-destroyCloudwatchEvent.html#~destroyCloudwatchTarget">destroyCloudwatchTarget</a></li></ul></li><li><a href="module-destroyDynamo.html">destroyDynamo</a><ul class='methods'><li data-type='method'><a href="module-destroyDynamo.html#~destroyTable">destroyTable</a></li></ul></li><li><a href="module-destroyLambda.html">destroyLambda</a><ul class='methods'><li data-type='method'><a href="module-destroyLambda.html#~destroyLambda">destroyLambda</a></li></ul></li><li><a href="module-destroyRole.html">destroyRole</a><ul class='methods'><li data-type='method'><a href="module-destroyRole.html#~destroyRole">destroyRole</a></li><li data-type='method'><a href="module-destroyRole.html#~detachPermissions">detachPermissions</a></li><li data-type='method'><a href="module-destroyRole.html#~detachPolicy">detachPolicy</a></li></ul></li><li><a href="module-destroyS3.html">destroyS3</a><ul class='methods'><li data-type='method'><a href="module-destroyS3.html#~deleteBucket">deleteBucket</a></li><li data-type='method'><a href="module-destroyS3.html#~deleteBucketObjects">deleteBucketObjects</a></li><li data-type='method'><a href="module-destroyS3.html#~listBucketObjects">listBucketObjects</a></li></ul></li><li><a href="module-destroySQS.html">destroySQS</a><ul class='methods'><li data-type='method'><a href="module-destroySQS.html#~destroyQueue">destroyQueue</a></li><li data-type='method'><a href="module-destroySQS.html#~getQueueUrl">getQueueUrl</a></li></ul></li><li><a href="module-init.html">init</a></li><li><a href="module-logger.html">logger</a><ul class='methods'><li data-type='method'><a href="module-logger.html#~debugError">debugError</a></li><li data-type='method'><a href="module-logger.html#~debugSuccess">debugSuccess</a></li><li data-type='method'><a href="module-logger.html#~error">error</a></li><li data-type='method'><a href="module-logger.html#~failDeploy">failDeploy</a></li><li data-type='method'><a href="module-logger.html#~help">help</a></li><li data-type='method'><a href="module-logger.html#~highlight">highlight</a></li></ul></li><li><a href="module-promptQuestions.html">promptQuestions</a><ul class='methods'><li data-type='method'><a href="module-promptQuestions.html#~promptQuestions">promptQuestions</a></li></ul></li><li><a href="module-retry.html">retry</a></li><li><a href="module-setRate.html">setRate</a><ul class='methods'><li data-type='method'><a href="module-setRate.html#~getLambdaConfig">getLambdaConfig</a></li><li data-type='method'><a href="module-setRate.html#~setLambdaConcurrency">setLambdaConcurrency</a></li><li data-type='method'><a href="module-setRate.html#~updateLambdaConfig">updateLambdaConfig</a></li><li data-type='method'><a href="module-setRate.html#~validateRate">validateRate</a></li></ul></li><li><a href="module-toggle.html">toggle</a><ul class='methods'><li data-type='method'><a href="module-toggle.html#~getLambdaConfig">getLambdaConfig</a></li><li data-type='method'><a href="module-toggle.html#~updateLambdaConfig">updateLambdaConfig</a></li></ul></li><li><a href="module-utilities.html">utilities</a><ul class='methods'><li data-type='method'><a href="module-utilities.html#~createFile">createFile</a></li><li data-type='method'><a href="module-utilities.html#~fileExists">fileExists</a></li><li data-type='method'><a href="module-utilities.html#~getContentType">getContentType</a></li><li data-type='method'><a href="module-utilities.html#~getFilePaths">getFilePaths</a></li><li data-type='method'><a href="module-utilities.html#~readFile">readFile</a></li><li data-type='method'><a href="module-utilities.html#~validateInitRan">validateInitRan</a></li><li data-type='method'><a href="module-utilities.html#~validateProfileName">validateProfileName</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">deployAutoScaling</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+                <div class="description usertext"><p>Exports an async function that enables DynamoDB auto-scaling read and write capacity units</p></div>
+            
+
+            
+                
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployAutoScaling.js.html">aws/deploy/deployAutoScaling.js</a>, <a href="aws_deploy_deployAutoScaling.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+                
+
+    
+
+    <h4 class="name" id="module:deployAutoScaling"><span class="type-signature"></span>(require("deployAutoScaling"))<span class="signature">(region, dynamoName, readName, writeName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployAutoScaling.js.html">aws/deploy/deployAutoScaling.js</a>, <a href="aws_deploy_deployAutoScaling.js.html#line136">line 136</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Exports deployAutoScaling</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>region</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant destructured from the CLI user's answers in <code>deploy.js</code>. Like &quot;us-east-2&quot;.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>readName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-autoscale-read</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>writeName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-autoscale-write</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+                
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_destroy_destroyAutoScaling.js.html">aws/destroy/destroyAutoScaling.js</a>, <a href="aws_destroy_destroyAutoScaling.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+                
+
+    
+
+    <h4 class="name" id="module:deployAutoScaling"><span class="type-signature"></span>(require("deployAutoScaling"))<span class="signature">(region, dynamoName, readName, writeName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_destroy_destroyAutoScaling.js.html">aws/destroy/destroyAutoScaling.js</a>, <a href="aws_destroy_destroyAutoScaling.js.html#line116">line 116</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Exports destroyAutoScaling</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>region</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant destructured from the CLI user's answers in <code>deploy.js</code>. Like &quot;us-east-2&quot;.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>readName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-autoscale-read</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>writeName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-autoscale-write</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="~createReadScalingPolicy"><span class="type-signature">(async, inner) </span>createReadScalingPolicy<span class="signature">(autoScaler, dynamoName, writeName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployAutoScaling.js.html">aws/deploy/deployAutoScaling.js</a>, <a href="aws_deploy_deployAutoScaling.js.html#line102">line 102</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Function that creates permissions/policy to autoscale read capacity units on a dynamodb table</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>autoScaler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ApplicationAutoScalingClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like 'new ApplicationAutoScalingClient({ region })`</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>writeName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as `beekeeper-$PROFILE_NAME}-autoscale-read</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~createWriteScalingPolicy"><span class="type-signature">(async, inner) </span>createWriteScalingPolicy<span class="signature">(autoScaler, dynamoName, writeName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployAutoScaling.js.html">aws/deploy/deployAutoScaling.js</a>, <a href="aws_deploy_deployAutoScaling.js.html#line69">line 69</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Function that creates permissions/policy to autoscale write capacity units on a dynamodb table</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>autoScaler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ApplicationAutoScalingClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like 'new ApplicationAutoScalingClient({ region })`</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>writeName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as `beekeeper-$PROFILE_NAME}-autoscale-write</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~destroyReadScalingPolicy"><span class="type-signature">(async, inner) </span>destroyReadScalingPolicy<span class="signature">(autoScaler, dynamoName, writeName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_destroy_destroyAutoScaling.js.html">aws/destroy/destroyAutoScaling.js</a>, <a href="aws_destroy_destroyAutoScaling.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Function that removes permissions/policy to autoscale read capacity units on a dynamodb table</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>autoScaler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ApplicationAutoScalingClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like 'new ApplicationAutoScalingClient({ region })`</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>writeName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as `beekeeper-$PROFILE_NAME}-autoscale-write</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~destroyReadScalingTarget"><span class="type-signature">(async, inner) </span>destroyReadScalingTarget<span class="signature">(autoScaler, dynamoName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_destroy_destroyAutoScaling.js.html">aws/destroy/destroyAutoScaling.js</a>, <a href="aws_destroy_destroyAutoScaling.js.html#line67">line 67</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Function that removes the event target to autoscale read capacity units on a dynamodb table</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>autoScaler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ApplicationAutoScalingClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like 'new ApplicationAutoScalingClient({ region })`</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~destroyWriteScalingPolicy"><span class="type-signature">(async, inner) </span>destroyWriteScalingPolicy<span class="signature">(autoScaler, dynamoName, writeName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_destroy_destroyAutoScaling.js.html">aws/destroy/destroyAutoScaling.js</a>, <a href="aws_destroy_destroyAutoScaling.js.html#line43">line 43</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Function that removes permissions/policy to autoscale write capacity units on a dynamodb table</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>autoScaler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ApplicationAutoScalingClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like 'new ApplicationAutoScalingClient({ region })`</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>writeName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as `beekeeper-$PROFILE_NAME}-autoscale-write</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~destroyWriteScalingTarget"><span class="type-signature">(async, inner) </span>destroyWriteScalingTarget<span class="signature">(autoScaler, dynamoName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_destroy_destroyAutoScaling.js.html">aws/destroy/destroyAutoScaling.js</a>, <a href="aws_destroy_destroyAutoScaling.js.html#line90">line 90</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Function that removes the event target to autoscale write capacity units on a dynamodb table</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>autoScaler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ApplicationAutoScalingClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like 'new ApplicationAutoScalingClient({ region })`</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~registerScalableReads"><span class="type-signature">(async, inner) </span>registerScalableReads<span class="signature">(autoScaler, dynamoName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployAutoScaling.js.html">aws/deploy/deployAutoScaling.js</a>, <a href="aws_deploy_deployAutoScaling.js.html#line42">line 42</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Function that creates the event target to autoscale read capacity units on a dynamodb table</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>autoScaler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ApplicationAutoScalingClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like 'new ApplicationAutoScalingClient({ region })`</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~registerScalableWrites"><span class="type-signature">(async, inner) </span>registerScalableWrites<span class="signature">(autoScaler, dynamoName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployAutoScaling.js.html">aws/deploy/deployAutoScaling.js</a>, <a href="aws_deploy_deployAutoScaling.js.html#line17">line 17</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Function that creates the event target to autoscale write capacity units on a dynamodb table</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>autoScaler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ApplicationAutoScalingClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like 'new ApplicationAutoScalingClient({ region })`</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+                <div class="description usertext"><p>Exports an async function that removes DynamoDB auto-scaling read and write capacity units</p></div>
+            
+
+            
+                
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployAutoScaling.js.html">aws/deploy/deployAutoScaling.js</a>, <a href="aws_deploy_deployAutoScaling.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+                
+
+    
+
+    <h4 class="name" id="module:deployAutoScaling"><span class="type-signature"></span>(require("deployAutoScaling"))<span class="signature">(region, dynamoName, readName, writeName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployAutoScaling.js.html">aws/deploy/deployAutoScaling.js</a>, <a href="aws_deploy_deployAutoScaling.js.html#line136">line 136</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Exports deployAutoScaling</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>region</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant destructured from the CLI user's answers in <code>deploy.js</code>. Like &quot;us-east-2&quot;.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>readName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-autoscale-read</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>writeName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-autoscale-write</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+                
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_destroy_destroyAutoScaling.js.html">aws/destroy/destroyAutoScaling.js</a>, <a href="aws_destroy_destroyAutoScaling.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+                
+
+    
+
+    <h4 class="name" id="module:deployAutoScaling"><span class="type-signature"></span>(require("deployAutoScaling"))<span class="signature">(region, dynamoName, readName, writeName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_destroy_destroyAutoScaling.js.html">aws/destroy/destroyAutoScaling.js</a>, <a href="aws_destroy_destroyAutoScaling.js.html#line116">line 116</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Exports destroyAutoScaling</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>region</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A constant destructured from the CLI user's answers in <code>deploy.js</code>. Like &quot;us-east-2&quot;.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>readName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-autoscale-read</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>writeName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-autoscale-write</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="~createReadScalingPolicy"><span class="type-signature">(async, inner) </span>createReadScalingPolicy<span class="signature">(autoScaler, dynamoName, writeName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployAutoScaling.js.html">aws/deploy/deployAutoScaling.js</a>, <a href="aws_deploy_deployAutoScaling.js.html#line102">line 102</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Function that creates permissions/policy to autoscale read capacity units on a dynamodb table</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>autoScaler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ApplicationAutoScalingClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like 'new ApplicationAutoScalingClient({ region })`</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>writeName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as `beekeeper-$PROFILE_NAME}-autoscale-read</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~createWriteScalingPolicy"><span class="type-signature">(async, inner) </span>createWriteScalingPolicy<span class="signature">(autoScaler, dynamoName, writeName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployAutoScaling.js.html">aws/deploy/deployAutoScaling.js</a>, <a href="aws_deploy_deployAutoScaling.js.html#line69">line 69</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Function that creates permissions/policy to autoscale write capacity units on a dynamodb table</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>autoScaler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ApplicationAutoScalingClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like 'new ApplicationAutoScalingClient({ region })`</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>writeName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as `beekeeper-$PROFILE_NAME}-autoscale-write</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~destroyReadScalingPolicy"><span class="type-signature">(async, inner) </span>destroyReadScalingPolicy<span class="signature">(autoScaler, dynamoName, writeName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_destroy_destroyAutoScaling.js.html">aws/destroy/destroyAutoScaling.js</a>, <a href="aws_destroy_destroyAutoScaling.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Function that removes permissions/policy to autoscale read capacity units on a dynamodb table</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>autoScaler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ApplicationAutoScalingClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like 'new ApplicationAutoScalingClient({ region })`</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>writeName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as `beekeeper-$PROFILE_NAME}-autoscale-write</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~destroyReadScalingTarget"><span class="type-signature">(async, inner) </span>destroyReadScalingTarget<span class="signature">(autoScaler, dynamoName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_destroy_destroyAutoScaling.js.html">aws/destroy/destroyAutoScaling.js</a>, <a href="aws_destroy_destroyAutoScaling.js.html#line67">line 67</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Function that removes the event target to autoscale read capacity units on a dynamodb table</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>autoScaler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ApplicationAutoScalingClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like 'new ApplicationAutoScalingClient({ region })`</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~destroyWriteScalingPolicy"><span class="type-signature">(async, inner) </span>destroyWriteScalingPolicy<span class="signature">(autoScaler, dynamoName, writeName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_destroy_destroyAutoScaling.js.html">aws/destroy/destroyAutoScaling.js</a>, <a href="aws_destroy_destroyAutoScaling.js.html#line43">line 43</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Function that removes permissions/policy to autoscale write capacity units on a dynamodb table</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>autoScaler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ApplicationAutoScalingClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like 'new ApplicationAutoScalingClient({ region })`</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>writeName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as `beekeeper-$PROFILE_NAME}-autoscale-write</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~destroyWriteScalingTarget"><span class="type-signature">(async, inner) </span>destroyWriteScalingTarget<span class="signature">(autoScaler, dynamoName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_destroy_destroyAutoScaling.js.html">aws/destroy/destroyAutoScaling.js</a>, <a href="aws_destroy_destroyAutoScaling.js.html#line90">line 90</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Function that removes the event target to autoscale write capacity units on a dynamodb table</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>autoScaler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ApplicationAutoScalingClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like 'new ApplicationAutoScalingClient({ region })`</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~registerScalableReads"><span class="type-signature">(async, inner) </span>registerScalableReads<span class="signature">(autoScaler, dynamoName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployAutoScaling.js.html">aws/deploy/deployAutoScaling.js</a>, <a href="aws_deploy_deployAutoScaling.js.html#line42">line 42</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Function that creates the event target to autoscale read capacity units on a dynamodb table</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>autoScaler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ApplicationAutoScalingClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like 'new ApplicationAutoScalingClient({ region })`</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~registerScalableWrites"><span class="type-signature">(async, inner) </span>registerScalableWrites<span class="signature">(autoScaler, dynamoName)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aws_deploy_deployAutoScaling.js.html">aws/deploy/deployAutoScaling.js</a>, <a href="aws_deploy_deployAutoScaling.js.html#line17">line 17</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Function that creates the event target to autoscale write capacity units on a dynamodb table</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>autoScaler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ApplicationAutoScalingClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Looks like 'new ApplicationAutoScalingClient({ region })`</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamoName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant initialized as <code>beekeeper-${PROFILE_NAME}-ddb</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Wed May 26 2021 11:31:44 GMT-0700 (Pacific Daylight Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>
