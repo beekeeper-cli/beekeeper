@@ -123,12 +123,12 @@ module.exports = async (profileName) => {
   }
 
   try {
-    spinner.start("Destroying S3 Bucket")
+    spinner.start("Destroying S3 bucket")
     await destroyS3(REGION, S3_NAME);
-    spinner.succeed("Successfully destroyed S3 Bucket")
+    spinner.succeed("Successfully destroyed S3 bucket")
   } catch (err) {
     warn = true;
-    spinner.warn("Warning: (S3 Bucket) " + err.message.split(":")[0])
+    spinner.warn("Warning: (S3 bucket) " + err.message.split(":")[0])
   }
 
   try {
@@ -142,13 +142,13 @@ module.exports = async (profileName) => {
 
   if (DRT) {
     try {
-      spinner.start("Destroying Dynamic Rate Throttling")
+      spinner.start("Destroying drt-lambda")
       await destroyDynamo(REGION, DRT_DYNAMO_NAME)
       await destroyLambda(REGION, DRT_LAMBDA_NAME)
-      spinner.succeed("Successfully destroyed Dynamic Rate Throttling")
+      spinner.succeed("Successfully destroyed drt-lambda")
     } catch (err) {
       warn = true;
-      spinner.warn("Warning: (Dynamic Rate Throttling) " + err.message.split(":")[0])
+      spinner.warn("Warning: (drt-lambda) " + err.message.split(":")[0])
     }
   }
 
